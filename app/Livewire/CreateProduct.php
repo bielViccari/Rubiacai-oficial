@@ -48,8 +48,8 @@ class CreateProduct extends Component
             'image' => $this->image->getClientOriginalName()
         ]);
 
-        $imageName = $product->id . '.' . $this->image->extension();
-        $this->image->storeAs('productImages', $imageName);
+        $imageName = $this->image->getClientOriginalName();
+        $this->image->storeAs('public/productImages', $imageName);
         return redirect()->route('dashboard');
     }
  

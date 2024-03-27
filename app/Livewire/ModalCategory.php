@@ -23,8 +23,8 @@ class ModalCategory extends ModalComponent
             'image' => $this->image->getClientOriginalName()
         ]);
 
-        $imageName = $category->id . '.' . $this->image->extension();
-        $this->image->storeAs('categoryImages', $imageName);
+        $imageName = $this->image->getClientOriginalName();
+        $this->image->storeAs('public/categoryImages', $imageName);
         $this->dispatch('category-created');
         $this->closeModal();
     }
