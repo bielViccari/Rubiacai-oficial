@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'indexPage'])->name('pagina.inicial');
 
-Route::view('dashboard', '/site/admin/dashboard')
+Route::get('dashboard', [ProductController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

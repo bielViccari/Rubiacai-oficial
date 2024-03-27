@@ -11,41 +11,40 @@ class CreateProduct extends Component
 {
     use WithFileUploads;
     public $name = '';
+    public $category_id = '';
     public $price = '';
     public $image = '';
-    public $category_id = '';
 
     public $categories;
 
     
     public function mount()
     {
-        // Recupera os dados do banco de dados (por exemplo, todas as categorias)
+        // Recupera todas as categorias)
         $this->categories = Category::all();
     }
  
+
     public function save()
     {
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'image' => 'required|mimes:jpg,png,jpeg,gif|max:10240', // máximo de 10 MB
-            'category_id' => 'required|exists:categories,id',
+        $validatedData = $this->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'category_id' => 'required',
+            'image' => 'required|image', 
         ]);
 
-        $productData = [
+
+        $product = Product::create([
             'name' => $this->name,
             'price' => $this->price,
             'category_id' => $this->category_id,
-        ];
+            'image' => $this->image->getClientOriginalName()
+        ]);
 
-        $product = Product::create($productData);
-
-        // Salva a imagem
-        $this->image->store('images');
-
-        session()->flash('status', 'Product successfully created.');
-
+        $imageName = $product->id . '.' . $this->image->extension();
+        $this->image->storeAs('productImages', $imageName);
+    
         return redirect()->route('dashboard');
     }
  

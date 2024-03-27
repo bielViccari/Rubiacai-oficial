@@ -10,6 +10,8 @@
 
     <x-initial-page-hero-section />
 
-    <livewire:counter />
+    @foreach ($products as $p)
+        <h1>{{ $p->name }}</h1>
+    @endforeach
 </div>
 
