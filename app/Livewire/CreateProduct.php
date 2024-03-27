@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use LivewireUI\Modal\ModalComponent;
+use Livewire\Attributes\On; 
 
 class CreateProduct extends Component
 {
@@ -23,7 +25,11 @@ class CreateProduct extends Component
         // Recupera todas as categorias)
         $this->categories = Category::all();
     }
- 
+    
+    #[On('category-created')] 
+    public function updateCategories() {
+        $this->categories = Category::all();
+    }
 
     public function save()
     {
@@ -44,7 +50,6 @@ class CreateProduct extends Component
 
         $imageName = $product->id . '.' . $this->image->extension();
         $this->image->storeAs('productImages', $imageName);
-    
         return redirect()->route('dashboard');
     }
  

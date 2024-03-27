@@ -1,4 +1,5 @@
 <div>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <form wire:submit='save'>
     <div class="max-w-sm mx-auto mt-20 bg-white rounded-md shadow-md overflow-hidden">
         <div class="px-6 py-4 bg-gray-900 text-white">
@@ -59,14 +60,22 @@
                   @error('category_id')
                   <span class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $message }}</span>
               @enderror
+              <button type="button" wire:click="$dispatch('openModal', { component: 'modal-category' })" class="bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-1 px-2 mt-2 rounded">
+                Criar categoria
+            </button>
             </div>
     
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
-                Salvar Produto
-            </button>
+            <div class="flex justify-end">
+                <button type="submit" class="bg-gray-900 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+                    Salvar Produto
+                </button>
+            </div>
         </div>
     </div>
 </form>
+
+@livewire('wire-elements-modal')
 @vite('resources/css/app.css')
+
 </div>
 
