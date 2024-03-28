@@ -39,14 +39,19 @@ class ProductCard extends Component
         }
     }
 
-    public function addToCart($product, $quantity, Request $request) {
-        // Decodificar o carrinho do cookie
-        $carrinho = json_decode($request->cookie('carrinho'), true);
-        // Verificar se o carrinho já tem o produto, se ja estiver, aumente a quantidade
-        if (isset ($carrinho[$product['id']])) {
+    public function addToCart($product, $quantity, Request $request)
+    {
+        // Inicializar a sessão do carrinho se não existir
+        $request->session()->put('carrinho', $request->session()->get('carrinho', []));
+    
+        // Obter o carrinho da sessão
+        $carrinho = $request->session()->get('carrinho');
+    
+        // Verificar se o carrinho já tem o produto, se já estiver, aumentar a quantidade
+        if (isset($carrinho[$product['id']])) {
             $carrinho[$product['id']]['quantity'] += $quantity;
         } else {
-            // Se o produto não estiver no carrinho, adicione-o ao carrinho
+            // Se o produto não estiver no carrinho, adicioná-lo ao carrinho
             $carrinho[$product['id']] = [
                 'id' => $product['id'],
                 'name' => $product['name'],
@@ -55,8 +60,12 @@ class ProductCard extends Component
                 'quantity' => $quantity,
             ];
         }
-        $response = response()->json(['carrinho' => $carrinho]);
+    
+        $request->session()->put('carrinho', $carrinho);
+        dd($carrinho);
+        return response()->json(['carrinho' => $carrinho]);
     }
+
     public function render()
     {
         return view('livewire.product-card');
