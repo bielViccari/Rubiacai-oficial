@@ -1,4 +1,4 @@
-<div>
+<div class="z-51">
     <section class=" bg-gray-100 py-12 sm:py-16 lg:py-20">
         <div class="mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-center">
@@ -52,7 +52,9 @@
                                         </li>
                                     @endforeach
                                 @endif
+                                @if (!$carrinho)
                                 <h1>Nenhum produto adicionado ao carrinho</h1>
+                                @endif
                             </ul>
                         </div>
 
@@ -95,6 +97,4 @@
             </div>
         </div>
     </section>
-
-
 </div>

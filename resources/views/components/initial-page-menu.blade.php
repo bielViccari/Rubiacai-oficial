@@ -57,4 +57,3 @@
         </a>
     </div>
 </nav>
-@livewire('wire-elements-modal')
