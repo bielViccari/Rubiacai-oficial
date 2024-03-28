@@ -25,7 +25,8 @@
     </div>
     <!-- Botão para abrir slideOver do Carrinho -->
     <div class="flex lg:hidden">
-        <a id="botao-abrir-slideover-mobile"
+        <a  wire:click="$dispatch('openModal', { component: 'cart' })"
+            id="botao-abrir-slideover-mobile"
             class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
             Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart
                     width="15px" height="15px" /></span>
@@ -56,3 +57,4 @@
         </a>
     </div>
 </nav>
+@livewire('wire-elements-modal')
