@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Livewire\CategoriesSlide;
 use App\Livewire\Counter;
 use App\Livewire\CreateProduct;
+use App\Livewire\ProductCard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +29,6 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::get('/counter', Counter::class);
+Route::get('/categories', ProductCard::class);
 Route::get('/create-products', CreateProduct::class);
 require __DIR__.'/auth.php';

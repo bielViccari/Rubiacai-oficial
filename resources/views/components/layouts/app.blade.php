@@ -9,4 +9,5 @@
     <body>
         {{ $slot }}
     </body>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </html>

@@ -33,7 +33,7 @@
                         </div>
                         <div class="relative text-white px-4 pb-4 mt-4">
                             <div class="flex items-center justify-center">
-                                <span class="block font-semibold text-lg break-words max-w-full">{{ $c->name }}</span>
+                                <span class="block font-semibold text-lg max-w-full break-all">{{ $c->name }}</span>
                             </div>
                         </div>
                     </div>
