@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Http\Request;
+use Livewire\Attributes\On; 
+
 class Cart extends ModalComponent
 {
     public $carrinho = [];
@@ -11,19 +13,10 @@ class Cart extends ModalComponent
 
      public static function modalMaxWidth(): string
     {
-        // 'sm'
-        // 'md'
-        // 'lg'
-        // 'xl'
-        // '2xl'
-        // '3xl'
-        // '4xl'
-        // '5xl'
-        // '6xl'
-        // '7xl'
         return '7xl';
     }
 
+    #[On('product-added')]
     public function mount(Request $request) {
         $this->carrinho = session('carrinho');
         if($this->carrinho) {
@@ -36,6 +29,19 @@ class Cart extends ModalComponent
                 $this->precoTotal += $precoTotalItem;
             }
         }
+    }
+
+    public function removeProduct($id, Request $request) {
+        $removeProduct = $request->session()->get('carrinho');
+        unset($removeProduct[$id]);
+        $request->session()->put('carrinho', $removeProduct);
+        $this->dispatch('product-deleted');
+        return response()->json(['carrinho' => $removeProduct]);
+    }
+
+    #[On('product-deleted')]
+    public function updateCart(Request $request) {
+        $this->carrinho = $request->session()->get('carrinho');
     }
     public function render()
     {

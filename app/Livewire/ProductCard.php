@@ -62,7 +62,7 @@ class ProductCard extends Component
         }
     
         $request->session()->put('carrinho', $carrinho);
-        dd($carrinho);
+        $this->dispatch('product-added');
         return response()->json(['carrinho' => $carrinho]);
     }
 
