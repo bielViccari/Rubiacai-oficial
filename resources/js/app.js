@@ -6,7 +6,7 @@ const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
 const slider = document.getElementById("slider");
 const itemWidth = slider.firstElementChild.offsetWidth + parseFloat(getComputedStyle(slider.firstElementChild).marginRight);
-const itemsToShow = 2; // Definindo quantas categorias serão mostradas de cada vez
+const itemsToShow = 1; // Definindo quantas categorias serão mostradas de cada vez
 
 // Calculando o deslocamento máximo permitido
 const maxTransform = -(slider.scrollWidth - slider.offsetWidth);

@@ -17,18 +17,10 @@ class Cart extends ModalComponent
     }
 
     #[On('product-added')]
+    #[On('product-deleted')]
     public function mount(Request $request) {
         $this->carrinho = session('carrinho');
-        if($this->carrinho) {
-            foreach ($this->carrinho as $item) {
-                $precoItem = $item['price'];
-                $quantidadeItem = $item['quantity'];
-    
-                $precoTotalItem = $precoItem * $quantidadeItem;
-    
-                $this->precoTotal += $precoTotalItem;
-            }
-        }
+        $this->calcularPrecoTotal();
     }
 
     public function removeProduct($id, Request $request) {
@@ -36,13 +28,24 @@ class Cart extends ModalComponent
         unset($removeProduct[$id]);
         $request->session()->put('carrinho', $removeProduct);
         $this->dispatch('product-deleted');
+        session()->flash('sucess', 'Produto removido com sucesso');
         return response()->json(['carrinho' => $removeProduct]);
     }
 
-    #[On('product-deleted')]
-    public function updateCart(Request $request) {
-        $this->carrinho = $request->session()->get('carrinho');
+
+    private function calcularPrecoTotal()
+    {
+        $this->precoTotal = 0; // Resetar o preço total
+        foreach ($this->carrinho as $item) {
+            $precoItem = $item['price'];
+            $quantidadeItem = $item['quantity'];
+
+            $precoTotalItem = $precoItem * $quantidadeItem;
+
+            $this->precoTotal += $precoTotalItem;
+        }
     }
+
     public function render()
     {
         return view('livewire.cart');
