@@ -16,7 +16,7 @@
                                             class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
                                             <div class="shrink-0 relative">
                                                 <span
-                                                    class="absolute top-1 left-1 flex h-6 w-6 items-center justify-center rounded-full border bg-white text-sm font-medium text-gray-500 shadow sm:-top-2 sm:-right-2">{{ $c['quantity'] }}</span>
+                                                    class="absolute top-1 left-1 flex h-6 w-6 items-center justify-center rounded-full border bg-gray-200 text-sm font-medium text-purple-500 shadow sm:-top-2 sm:-right-2">{{ $c['quantity'] }}</span>
                                                 <img class="h-24 w-24 max-w-full rounded-lg object-cover"
                                                     src="storage/productImages/{{ $c['image'] }}" alt="" />
                                             </div>
@@ -38,7 +38,8 @@
                                                 </div>
 
                                                 <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-                                                    <button type="button"
+                                                    <button wire:click='removeProduct({{ $c['id'] }})' 
+                                                        type="button"
                                                         class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
                                                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -63,17 +64,17 @@
                             <div class="mt-6 space-y-3 border-t border-b py-8">
                                 <div class="flex items-center justify-between">
                                     <p class="text-gray-400">Subtotal</p>
-                                    <p class="text-lg font-semibold text-gray-900">{{ $precoTotal }}</p>
+                                    <p class="text-lg font-semibold text-gray-900">{{ number_format($precoTotal, 2, ',', '.') }}</p>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <p class="text-gray-400">Frete</p>
+                                    <p class="text-gray-400">Entrega</p>
                                     <p class="text-lg font-semibold text-gray-900">R$1,00</p>
                                 </div>
                             </div>
                             <div class="mt-6 flex items-center justify-between">
                                 <p class="text-sm font-medium text-gray-900">Total</p>
                                 <p class="text-2xl font-semibold text-gray-900"><span
-                                        class="text-xs font-normal text-gray-400">USD</span> 2499.00</p>
+                                        class="text-xs font-normal text-gray-400">R$</span>{{ number_format($precoTotal + 1, 2, ',', '.') }} </p>
                             </div>
 
                             <div class="mt-6 text-center flex flex-col">
