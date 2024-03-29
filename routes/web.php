@@ -28,7 +28,6 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('/counter', Counter::class);
-Route::get('/categories', ProductCard::class);
-Route::get('/create-products', CreateProduct::class);
+Route::get('/products', ProductCard::class)->name('products');
+Route::get('/create-products', CreateProduct::class)->name('create.products');
 require __DIR__.'/auth.php';

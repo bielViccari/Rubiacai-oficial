@@ -48,12 +48,10 @@
         <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Sobre Nós</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a  wire:click="$dispatch('openModal', { component: 'cart' })"
-            id="botao-abrir-slideover"
-            class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer"
-            style="display: flex; align-items: center;">
-            Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart
-                    width="15px" height="15px" /></span>
-        </a>
+        <a wire:click="$dispatch('openModal', { component: 'cart' })"
+        class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
+        Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart width="15px"
+                height="15px" /></span>
+    </a>
     </div>
 </nav>

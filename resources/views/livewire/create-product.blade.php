@@ -6,7 +6,6 @@
             <h1 class="text-lg font-bold">Cadastar produto</h1>
         </div>
         <div class="px-6 py-4">
-    
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2" for="name">
                     Nome do produto

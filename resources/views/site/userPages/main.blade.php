@@ -18,14 +18,8 @@
         <x-initial-page-hero-section />
         <livewire:categories-slide />
         <livewire:product-card />
-        <a wire:click="$dispatch('openModal', { component: 'cart' })"
-            class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
-            Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart width="15px"
-                    height="15px" /></span>
-        </a>
     </div>
 </body>
-
 </html>
 @livewire('wire-elements-modal')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
