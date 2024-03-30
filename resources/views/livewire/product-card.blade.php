@@ -69,4 +69,8 @@
     Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart width="15px"
             height="15px" /></span>
 </a>
+
+<button wire:click="$dispatch('openModal', {component: 'makeAçaiPersonalized'})"
+class="rounded-md bg-purple-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Montar
+Açai</button>
 </div>

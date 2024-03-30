@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rubiaçai</title>
+    @livewire('wire-elements-modal')
 </head>
-
+@vite(['resources/css/app.css', 'resources/js/category-slide.js'])
 <body class="bg-gray-200">
     <!--navbar e header -->
     <div class="bg-gray-200">
@@ -21,5 +22,5 @@
     </div>
 </body>
 </html>
-@livewire('wire-elements-modal')
-@vite(['resources/css/app.css', 'resources/js/category-slide.js'])
+
+
