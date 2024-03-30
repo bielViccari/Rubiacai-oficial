@@ -19,9 +19,9 @@
             <p class="mt-6 text-lg leading-8 text-gray-600">Escolha diversas opções para criar seu próprio açai,
                 da maneira mais saborosa que somente o rubiaçai pode fornecer</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="#"
+                <button wire:click="$dispatch('openModal', {component: 'cart'})"
                     class="rounded-md bg-purple-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Montar
-                    Açai</a>
+                    Açai</button>
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Sobre nós <span
                         aria-hidden="true">→</span></a>
             </div>
