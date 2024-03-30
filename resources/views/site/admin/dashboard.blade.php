@@ -8,7 +8,8 @@
 </head>
 <body>
     <x-navbar />
+    <livewire:dashboard-content />
 </body>
 </html>
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/show-sidebar.js'])

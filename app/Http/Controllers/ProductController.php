@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,7 @@ class ProductController extends Controller
     }
 
     public function dashboard() {
-        $products = Product::get()->all();
-        return view('site/admin/dashboard', compact('products'));
+        return view('site/admin/dashboard');
     }
 
 }

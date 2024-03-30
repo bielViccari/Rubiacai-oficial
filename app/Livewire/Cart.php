@@ -36,13 +36,16 @@ class Cart extends ModalComponent
     private function calcularPrecoTotal()
     {
         $this->precoTotal = 0; // Resetar o preço total
-        foreach ($this->carrinho as $item) {
-            $precoItem = $item['price'];
-            $quantidadeItem = $item['quantity'];
 
-            $precoTotalItem = $precoItem * $quantidadeItem;
-
-            $this->precoTotal += $precoTotalItem;
+        if($this->carrinho) {
+            foreach ($this->carrinho as $item) {
+                $precoItem = $item['price'];
+                $quantidadeItem = $item['quantity'];
+    
+                $precoTotalItem = $precoItem * $quantidadeItem;
+    
+                $this->precoTotal += $precoTotalItem;
+            }
         }
     }
 
