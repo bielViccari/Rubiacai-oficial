@@ -2,13 +2,47 @@
     <div class="flex justify-center items-center">
         <h3 class="pb-4 font-semibold text-2xl text-gray-600">Veja os produtos</h3>
     </div>
+    <div class="relative px-14">
+        <input
+            class="appearance-none  border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-gray-600 focus:border-gray-600 focus:shadow-outline"
+            wire:model.live='searchProduct' type="text" placeholder="Buscar um produto..." />
+
+        <div class="absolute inset-y-0 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-3 text-gray-400 hover:text-gray-500" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </div>
+    </div>
+    <div class="flex justify-between px-14">
+        <div>
+            <button wire:click="$dispatch('openModal', {component: 'makeAçaiPersonalized'})"
+                class="rounded-md bg-purple-500 px-3.5 py-2.5 mt-5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Montar
+                Açai</button>
+        </div>
+        <div class="py-2">
+            <a wire:click="$dispatch('openModal', { component: 'cart' })"
+                class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
+                <span class="mt-3">Meu carrinho</span> 
+                    <div class="relative py-2">
+                  <div class="t-0 absolute left-3">
+                    <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">3</p>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="file: mt-4 h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                  </svg>
+                </div>
+            </a>
+        </div>
+    </div>
     <div class="flex flex-wrap justify-center flex-row">
         @foreach ($products as $p)
             <div class="flex flex-col mx-2">
                 <div class="relative my-2 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
                     <a href="#" class="flex justify-center items-center">
-                        <img class="h-60 w-60 rounded-t-lg object-cover" src="storage/productImages{{ asset($p->image) }}"
-                            alt="product image" />
+                        <img class="h-60 w-60 rounded-t-lg object-cover"
+                            src="storage/productImages{{ asset($p->image) }}" alt="product image" />
                     </a>
                     @if ($isNew)
                         <span
@@ -38,7 +72,7 @@
                                 </button>
                                 <div
                                     class="bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center px-4 py-1 select-none">
-                                    {{ $quantities[$p->id] }}
+                                    {{ $quantities ? $quantities[$p->id] : 0 }}
                                 </div>
                                 <button wire:click='increment({{ $p->id }})'
                                     class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
@@ -49,7 +83,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <a wire:click="addToCart({{ $p }},{{ $quantities[$p->id] }}); $dispatch('openModal', { component: 'cart' })"
+                            <a wire:click="addToCart({{ $p }},{{$quantities ? $quantities[$p->id] : 1 }}); $dispatch('openModal', { component: 'cart' })"
                                 href="#"
                                 class="flex items-center rounded-md bg-purple-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none"
@@ -64,13 +98,4 @@
             </div>
         @endforeach
     </div>
-    <a wire:click="$dispatch('openModal', { component: 'cart' })"
-    class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
-    Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart width="15px"
-            height="15px" /></span>
-</a>
-
-<button wire:click="$dispatch('openModal', {component: 'makeAçaiPersonalized'})"
-class="rounded-md bg-purple-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Montar
-Açai</button>
 </div>
