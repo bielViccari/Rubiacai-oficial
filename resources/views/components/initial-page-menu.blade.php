@@ -16,7 +16,7 @@
     }
 </style>
 
-<nav class="flex items-center justify-between p-2 lg:px-8 navbar fixed z-40 top-0 left-0 right-0 transition-all duration-300">
+<nav class="flex items-center justify-between p-2 lg:px-8 navbar  z-40 top-0 left-0 right-0 transition-all duration-300">
     <div class="flex lg:flex-1">
         <a class="-m-1.5 p-1.5">
             <span class="sr-only">Rubiaçai</span>

@@ -51,6 +51,7 @@
                                                 </div>
                                             </div>
                                         </li>
+                                        <hr>
                                     @endforeach
                                 @endif
                                 @if (!$carrinho)
