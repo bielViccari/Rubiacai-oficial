@@ -40,7 +40,7 @@
                     <div class="t-0 absolute left-3">
                         <p
                             class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                            {{ isset($carrinho) ? count($carrinho) : 0 }}</p>
+                            {{ isset($carrinho) ? $totalProducts : 0 }}</p>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="file: mt-4 h-6 w-6">
