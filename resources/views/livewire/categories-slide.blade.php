@@ -11,7 +11,7 @@
         <div id="slider" class="flex items-center space-x-2 transition-transform ease-in-out duration-300">
             @foreach ($categories as $c)
                 <div class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/5 xl:w-1/5 px-2">
-                    <div class="p-4 bg-white rounded-lg overflow-hidden hover:shadow flex justify-center items-center flex-col">
+                    <div wire:click='selectedCategory({{ $c->id }})' class="p-4 bg-white cursor-pointer rounded-lg overflow-hidden hover:shadow flex justify-center items-center flex-col">
                         <div class="w-16 h-16 rounded-lg overflow-hidden flex justify-center items-center"> <!-- Adicionado classes de alinhamento -->
                             <img src="storage/categoryImages/{{ $c->image }}" alt="{{ $c->name }}">
                         </div>

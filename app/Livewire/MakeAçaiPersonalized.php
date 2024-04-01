@@ -45,13 +45,58 @@ class MakeAçaiPersonalized extends ModalComponent
 
         $this->categories = Category::get()->all();
         foreach ($this->fruits as $f) {
-            $this->quantities[$f->id] = 1;
+            $this->quantities[$f->id] = 0;
         }
 
         foreach ($this->aditionals as $a) {
-            $this->quantities[$a->id] = 1;
+            $this->quantities[$a->id] = 0;
         }
     }
+
+    public $size = '';
+    public $quantity = '';
+    public $observation = '';
+
+    public function addToCart(Request $request)
+{
+    $acaiPersonalized = [
+        'frutas' => [],
+        'frutas_quantidade' => [],
+        'adicionais' => [],
+        'adicionais_quantidade' => [],
+        'tamanho' => $this->size,
+        'quantidade' => $this->quantity,
+        'observacao' => $this->observation,
+        'precoTotal' => 0,
+    ];
+    $precoFrutas = 0;
+    foreach ($this->fruits as $fruit) {
+        if ($this->quantities[$fruit->id] > 0) {
+            $acaiPersonalized['frutas'][] = $fruit;
+            $acaiPersonalized['frutas_quantidade'][] = $this->quantities[$fruit->id];
+            $precoFrutas += $fruit->price * $this->quantities[$fruit->id];
+        }
+    }
+
+    $precoAditionals = 0;
+    foreach ($this->aditionals as $additional) {
+        if ($this->quantities[$additional->id] > 0) {
+            $acaiPersonalized['adicionais'][] = $additional;
+            $acaiPersonalized['adicionais_quantidade'][] = $this->quantities[$additional->id];
+            $precoAditionals += $additional->price * $this->quantities[$additional->id];
+        }
+    }
+    $product = Product::where('name', $this->size)->first();
+    $sizeValue = $product->price;
+    $acaiPersonalized['precoTotal'] = $precoAditionals + $precoFrutas + ($this->quantity * $sizeValue);
+
+    $carrinho = $request->session()->get('carrinho', []);
+
+    $carrinho['acaiPersonalizado'][] = $acaiPersonalized;
+    $request->session()->put('carrinho', $carrinho);
+    $this->dispatch('product-added');
+}
+    
 
     public function decrement($categoryId)
     {
