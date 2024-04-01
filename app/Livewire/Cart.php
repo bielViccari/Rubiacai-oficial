@@ -29,8 +29,8 @@ class Cart extends ModalComponent
             foreach ($this->carrinho['acaiPersonalizado'] as $index => $acai) {
                 $this->valorUnitarioAcaiPersonalizado[$index] = $acai['precoTotal'];
             }
-    }
-}
+        }
+        }
 
     public function removeProduct($id, Request $request)
     {
@@ -61,12 +61,14 @@ class Cart extends ModalComponent
         }
     }
 
-    public function removeAcaiPersonalizado($index)
+    public function removeAcaiPersonalizado($index, Request $request)
 {
-    unset($this->carrinho['acaiPersonalizado'][$index]);
-    $this->calcularPrecoTotal(); // Recalcular o preço total
+    $removeAcai = $request->session()->get('carrinho');
+    unset($removeAcai['acaiPersonalizado'][$index]);
+    $request->session()->put('carrinho', $removeAcai);
     $this->dispatch('product-deleted');
-    session()->flash('sucesso', 'Produto personalizado removido com sucesso');
+    session()->flash('success', 'Açai montado, removido com sucesso');
+    return response()->json(['carrinho' => $removeAcai]);
 }
 
 

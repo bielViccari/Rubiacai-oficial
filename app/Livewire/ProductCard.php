@@ -34,11 +34,15 @@ class ProductCard extends Component
         }
     }
 
-    public function mount() {
+    public $carrinho = [];
+    #[On('product-deleted')]
+    public function mount(Request $request) {
         $products = Product::get()->all();
         foreach ($products as $p) {
             $this->quantities[$p->id] = 1;
         }
+        $this->carrinho = $request->session()->get('carrinho');
+        $this->totalProductsInCard();
     }
     public function addToCart($product, $quantity, Request $request)
     {
@@ -77,6 +81,19 @@ class ProductCard extends Component
         $this->filterId = null;
         $this->nameOfCategoryFiltered = null;
         $this->filteredProducts = null;
+    }
+
+    public $totalProducts;
+    public function totalProductsInCard() {
+        $this->totalProducts = 0;
+        foreach($this->carrinho as $item) {
+            if($item !== $this->carrinho['acaiPersonalizado'] && $item !== []) {
+                $this->totalProducts += 1;
+            }
+        }
+
+        $this->totalProducts += isset($this->carrinho['acaiPersonalizado']) ? count($this->carrinho['acaiPersonalizado']) : 0;
+
     }
 
     #[On('increment')]
