@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rubiaçai</title>
-    @livewire('wire-elements-modal')
 </head>
-@vite(['resources/css/app.css', 'resources/js/category-slide.js'])
+@livewire('wire-elements-modal')
+@vite(['resources/css/app.css', 'resources/js/category-slide.js', 'resources/js/show-navbar.js'])
 <body class="bg-gray-200">
     <!--navbar e header -->
     <div class="bg-gray-200">
@@ -20,6 +20,8 @@
         <livewire:categories-slide />
         <livewire:product-card />
     </div>
+
+    <x-footer />
 </body>
 </html>
 

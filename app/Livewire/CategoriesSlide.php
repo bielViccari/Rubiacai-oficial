@@ -9,6 +9,10 @@ class CategoriesSlide extends Component
 {
     public $categories ='';
 
+    public function selectedCategory($categoryId) {
+        $this->dispatch('selectedCategory', categoryId: $categoryId)->to(ProductCard::class);
+    }
+
     public function mount() {
         $this->categories = Category::get()->all();
     }

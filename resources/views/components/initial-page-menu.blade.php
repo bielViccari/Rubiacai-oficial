@@ -25,12 +25,6 @@
     </div>
     <!-- Botão para abrir slideOver do Carrinho -->
     <div class="flex lg:hidden">
-        <a  wire:click="$dispatch('openModal', { component: 'cart' })"
-            id="botao-abrir-slideover-mobile"
-            class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
-            Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart
-                    width="15px" height="15px" /></span>
-        </a>
         <!-- Hamburguer para abrir menu mobile-->
         <button id="open-menu" type="button"
             class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
@@ -45,13 +39,8 @@
     <div class="hidden lg:flex lg:gap-x-12">
         <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Produtos</a>
         <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Categorias</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Sobre Nós</a>
+        <a href="{{ route('about-us') }}" class="text-sm font-semibold leading-6 text-gray-900">Sobre Nós</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a wire:click="$dispatch('openModal', { component: 'cart' })"
-        class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
-        Carrinho <span aria-hidden="true" style="margin-left: 5px;"><x-zondicon-shopping-cart width="15px"
-                height="15px" /></span>
-    </a>
     </div>
 </nav>

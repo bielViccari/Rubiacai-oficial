@@ -16,27 +16,45 @@
         </div>
     </div>
     <div class="flex justify-between px-14">
-        <div>
+        <div id="montarAçai">
             <button wire:click="$dispatch('openModal', {component: 'makeAçaiPersonalized'})"
                 class="rounded-md bg-purple-500 px-3.5 py-2.5 mt-5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Montar
                 Açai</button>
         </div>
+        <span class="pt-6 flex flex-row">
+            @if ($nameOfCategoryFiltered)    
+            <span class="">
+                Filtrando por: {{ $nameOfCategoryFiltered }} 
+            </span> 
+            <svg wire:click='removeFilter' class="w-6 h-6 pt-1 text-gray-500 hover:text-gray-700 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
+              </svg>
+              
+            @endif
+        </span>
         <div class="py-2">
             <a wire:click="$dispatch('openModal', { component: 'cart' })"
                 class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
-                <span class="mt-3">Meu carrinho</span> 
-                    <div class="relative py-2">
-                  <div class="t-0 absolute left-3">
-                    <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">3</p>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="file: mt-4 h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                  </svg>
+                <span class="mt-3">Meu carrinho</span>
+                <div class="relative py-2">
+                    <div class="t-0 absolute left-3">
+                        <p
+                            class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
+                            {{ isset($carrinho) ? count($carrinho) : 0 }}</p>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="file: mt-4 h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    </svg>
                 </div>
             </a>
         </div>
     </div>
     <div class="flex flex-wrap justify-center flex-row">
+        @if (count($products) == 0)
+          <span class="pt-6 text-gray-600 font-semibold">Oops.. Nenhum produto encontrado... </span>  
+        @endif
         @foreach ($products as $p)
             <div class="flex flex-col mx-2">
                 <div class="relative my-2 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
@@ -83,7 +101,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <a wire:click="addToCart({{ $p }},{{$quantities ? $quantities[$p->id] : 1 }}); $dispatch('openModal', { component: 'cart' })"
+                            <a wire:click="addToCart({{ $p }},{{ $quantities ? $quantities[$p->id] : 1 }}); $dispatch('openModal', { component: 'cart' })"
                                 href="#"
                                 class="flex items-center rounded-md bg-purple-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none"

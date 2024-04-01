@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Livewire\AboutUs;
 use App\Livewire\CreateProduct;
 use App\Livewire\ProductCard;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,7 @@ Route::view('profile', 'site/admin/profile')
     ->name('profile');
 
 Route::get('/products', ProductCard::class)->name('products');
-
+Route::view('/about-us', 'site/userPages/about')->name('about-us');
 Route::get('/create-products', CreateProduct::class)->name('create.products')
     ->middleware('auth');
 

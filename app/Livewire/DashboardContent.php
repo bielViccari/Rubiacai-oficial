@@ -16,7 +16,8 @@ class DashboardContent extends Component
     public $searchCategory;
     public function deleteProduct($id) {
         $product = Product::find($id);
-      $product->delete();
+        $product->delete();
+        session()->flash('success', 'produto deletado com sucesso');
         $this->dispatch('deleteProduct');
     }
 

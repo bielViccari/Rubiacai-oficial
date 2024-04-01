@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
 use Carbon\Carbon;
@@ -16,8 +17,9 @@ class ProductCard extends Component
 
     public $isNew = false;
     public $searchProduct;
-
-
+    public $filteredProducts;
+    public $filterId;
+    public $nameOfCategoryFiltered;
     public function increment($productId)
     {
         $this->quantities[$productId]++;
@@ -40,17 +42,15 @@ class ProductCard extends Component
     }
     public function addToCart($product, $quantity, Request $request)
     {
-        // Inicializar a sessão do carrinho se não existir
+
         $request->session()->put('carrinho', $request->session()->get('carrinho', []));
 
-        // Obter o carrinho da sessão
         $carrinho = $request->session()->get('carrinho');
 
-        // Verificar se o carrinho já tem o produto, se já estiver, aumentar a quantidade
+
         if (isset($carrinho[$product['id']])) {
             $carrinho[$product['id']]['quantity'] += $quantity;
         } else {
-            // Se o produto não estiver no carrinho, adicioná-lo ao carrinho
             $carrinho[$product['id']] = [
                 'id' => $product['id'],
                 'name' => $product['name'],
@@ -65,14 +65,31 @@ class ProductCard extends Component
         return response()->json(['carrinho' => $carrinho]);
     }
 
+    #[On('selectedCategory')]
+    public function updateProducts($categoryId) {
+        $this->filterId = $categoryId;
+        $category = Category::find($categoryId);
+        $this->nameOfCategoryFiltered = $category ? $category->name : null;
+        $this->filteredProducts = Product::with('category')->where('category_id', $categoryId)->get();
+    }
+
+    public function removeFilter() {
+        $this->filterId = null;
+        $this->nameOfCategoryFiltered = null;
+        $this->filteredProducts = null;
+    }
+
     #[On('increment')]
     #[On('decrement')]
     public function render()
     {
-        $products = Product::with('category')->where(function ($sub_query) {
-            $sub_query->where('name', 'like', '%' . $this->searchProduct . '%');
-        })->paginate(20, pageName: 'products-page');
-
+        if($this->filteredProducts) {
+            $products = $this->filteredProducts;
+        } else {
+            $products = Product::with('category')->where(function ($sub_query) {
+                $sub_query->where('name', 'like', '%' . $this->searchProduct . '%');
+            })->paginate(20, pageName: 'products-page');
+        }    
 
         // Inicializar as quantidades para cada produto como 1
         foreach ($products as $product) {
@@ -82,6 +99,11 @@ class ProductCard extends Component
                 $this->isNew = true;
             }
         }
-        return view('livewire.product-card', ['products' => $products]);
+        if(session('carrinho')) {
+            $carrinho = session('carrinho');
+            return view('livewire.product-card', ['products' => $products, 'carrinho' => $carrinho]);
+        } else {
+            return view('livewire.product-card', ['products' => $products]);
+        }
     }
 }

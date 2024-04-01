@@ -1,6 +1,11 @@
 <div class="p-4 sm:ml-64 flex justify-center items-center bg-gray-200">
     <div class="w-10/12">
         @if ($products)
+        @if (session('success'))
+
+            <span>{{ session('status') }}</span>
+
+        @endif
             <div class="relative sm:w-96 w-64">
                 <input
                     class="appearance-none  border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-gray-600 focus:border-gray-600 focus:shadow-outline"
