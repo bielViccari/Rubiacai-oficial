@@ -1,16 +1,20 @@
 <div>
     <div class="bg-white rounded-lg shadow-lg px-8 py-10 max-w-xl mx-auto">
         <div class="flex items-center justify-between mb-8">
-            <div class="flex items-center">
-                <img class="h-8 w-8 mr-2" src="images/rubiacai.png"
-                    alt="Logo" />
-                <div class="text-gray-700 font-semibold text-lg">Rubiaçai</div>
-            </div>
             <div class="text-gray-700">
                 <div class="font-bold text-xl mb-2">Pedido</div>
                 <div class="text-sm">Data: 01/05/2023</div>
                 <div class="text-sm">Numero do pedido #: INV12345</div>
             </div>
+            <button type="button" wire:click="dispatch('closeModal')"
+            class="text-gray-400 bg-transparent pr-4 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-toggle="crud-modal">
+            <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Fechar modal</span>
+        </button>
         </div>
         <div class="border-b-2 border-gray-300 pb-8 mb-8">
             <h2 class="text-2xl font-bold mb-4">Pagamento em nome de:</h2>
@@ -43,28 +47,32 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($carrinho['acaiPersonalizado'] as $acai)
-                <tr>
-                    <td class="text-gray-700 border-b border-gray-300">Açai Personalizado</td>
-                </tr>
-                <tr>
-                    <td class="py-4 text-gray-700">{{ $acai['tamanho'] }}</td>
-                    <td class="py-4 text-gray-700">{{ $acai['quantidade'] }}</td>
-                    <td class="py-4 text-gray-700">{{ $acai['precoTotal'] }}</td>
-                    <td class="py-4 text-gray-700">{{ $acai['precoTotal'] * $acai['quantidade'] }}</td>
-                </tr>
-                @foreach ($acai['frutas'] as $index => $fruta)
+                @if(isset($carrinho['acaiPersonalizado']))
+                    @foreach ($carrinho['acaiPersonalizado'] as $acai)
                     <tr>
-                        <td class="py-4 text-gray-700">{{ $fruta->name }}</td>
-                        <td class="py-4 text-gray-700">{{ $acai['frutas_quantidade'][$index] }}</td>
-                        <td class="py-4 text-gray-700">{{ $fruta->price }}</td>
-                        <td class="py-4 text-gray-700">{{ $fruta->price * $acai['frutas_quantidade'][$index] }}</td>
+                        <td class="text-gray-700 border-b border-gray-300">Açai Personalizado</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 text-gray-700">{{ $acai['tamanho'] }}</td>
+                        <td class="py-4 text-gray-700">{{ $acai['quantidade'] }}</td>
+                        <td class="py-4 text-gray-700">{{ $acai['precoTotal'] }}</td>
+                        <td class="py-4 text-gray-700">{{ $acai['precoTotal'] * $acai['quantidade'] }}</td>
+                    </tr>
+                    @if(isset($acai['frutas']))
+                        @foreach ($acai['frutas'] as $index => $fruta)
+                            <tr>
+                                <td class="py-4 text-gray-700">{{ $fruta->name }}</td>
+                                <td class="py-4 text-gray-700">{{ $acai['frutas_quantidade'][$index] }}</td>
+                                <td class="py-4 text-gray-700">{{ $fruta->price }}</td>
+                                <td class="py-4 text-gray-700">{{ $fruta->price * $acai['frutas_quantidade'][$index] }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    <tr>
+                        <td class="text-gray-700 border-b border-gray-300"></td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td class="text-gray-700 border-b border-gray-300"></td>
-                </tr>
-            @endforeach
+                @endif
 
             </tbody>
         </table>
