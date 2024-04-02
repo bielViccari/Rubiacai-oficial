@@ -19,7 +19,7 @@
                 </ul>
             </div>
             <div class="p-5 sm:w-7/12 border-r text-center">
-                <h3 class="font-bold text-xl text-purple-600 mb-4">Onde estamos localizados ? </h3>
+                <h3 class="font-bold text-xl text-purple-600 mb-4">ONDE ESTAMOS LOCALIZADOS ? </h3>
                 <p class="text-gray-500 text-sm mb-10"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.277701739035!2d-50.7313245!3d-21.3000406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9496f5ba10396eb3%3A0xb90bc4c4bc5bc011!2zUnViaWHDp2HDrQ!5e0!3m2!1spt-BR!2sbr!4v1711899240612!5m2!1spt-BR!2sbr" width="530" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
             </div>
             <div class="p-5 sm:w-3/12">

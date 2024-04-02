@@ -36,6 +36,7 @@ class ProductCard extends Component
 
     public $carrinho = [];
     #[On('product-deleted')]
+    #[On('product-added')]
     public function mount(Request $request) {
         $products = Product::get()->all();
         foreach ($products as $p) {
@@ -84,11 +85,20 @@ class ProductCard extends Component
     }
 
     public $totalProducts;
+
     public function totalProductsInCard() {
         $this->totalProducts = 0;
-        foreach($this->carrinho as $item) {
-            if($item !== $this->carrinho['acaiPersonalizado'] && $item !== []) {
-                $this->totalProducts += 1;
+        if(isset($this->carrinho)) {
+            if(isset($this->carrinho['acaiPersonalizado'])){
+                foreach($this->carrinho as $item) {
+                    if($item !== $this->carrinho['acaiPersonalizado'] && $item !== []) {
+                        $this->totalProducts += 1;
+                    }
+                }
+            }else {
+                foreach($this->carrinho as $item) {
+                    $this->totalProducts += 1;
+                }
             }
         }
 

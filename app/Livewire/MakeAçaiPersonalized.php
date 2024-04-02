@@ -4,9 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\Product;
-use Livewire\Attributes\On;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Http\Request;
+use Livewire\Attributes\Validate; 
 
 class MakeAçaiPersonalized extends ModalComponent
 {
@@ -53,12 +53,17 @@ class MakeAçaiPersonalized extends ModalComponent
         }
     }
 
-    public $size = '';
-    public $quantity = '';
-    public $observation = '';
+    #[Validate('required', message: 'Selecione o tamanho.')]
+    public $size;
+    #[Validate('required', message: 'Selecione a quantidade.')]
+    public $quantity;
+    public $observation;
+
 
     public function addToCart(Request $request)
 {
+
+    $this->validate();
     $acaiPersonalized = [
         'frutas' => [],
         'frutas_quantidade' => [],
@@ -69,6 +74,7 @@ class MakeAçaiPersonalized extends ModalComponent
         'observacao' => $this->observation,
         'precoTotal' => 0,
     ];
+
     $precoFrutas = 0;
     foreach ($this->fruits as $fruit) {
         if ($this->quantities[$fruit->id] > 0) {
@@ -86,17 +92,22 @@ class MakeAçaiPersonalized extends ModalComponent
             $precoAditionals += $additional->price * $this->quantities[$additional->id];
         }
     }
-    $product = Product::where('name', $this->size)->first();
-    $sizeValue = $product->price;
-    $acaiPersonalized['precoTotal'] = $precoAditionals + $precoFrutas + ($this->quantity * $sizeValue);
+    if($this->size != '') {
+
+        $product = Product::where('name', $this->size)->first();
+        $sizeValue = $product->price;
+        $acaiPersonalized['precoTotal'] = $precoAditionals + $precoFrutas + ($this->quantity * $sizeValue);
+    }
 
     $carrinho = $request->session()->get('carrinho', []);
-
     $carrinho['acaiPersonalizado'][] = $acaiPersonalized;
     $request->session()->put('carrinho', $carrinho);
     $this->dispatch('product-added');
+    $this->dispatch('closeModal');
 }
-    
+    public function fecharModal() {
+        $this->dispatch('closeModal');
+    }
 
     public function decrement($categoryId)
     {

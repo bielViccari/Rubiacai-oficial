@@ -40,7 +40,7 @@
                                             <hr>
                                         @endif
                                     @endforeach
-
+                                    @if(isset($carrinho['acaiPersonalizado']))
                                     @foreach ($carrinho['acaiPersonalizado'] as $index => $acai)
                                     @if (is_array($acai))
                                         <li class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
@@ -74,6 +74,7 @@
                                         <hr>
                                     @endif
                                 @endforeach
+                                    @endif
                                 
                                 @endif
                                 @if (!$carrinho)
