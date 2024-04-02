@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between mb-8">
             <div class="text-gray-700">
                 <div class="font-bold text-xl mb-2">Pedido</div>
-                <div class="text-sm">Data: 01/05/2023</div>
+                <div class="text-sm">Data: {{ $dataAtual }}</div>
                 <div class="text-sm">Numero do pedido #: INV12345</div>
             </div>
             <button type="button" wire:click="dispatch('closeModal')"
@@ -48,37 +48,50 @@
             </thead>
             <tbody>
                 @if(isset($carrinho['acaiPersonalizado']))
-                    @foreach ($carrinho['acaiPersonalizado'] as $acai)
+                    @foreach ($carrinho['acaiPersonalizado'] as $index => $acai)
                     <tr>
                         <td class="text-gray-700 border-b border-gray-300">Açai Personalizado</td>
                     </tr>
                     <tr>
                         <td class="py-4 text-gray-700">{{ $acai['tamanho'] }}</td>
                         <td class="py-4 text-gray-700">{{ $acai['quantidade'] }}</td>
-                        <td class="py-4 text-gray-700">{{ $acai['precoTotal'] }}</td>
-                        <td class="py-4 text-gray-700">{{ $acai['precoTotal'] * $acai['quantidade'] }}</td>
+                        <td class="py-4 text-gray-700">R$ {{ number_format($unityPrice[$index], 2, ',', '.') }}</td>
+                        <td class="py-4 text-gray-700">R$ {{ isset($priceOfSize) ? number_format($priceOfSize[$index], 2, ',', '.') : 0 }}</td>
                     </tr>
                     @if(isset($acai['frutas']))
                         @foreach ($acai['frutas'] as $index => $fruta)
                             <tr>
                                 <td class="py-4 text-gray-700">{{ $fruta->name }}</td>
                                 <td class="py-4 text-gray-700">{{ $acai['frutas_quantidade'][$index] }}</td>
-                                <td class="py-4 text-gray-700">{{ $fruta->price }}</td>
-                                <td class="py-4 text-gray-700">{{ $fruta->price * $acai['frutas_quantidade'][$index] }}</td>
+                                <td class="py-4 text-gray-700">R$ {{ number_format($fruta->price, 2, ',', '.') }}</td>
+                                <td class="py-4 text-gray-700">R$ {{ number_format($fruta->price * $acai['frutas_quantidade'][$index], 2, ',', '.') }}</td>
                             </tr>
                         @endforeach
                     @endif
-                    <tr>
-                        <td class="text-gray-700 border-b border-gray-300"></td>
-                    </tr>
                 @endforeach
+                @endif
+
+                @if ($carrinho)
+                    <tr>
+                        <td class="text-gray-700 border-b border-gray-300">Produtos separados</td>
+                    </tr>
+                    @foreach ($carrinho as $c)
+                        @if (isset($c['name']))
+                        <tr>
+                            <td class="py-4 text-gray-700">{{ $c['name'] }}</td>
+                            <td></td>
+                            <td class="py-4 text-gray-700">R$ {{ number_format($c['price'], 2, ',', '.') }}</td>
+                            <td class="py-4 text-gray-700">R$ {{ number_format($c['price'], 2, ',', '.') }}</td>
+                        </tr>
+                        @endif
+                    @endforeach
                 @endif
 
             </tbody>
         </table>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Subtotal:</div>
-            <div class="text-gray-700">$425.00</div>
+            <div class="text-gray-700">R$  {{ number_format($precoTotal, 2, ',', '.') }} </div>
         </div>
         <div class="text-right mb-8">
             <div class="text-gray-700 mr-2">Entrega:</div>
@@ -87,7 +100,7 @@
         </div>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Total:</div>
-            <div class="text-gray-700 font-bold text-xl">$450.50</div>
+            <div class="text-gray-700 font-bold text-xl">R$  {{ number_format($precoTotal + 1, 2, ',', '.') }}</div>
         </div>
         <div class="border-t-2 border-gray-300 pt-8 mb-8">
             <div class="text-gray-700 mb-2">O pedido será enviado no seu whatsapp para confirmação. E então seu pedido será entregue.</div>
