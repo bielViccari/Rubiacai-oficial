@@ -55,8 +55,10 @@ class Cart extends ModalComponent
                     $this->precoTotal += $precoItem * $quantidadeItem;
                 }
             }
-            foreach($this->carrinho['acaiPersonalizado'] as $a) {
-                $this->precoTotal += $a['precoTotal'];
+            if(isset($this->carrinho['acaiPersonalizado'])) {
+                foreach($this->carrinho['acaiPersonalizado'] as $a) {
+                    $this->precoTotal += $a['precoTotal'];
+                }
             }
         }
     }

@@ -43,24 +43,29 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($carrinho['acaiPersonalizado'] as $acai)
                 <tr>
-                    <td class="py-4 text-gray-700">Product 1</td>
-                    <td class="py-4 text-gray-700">1</td>
-                    <td class="py-4 text-gray-700">$100.00</td>
-                    <td class="py-4 text-gray-700">$100.00</td>
+                    <td class="text-gray-700 border-b border-gray-300">Açai Personalizado</td>
                 </tr>
                 <tr>
-                    <td class="py-4 text-gray-700">Product 2</td>
-                    <td class="py-4 text-gray-700">2</td>
-                    <td class="py-4 text-gray-700">$50.00</td>
-                    <td class="py-4 text-gray-700">$100.00</td>
+                    <td class="py-4 text-gray-700">{{ $acai['tamanho'] }}</td>
+                    <td class="py-4 text-gray-700">{{ $acai['quantidade'] }}</td>
+                    <td class="py-4 text-gray-700">{{ $acai['precoTotal'] }}</td>
+                    <td class="py-4 text-gray-700">{{ $acai['precoTotal'] * $acai['quantidade'] }}</td>
                 </tr>
+                @foreach ($acai['frutas'] as $index => $fruta)
+                    <tr>
+                        <td class="py-4 text-gray-700">{{ $fruta->name }}</td>
+                        <td class="py-4 text-gray-700">{{ $acai['frutas_quantidade'][$index] }}</td>
+                        <td class="py-4 text-gray-700">{{ $fruta->price }}</td>
+                        <td class="py-4 text-gray-700">{{ $fruta->price * $acai['frutas_quantidade'][$index] }}</td>
+                    </tr>
+                @endforeach
                 <tr>
-                    <td class="py-4 text-gray-700">Product 3</td>
-                    <td class="py-4 text-gray-700">3</td>
-                    <td class="py-4 text-gray-700">$75.00</td>
-                    <td class="py-4 text-gray-700">$225.00</td>
+                    <td class="text-gray-700 border-b border-gray-300"></td>
                 </tr>
+            @endforeach
+
             </tbody>
         </table>
         <div class="flex justify-end mb-8">
