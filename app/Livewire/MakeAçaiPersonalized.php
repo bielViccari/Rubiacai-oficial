@@ -103,11 +103,8 @@ class MakeAçaiPersonalized extends ModalComponent
     $carrinho['acaiPersonalizado'][] = $acaiPersonalized;
     $request->session()->put('carrinho', $carrinho);
     $this->dispatch('product-added');
-    $this->dispatch('closeModal');
+    $this->closeModal();    
 }
-    public function fecharModal() {
-        $this->dispatch('closeModal');
-    }
 
     public function decrement($categoryId)
     {

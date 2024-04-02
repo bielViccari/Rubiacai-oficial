@@ -47,7 +47,7 @@
                                             <div class="relative flex flex-1 flex-col justify-between">
                                                 <div class="sm:col-gap-5 sm:grid sm:grid-cols-2">
                                                     <div class="pr-8 sm:pr-5">
-                                                        <p class="text-base font-semibold text-gray-900">Açai Montado</p>
+                                                        <p class="text-base font-semibold text-gray-900">{{ $acai['quantidade'] }}x - Açai Montado</p>
                                                         @if (isset($acai['tamanho']))
                                                             <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">{{ $acai['tamanho'] }}</p>
                                                         @endif
@@ -56,14 +56,13 @@
                                                         @endif
                                                     </div>
                                                     <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                                                        <!-- Coloque aqui o preço total do açai personalizado -->
                                                         <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
                                                             R$ {{ number_format($valorUnitarioAcaiPersonalizado[$index], 2, ',', '.') }}
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-                                                    <button wire:click='removeAcaiPersonalizado({{ $index }})' type="button" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
+                                                    <button wire:click='removeAcaiPersonalizado({{ $index }})' type="button" class="flex rounded text-center text-gray-500 transition-all duration-200 ease-in-out hover:text-gray-900">
                                                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class=""></path>
                                                         </svg>
@@ -100,7 +99,7 @@
                                 <p class="text-2xl font-semibold text-gray-900"><span class="text-xs font-normal text-gray-400">R$</span>{{ number_format($precoTotal + 1, 2, ',', '.') }} </p>
                             </div>
                             <div class="mt-6 text-center flex flex-col">
-                                <button type="button" class="group inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-purple-800">
+                                <button type="button" wire:click="$dispatch('openModal', {component: 'invoice'})" class="group inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-purple-800">
                                     Gerar pedido
                                     <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
