@@ -16,27 +16,91 @@
             <span class="sr-only">Fechar modal</span>
         </button>
         </div>
-        <div class="border-b-2 border-gray-300 pb-8 mb-8">
-            <h2 class="text-2xl font-bold mb-4">Pagamento em nome de:</h2>
-            <div class="mb-2">
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
-                <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="José Miguel" required />
+        <form wire:submit='save'>
+            <div class="border-b-2 border-gray-300 pb-8 mb-8">
+                <h2 class="text-2xl font-bold mb-4">Pagamento em nome de:</h2>
+                @if ($errors->has('name'))
+                    <div class="mb-2">
+                        <label for="name" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Nome</label>
+                        <input wire:model='name' type="text" id="name" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="José Miguel" />
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('name') }}</p>
+                    </div>
+                @else
+                    <div class="mb-2">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
+                        <input wire:model='name' type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="José Miguel" />
+                    </div>
+                @endif
+                @if ($errors->has('phone'))
+                    <div class="mb-2">
+                        <label for="phone" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Celular</label>
+                        <input wire:model='phone' type="tel" id="phone" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Ex..: (99) 9999-999" />
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('phone') }}</p>
+                    </div>
+                @else
+                    <div class="mb-2">
+                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
+                        <input wire:model='phone' type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex..: (99) 9999-999" />
+                    </div>
+                @endif
+    
+                @if ($errors->has('address'))
+                    <div class="mb-2">
+                        <label for="address" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Endereço para entrega</label>
+                        <input wire:model='address' type="text" id="address" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Ex..: Rua José Antônio Bonifácio, 279" />
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('address') }}</p>
+                    </div>
+                @else
+                    <div class="mb-2">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Endereço para entrega</label>
+                        <input wire:model='address' type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex..: Rua José Antônio Bonifácio, 279" />
+                    </div>
+                @endif
+    
+                @if($errors->has('payment'))
+                    <div class="mb-2">
+                        <label for="payment" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Selecione um método de pagamento</label>
+                        <select wire:model='payment' id="payment" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
+                        <option selected>Método de pagamento</option>
+                        <option value="pix">Pix</option>
+                        <option value="card">Cartão</option>
+                        <option value="money">Dinheiro</option>
+                        </select>
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('payment') }}</p>
+                    </div>
+                @else
+                    <div class="mb-2">
+                        <label for="payment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um método de pagamento</label>
+                        <select wire:model='payment' id="payment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Método de pagamento</option>
+                        <option value="pix">Pix</option>
+                        <option value="card">Cartão</option>
+                        <option value="money">Dinheiro</option>
+                        </select>
+                    </div>
+                @endif
+    
+                @if($errors->has('delivery'))
+                    <div class="mb-2">
+                        <label for="delivery" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Selecione um método de pagamento</label>
+                        <select id="delivery" wire:model='delivery' name="delivery" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
+                        <option selected>Forma de entrega</option>
+                        <option value="takeaway">Retirar na loja</option>
+                        <option value="delivery">Entregar no endereço</option>
+                        </select>
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('delivery') }}</p>
+                    </div>
+                @else
+                    <div class="mb-2">
+                        <label for="delivery" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um método de pagamento</label>
+                        <select id="delivery" wire:model='delivery' name="delivery" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Forma de entrega</option>
+                        <option value="takeaway">Retirar na loja</option>
+                        <option value="delivery">Entregar no endereço</option>
+                        </select>
+                    </div>
+                @endif
             </div>
-            <div class="mb-2">
-                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex..: (99) 9999-999" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-            </div>
-
-            <div class="mb-2">
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um método de pagamento</label>
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option selected>Método de pagamento</option>
-                  <option value="pix">Pix</option>
-                  <option value="card">Cartão</option>
-                  <option value="money">Dinheiro</option>
-                </select>
-            </div>
-        </div>
         <table class="w-full text-left mb-8">
             <thead>
                 <tr>
@@ -71,7 +135,7 @@
                 @endforeach
                 @endif
 
-                @if ($carrinho)
+                @if (isset($carrinho))
                     <tr>
                         <td class="text-gray-700 border-b border-gray-300">Produtos separados</td>
                     </tr>
@@ -79,7 +143,7 @@
                         @if (isset($c['name']))
                         <tr>
                             <td class="py-4 text-gray-700">{{ $c['name'] }}</td>
-                            <td></td>
+                            <td>{{ $c['quantity'] }}</td>
                             <td class="py-4 text-gray-700">R$ {{ number_format($c['price'], 2, ',', '.') }}</td>
                             <td class="py-4 text-gray-700">R$ {{ number_format($c['price'], 2, ',', '.') }}</td>
                         </tr>
@@ -95,7 +159,7 @@
         </div>
         <div class="text-right mb-8">
             <div class="text-gray-700 mr-2">Entrega:</div>
-            <div class="text-gray-700">R$1,00</div>
+            <div class="text-gray-700">R${{ number_format($valorEntrega, 2, ',', '.') }}</div>
     
         </div>
         <div class="flex justify-end mb-8">
@@ -107,6 +171,13 @@
             <div class="text-gray-700 mb-2">Verifique no seu whatsApp, uma mensagem chegará no numero informado acima.</div>
             <div class="text-gray-700">Informe os dados corretos, em caso de não responder a mensagem, o pedido não será realizado.</div>
         </div>
+        <button type="submit" class="group inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-purple-800">
+            Finalizar pedido
+            <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+        </button>
+    </form>
     </div>
 
 </div>

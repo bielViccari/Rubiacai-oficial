@@ -24,32 +24,39 @@ class MakeAçaiPersonalized extends ModalComponent
 
     public function mount()
     {
-        $category = Category::where('name', 'Açai Pronto')->first();
-        $this->acai = $category->product()->get();
-
-        $fruitCategory = Category::where('name', 'frutas')->first();
-
-        $this->fruits = Product::with('category')
-            ->whereHas('category', function ($query) use ($fruitCategory) {
-                $query->where('id', $fruitCategory->id);
-            })
-            ->get();
-
-        $aditionalsCategory = Category::where('name', 'Adicionais')->first();
-
-        $this->aditionals = Product::with('category')
-            ->whereHas('category', function ($query) use ($aditionalsCategory) {
-                $query->where('id', $aditionalsCategory->id);
-            })
-            ->get();
-
-        $this->categories = Category::get()->all();
-        foreach ($this->fruits as $f) {
-            $this->quantities[$f->id] = 0;
-        }
-
-        foreach ($this->aditionals as $a) {
-            $this->quantities[$a->id] = 0;
+        $category = Category::where('name', 'Açai puro')->first();
+        if(isset($category)) {
+            $this->acai = $category->product()->get();
+    
+            $fruitCategory = Category::where('name', 'frutas')->first();
+            if(isset($fruitCategory)) {
+                $this->fruits = Product::with('category')
+                    ->whereHas('category', function ($query) use ($fruitCategory) {
+                        $query->where('id', $fruitCategory->id);
+                    })
+                    ->get();
+            }
+    
+            $aditionalsCategory = Category::where('name', 'Adicionais')->first();
+            if(isset($aditionalsCategory)) {
+                $this->aditionals = Product::with('category')
+                    ->whereHas('category', function ($query) use ($aditionalsCategory) {
+                        $query->where('id', $aditionalsCategory->id);
+                    })
+                    ->get();
+            }
+    
+            $this->categories = Category::get()->all();
+            if(isset($this->fruits)) {
+                foreach ($this->fruits as $f) {
+                    $this->quantities[$f->id] = 0;
+                }
+            }
+            if(isset($this->aditionals)) {
+                foreach ($this->aditionals as $a) {
+                    $this->quantities[$a->id] = 0;
+                }
+            }
         }
     }
 
@@ -76,20 +83,24 @@ class MakeAçaiPersonalized extends ModalComponent
     ];
 
     $precoFrutas = 0;
-    foreach ($this->fruits as $fruit) {
-        if ($this->quantities[$fruit->id] > 0) {
-            $acaiPersonalized['frutas'][] = $fruit;
-            $acaiPersonalized['frutas_quantidade'][] = $this->quantities[$fruit->id];
-            $precoFrutas += $fruit->price * $this->quantities[$fruit->id];
+    if(isset($this->fruits)) {
+        foreach ($this->fruits as $fruit) {
+            if ($this->quantities[$fruit->id] > 0) {
+                $acaiPersonalized['frutas'][] = $fruit;
+                $acaiPersonalized['frutas_quantidade'][] = $this->quantities[$fruit->id];
+                $precoFrutas += $fruit->price * $this->quantities[$fruit->id];
+            }
         }
     }
 
     $precoAditionals = 0;
-    foreach ($this->aditionals as $additional) {
-        if ($this->quantities[$additional->id] > 0) {
-            $acaiPersonalized['adicionais'][] = $additional;
-            $acaiPersonalized['adicionais_quantidade'][] = $this->quantities[$additional->id];
-            $precoAditionals += $additional->price * $this->quantities[$additional->id];
+    if(isset($this->aditionals)) {
+        foreach ($this->aditionals as $additional) {
+            if ($this->quantities[$additional->id] > 0) {
+                $acaiPersonalized['adicionais'][] = $additional;
+                $acaiPersonalized['adicionais_quantidade'][] = $this->quantities[$additional->id];
+                $precoAditionals += $additional->price * $this->quantities[$additional->id];
+            }
         }
     }
     if($this->size != '') {

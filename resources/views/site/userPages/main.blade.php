@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rubiaçai</title>
 </head>
-@livewire('wire-elements-modal')
 @vite(['resources/css/app.css', 'resources/js/category-slide.js', 'resources/js/show-navbar.js'])
+@livewire('wire-elements-modal')
 <body class="bg-gray-200">
     <!--navbar e header -->
     <div class="bg-gray-200">
