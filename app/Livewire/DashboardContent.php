@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\Attributes\On; 
@@ -27,6 +28,7 @@ class DashboardContent extends Component
         $category->delete();
         $this->dispatch('deleteCategory');
     }
+
     #[On('deleteProduct')]
     #[On('deleteCategory')]
     public function render()
@@ -38,6 +40,16 @@ class DashboardContent extends Component
             'categories' => Category::where(function($sub_query) {
                 $sub_query->where('name', 'like', '%'.$this->searchCategory.'%');
             })->paginate(15, pageName: 'categories-page'),
+            'orders' => Order::all()->map(function ($order) {
+                return [
+                    'name' => $order->name,
+                    'payment' => $order->payment,
+                    'phone' => $order->phone,
+                    'address' => $order->address,
+                    'delivery' => $order->delivery,
+                    'itens' => $order->itens,
+                ];
+            }),
         ]);
     }
 }

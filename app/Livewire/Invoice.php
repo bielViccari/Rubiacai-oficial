@@ -2,19 +2,51 @@
 
 namespace App\Livewire;
 
+use App\Models\Order;
 use App\Models\Product;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Http\Request;
 use Livewire\Attributes\On;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\Validate; 
 
 class Invoice extends ModalComponent
 {
     public $carrinho;
     public $dataAtual;
 
+    #[Validate('required', message: 'Insira um método de pagamento.')]
+    public $payment;
+    #[Validate('required', message: 'Insira o nome de quem receberá a entrega.')]
+    public $name;
+    #[Validate('required', message: 'Insira o numero de whatsapp para confirmar a entrega.')]
+    public $phone;
+    #[Validate('required', message: 'Insira seu indereço para entrega.')]
+    public $address;
+    #[Validate('required', message: 'Selecione o método de entrega.')]
+    public $delivery;
+
+    public $valorEntrega = 1;
+
+    public function save(Request $request) {
+        $this->validate();
+        $order = Order::create([
+            'name' => $this->name,
+            'payment' => $this->payment,
+            'phone' => $this->phone,
+            'address' => $this->address,
+            'delivery' => $this->delivery,
+            'precoTotal' => $this->precoTotal,
+            'itens' => $this->carrinho,
+        ]);
+        
+        $request->session()->forget('carrinho');
+        return redirect()->route('pagina.inicial');
+    }
+
     #[On('product-added')]
-    public function mount(Request $request) {
+    public function mount(Request $request)
+    {
         $this->carrinho = $request->session()->get('carrinho');
         $this->prices();
         $this->dataAtual = Carbon::now()->format('d/m/Y H:i');
@@ -23,11 +55,12 @@ class Invoice extends ModalComponent
     public $priceOfSize = [];
     public $unityPrice = [];
     public $precoTotal;
-    public function prices() {
-        if($this->carrinho['acaiPersonalizado']) {
+    public function prices()
+    {
+        if (isset($this->carrinho['acaiPersonalizado'])) {
 
-            foreach($this->carrinho['acaiPersonalizado'] as $index => $item) {
-                if($item['tamanho'] != '') {
+            foreach ($this->carrinho['acaiPersonalizado'] as $index => $item) {
+                if ($item['tamanho'] != '') {
                     $product = Product::where('name', $item['tamanho'])->first();
                     $sizeValue = $product->price;
                     $this->priceOfSize[$index] = $sizeValue * $item['quantidade'];
@@ -36,19 +69,20 @@ class Invoice extends ModalComponent
             }
             $this->precoTotal = 0; // Resetar o preço total
 
-                foreach ($this->carrinho as $item) {
-                    if (is_array($item) && array_key_exists('price', $item)) {
-                        $precoItem = $item['price'];
-                        $quantidadeItem = $item['quantity'];
-                        $this->precoTotal += $precoItem * $quantidadeItem;
-                    }
+            if (isset($this->carrinho['acaiPersonalizado'])) {
+                foreach ($this->carrinho['acaiPersonalizado'] as $a) {
+                    $this->precoTotal += $a['precoTotal'];
                 }
-                if(isset($this->carrinho['acaiPersonalizado'])) {
-                    foreach($this->carrinho['acaiPersonalizado'] as $a) {
-                        $this->precoTotal += $a['precoTotal'];
-                    }
+            }
+        }
+        if (isset($this->carrinho)) {
+            foreach ($this->carrinho as $item) {
+                if (is_array($item) && array_key_exists('price', $item)) {
+                    $precoItem = $item['price'];
+                    $quantidadeItem = $item['quantity'];
+                    $this->precoTotal += $precoItem * $quantidadeItem;
                 }
-
+            }
         }
 
     }

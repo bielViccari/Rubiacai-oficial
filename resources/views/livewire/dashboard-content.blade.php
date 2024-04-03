@@ -1,11 +1,9 @@
 <div class="p-4 sm:ml-64 flex justify-center items-center bg-gray-200">
     <div class="w-10/12">
         @if ($products)
-        @if (session('success'))
-
-            <span>{{ session('status') }}</span>
-
-        @endif
+            @if (session('success'))
+                <span>{{ session('status') }}</span>
+            @endif
             <div class="relative sm:w-96 w-64">
                 <input
                     class="appearance-none  border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-gray-600 focus:border-gray-600 focus:shadow-outline"
@@ -85,5 +83,46 @@
             </div>
         @endif
 
+        <div class="shadow-lg rounded-lg overflow-hidden">
+            <table class="w-full table-fixed">
+                <h1 class="text-center font-bold text-gray-600 mb-2 uppercase">Tabela de pedidos</h1>
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Nome Cliente</th>
+                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Endereço</th>
+                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Phone</th>
+                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Status</th>
+                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Alterar Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    @if ($orders)
+                        @foreach ($orders as $o)
+                        @dd($o)
+                            <tr>
+                                <td class="py-4 px-6 border-b border-gray-200">{{ $o->name }}</td>
+                                <td class="py-4 px-6 border-b border-gray-200 truncate">{{ $o->address }}</td>
+                                <td class="py-4 px-6 border-b border-gray-200">{{ $o->phone }}</td>
+                                <td class="py-4 px-6 border-b border-gray-200">
+                                    <span class="bg-green-500 text-white py-1 px-2 rounded-full text-xs">Pedido entregue</span>
+                                </td>
+                                <td class="py-4 px-6 border-b border-gray-200">
+                                    <button class="bg-blue-500 text-white py-1 px-2 rounded text-xs">Alterar</span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    <tr>
+                        <td class="py-4 px-6 border-b border-gray-200">Jane Doe</td>
+                        <td class="py-4 px-6 border-b border-gray-200 truncate">janedoe@gmail.com</td>
+                        <td class="py-4 px-6 border-b border-gray-200">555-555-5555</td>
+                        <td class="py-4 px-6 border-b border-gray-200">
+                            <span class="bg-red-500 text-white py-1 px-2 rounded-full text-xs">Inactive</span>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
