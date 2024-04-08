@@ -115,7 +115,7 @@ class ProductCard extends Component
         } else {
             $products = Product::with('category')->where(function ($sub_query) {
                 $sub_query->where('name', 'like', '%' . $this->searchProduct . '%');
-            })->paginate(20, pageName: 'products-page');
+            })->paginate(12, pageName: 'products-page');
         }    
 
         // Inicializar as quantidades para cada produto como 1

@@ -39,9 +39,6 @@
                     </a>
                 @endforeach
             </div>
-            <div class="flex justify-end pb-12">
-                <span>{{ $products->links('vendor.pagination.personalized') }}</span>
-            </div>
         @endif
 
         @if ($categories)
@@ -98,11 +95,10 @@
                 <tbody class="bg-white">
                     @if ($orders)
                         @foreach ($orders as $o)
-                        @dd($o)
                             <tr>
-                                <td class="py-4 px-6 border-b border-gray-200">{{ $o->name }}</td>
-                                <td class="py-4 px-6 border-b border-gray-200 truncate">{{ $o->address }}</td>
-                                <td class="py-4 px-6 border-b border-gray-200">{{ $o->phone }}</td>
+                                <td class="py-4 px-6 border-b border-gray-200">{{ $o['name'] }}</td>
+                                <td class="py-4 px-6 border-b border-gray-200 truncate">{{ $o['address'] }}</td>
+                                <td class="py-4 px-6 border-b border-gray-200">{{ $o['phone'] }}</td>
                                 <td class="py-4 px-6 border-b border-gray-200">
                                     <span class="bg-green-500 text-white py-1 px-2 rounded-full text-xs">Pedido entregue</span>
                                 </td>
