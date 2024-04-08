@@ -51,7 +51,7 @@
             </a>
         </div>
     </div>
-    <div class="flex flex-wrap justify-center flex-row">
+    <div  class="flex flex-wrap justify-center flex-row">
         @if (count($products) == 0)
           <span class="pt-6 text-gray-600 font-semibold">Oops.. Nenhum produto encontrado... </span>  
         @endif
@@ -116,4 +116,8 @@
             </div>
         @endforeach
     </div>
+    @if ($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
+    <span>{{ $products->links('vendor.pagination.personalized') }}</span>
+    @endif
+
 </div>
