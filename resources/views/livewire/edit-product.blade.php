@@ -1,10 +1,9 @@
 <div>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <x-navbar />
 <form wire:submit='save'>
     <div class="max-w-sm mx-auto mt-20 bg-white rounded-md shadow-md overflow-hidden">
         <div class="px-6 py-4 bg-gray-900 text-white">
-            <h1 class="text-lg font-bold">Cadastar produto</h1>
+            <h1 class="text-lg font-bold">Editando - {{ $product->id }}</h1>
         </div>
         <div class="px-6 py-4">
             <div class="mb-4">
@@ -73,9 +72,6 @@
         </div>
     </div>
 </form>
-
-@livewire('wire-elements-modal')
-@vite('resources/css/app.css')
 
 </div>
 

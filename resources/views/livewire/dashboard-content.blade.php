@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="text-gray-500 text-sm pt-1 flex flex-row justify-items-end">
-                            <span wire:click="$dispatch('openModal', {component: 'updateProduct'}); $dispatch('getProduct', {id: {{ $p->id }}})" class="text-orange-500 text-sm font-semibold pr-4">Editar</span>
+                            <span wire:click.live="$dispatch('openModal', {component: 'EditProduct', id: {{ $p->id }}});" class="text-orange-500 text-sm font-semibold pr-4">Editar</span>
                             <span wire:click='deleteProduct({{ $p->id }})' wire:confirm="Deletar produto ?"
                                 class="text-red-500 text-sm font-semibold pl-4">Apagar</span>
                         </div>
@@ -121,4 +121,5 @@
             </table>
         </div>
     </div>
+    @livewire('wire-elements-modal')
 </div>
