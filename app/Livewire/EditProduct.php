@@ -5,9 +5,11 @@ namespace App\Livewire;
 use App\Models\Product;
 use App\Models\Category;
 use Livewire\WithFileUploads;
-use LivewireUI\Modal\ModalComponent;
-use Livewire\Attributes\On; 
-class EditProduct extends ModalComponent
+use Livewire\Component;
+use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Storage;
+
+class EditProduct extends Component
 {
     use WithFileUploads;
 
@@ -15,21 +17,33 @@ class EditProduct extends ModalComponent
     public $category_id = '';
     public $price = '';
     public $image = '';
-    public $id;
     public $categories;
     public $product;
-    
+    public $productId;
+
+
 
     public function mount()
     {
+        $this->productId = request()->route('id');
+        if (!$this->product = Product::find($this->productId)) {
+            $this->redirectRoute('dashboard');
+        }
+
+        $this->name = $this->product->name;
+        $this->category_id = $this->product->category_id;
+        $this->price = $this->product->price;
         $this->categories = Category::all();
-        $this->product = Product::find($this->id);
     }
-    
-    #[On('category-created')] 
-    public function updateCategories() {
+
+
+    #[On('category-created')]
+    public function updateCategories()
+    {
         $this->categories = Category::all();
     }
+
+
 
     public function update()
     {
@@ -37,21 +51,33 @@ class EditProduct extends ModalComponent
             'name' => 'required',
             'price' => 'required',
             'category_id' => 'required',
-            'image' => 'required|image', 
         ]);
+    
+        $product = Product::findOrFail($this->productId);
+    
+        $product->name = $this->name;
+        $product->price = $this->price;
+        $product->category_id = $this->category_id;
+    
+        if ($this->image) {
+            $this->validate([
+                'image' => 'image',
+            ]);
 
+            $imageName = $this->image->getClientOriginalName();
+            $this->image->storeAs('public/productImages', $imageName);
 
-        $product = Product::create([
-            'name' => $this->name,
-            'price' => $this->price,
-            'category_id' => $this->category_id,
-            'image' => $this->image->getClientOriginalName()
-        ]);
+            if ($product->image && Storage::exists('public/productImages/' . $product->image)) {
+                Storage::delete('public/productImages/' . $product->image);
+            }
 
-        $imageName = $this->image->getClientOriginalName();
-        $this->image->storeAs('public/productImages', $imageName);
+            $product->image = $imageName;
+        }
+        $product->save();
+
         return redirect()->route('dashboard');
     }
+    
 
     public function render()
     {

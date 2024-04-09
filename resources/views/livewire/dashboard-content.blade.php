@@ -21,7 +21,7 @@
                 produtos</span>
             <div class="flex flex-wrap gap-4 p-6 justify-center text-lg">
                 @foreach ($products as $p)
-                    <a href="#"
+                    <div
                         class="bg-gray-100 flex-grow text-black border-l-8 border-gray-500 shadow px-3 py-2 w-full md:w-5/12 lg:w-3/12">
                         <span class="text-gray-700 font-bold">{{ $p->name }}</span>
                         <img width="40px" height="40px" src="storage/productImages/{{ $p->image }}"
@@ -31,12 +31,17 @@
                             <span>Preço: R${{ number_format($p->price, 2, ',', '.') }}</span>
                         </div>
 
-                        <div class="text-gray-500 text-sm pt-1 flex flex-row justify-items-end">
-                            <span wire:click.live="$dispatch('openModal', {component: 'EditProduct', id: {{ $p->id }}});" class="text-orange-500 text-sm font-semibold pr-4">Editar</span>
-                            <span wire:click='deleteProduct({{ $p->id }})' wire:confirm="Deletar produto ?"
-                                class="text-red-500 text-sm font-semibold pl-4">Apagar</span>
+                        <div class="text-gray-500 text-sm pt-1 flex flex-row justify-start">
+                            <div class="mr-4">
+                                <a href="{{ route('edit.product', $p->id) }}"
+                                    class="text-orange-500 text-sm font-semibold">Editar</a>
+                            </div>
+                            <div>
+                                <span wire:click='deleteProduct({{ $p->id }})' wire:confirm="Deletar produto ?"
+                                    class="text-red-500 text-sm font-semibold cursor-pointer">Apagar</span>
+                            </div>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
         @endif
@@ -100,7 +105,8 @@
                                 <td class="py-4 px-6 border-b border-gray-200 truncate">{{ $o['address'] }}</td>
                                 <td class="py-4 px-6 border-b border-gray-200">{{ $o['phone'] }}</td>
                                 <td class="py-4 px-6 border-b border-gray-200">
-                                    <span class="bg-green-500 text-white py-1 px-2 rounded-full text-xs">Pedido entregue</span>
+                                    <span class="bg-green-500 text-white py-1 px-2 rounded-full text-xs">Pedido
+                                        entregue</span>
                                 </td>
                                 <td class="py-4 px-6 border-b border-gray-200">
                                     <button class="bg-blue-500 text-white py-1 px-2 rounded text-xs">Alterar</span>
