@@ -1,9 +1,9 @@
 <div>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<form wire:submit='save'>
+    <x-navbar />
+<form wire:submit='update'>
     <div class="max-w-sm mx-auto mt-20 bg-white rounded-md shadow-md overflow-hidden">
         <div class="px-6 py-4 bg-gray-900 text-white">
-            <h1 class="text-lg font-bold">Editando - {{ $product->id }}</h1>
+            <h1 class="text-lg font-bold">Editando - {{ $product->name }}</h1>
         </div>
         <div class="px-6 py-4">
             <div class="mb-4">
@@ -13,7 +13,8 @@
                 <input
                     class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="name" type="text" placeholder="Açai 500ml"
-                    wire:model="name">
+                    wire:model="name"
+                    >
                     @error('name')
                     <span class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $message }}</span>
                 @enderror
@@ -26,7 +27,8 @@
                 <input
                     class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="price" type="text" placeholder="20,00"
-                    wire:model='price'>
+                    wire:model='price'
+                    >
                     @error('price')
                     <span class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $message }}</span>
                     @enderror
@@ -35,6 +37,11 @@
             @if ($image)
                 <figure class="max-w-lg">
                     <img class="h-auto max-w-full rounded-lg" src="{{ $image->temporaryUrl() }}" alt="image description">
+                    <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Prévia da imagem</figcaption>
+                </figure>
+            @else
+                <figure class="max-w-lg">
+                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('storage/productImages/' . $product->image) }}" alt="image description">
                     <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Prévia da imagem</figcaption>
                 </figure>
             @endif
@@ -72,6 +79,7 @@
         </div>
     </div>
 </form>
-
+@livewire('wire-elements-modal')
+@vite('resources/css/app.css')
 </div>
 

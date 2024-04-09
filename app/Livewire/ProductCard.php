@@ -37,7 +37,8 @@ class ProductCard extends Component
     public $carrinho = [];
     #[On('product-deleted')]
     #[On('product-added')]
-    public function mount(Request $request) {
+    public function mount(Request $request)
+    {
         $products = Product::get()->all();
         foreach ($products as $p) {
             $this->quantities[$p->id] = 1;
@@ -71,32 +72,37 @@ class ProductCard extends Component
     }
 
     #[On('selectedCategory')]
-    public function updateProducts($categoryId) {
+    public function updateProducts($categoryId)
+    {
         $this->filterId = $categoryId;
         $category = Category::find($categoryId);
         $this->nameOfCategoryFiltered = $category ? $category->name : null;
         $this->filteredProducts = Product::with('category')->where('category_id', $categoryId)->get();
     }
 
-    public function removeFilter() {
+    public function removeFilter()
+    {
         $this->filterId = null;
         $this->nameOfCategoryFiltered = null;
         $this->filteredProducts = null;
+
+        $this->redirectRoute('pagina.inicial');
     }
 
     public $totalProducts;
 
-    public function totalProductsInCard() {
+    public function totalProductsInCard()
+    {
         $this->totalProducts = 0;
-        if(isset($this->carrinho)) {
-            if(isset($this->carrinho['acaiPersonalizado'])){
-                foreach($this->carrinho as $item) {
-                    if($item !== $this->carrinho['acaiPersonalizado'] && $item !== []) {
+        if (isset($this->carrinho)) {
+            if (isset($this->carrinho['acaiPersonalizado'])) {
+                foreach ($this->carrinho as $item) {
+                    if ($item !== $this->carrinho['acaiPersonalizado'] && $item !== []) {
                         $this->totalProducts += 1;
                     }
                 }
-            }else {
-                foreach($this->carrinho as $item) {
+            } else {
+                foreach ($this->carrinho as $item) {
                     $this->totalProducts += 1;
                 }
             }
@@ -110,15 +116,14 @@ class ProductCard extends Component
     #[On('decrement')]
     public function render()
     {
-        if($this->filteredProducts) {
+        if ($this->filteredProducts) {
             $products = $this->filteredProducts;
         } else {
             $products = Product::with('category')->where(function ($sub_query) {
                 $sub_query->where('name', 'like', '%' . $this->searchProduct . '%');
             })->paginate(12, pageName: 'products-page');
-        }    
+        }
 
-        // Inicializar as quantidades para cada produto como 1
         foreach ($products as $product) {
             //pega a data, e verifica com a atual, para verificar se o produto é novo.
             $createdAt = Carbon::parse($product->created_at);
@@ -126,7 +131,7 @@ class ProductCard extends Component
                 $this->isNew = true;
             }
         }
-        if(session('carrinho')) {
+        if (session('carrinho')) {
             $carrinho = session('carrinho');
             return view('livewire.product-card', ['products' => $products, 'carrinho' => $carrinho]);
         } else {
