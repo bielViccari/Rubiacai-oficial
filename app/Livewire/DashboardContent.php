@@ -6,8 +6,9 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Livewire\Component;
-use Livewire\Attributes\On; 
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Carbon\Carbon;
 
 class DashboardContent extends Component
 {
@@ -15,14 +16,18 @@ class DashboardContent extends Component
 
     public $search;
     public $searchCategory;
-    public function deleteProduct($id) {
+    public $isNew = false;
+
+    public function deleteProduct($id)
+    {
         $product = Product::find($id);
         $product->delete();
         session()->flash('success', 'produto deletado com sucesso');
         $this->dispatch('deleteProduct');
     }
 
-    public function deleteCategory($id) {
+    public function deleteCategory($id)
+    {
         $category = Category::find($id);
         Product::where('category_id', $id)->delete();
         $category->delete();
@@ -32,24 +37,35 @@ class DashboardContent extends Component
     #[On('deleteProduct')]
     #[On('deleteCategory')]
     public function render()
-    {
-        return view('livewire.dashboard-content', [
-            'products' => Product::where(function($sub_query) {
-                $sub_query->where('name', 'like', '%'.$this->search.'%');
-            })->paginate(15, pageName: 'products-page'),
-            'categories' => Category::where(function($sub_query) {
-                $sub_query->where('name', 'like', '%'.$this->searchCategory.'%');
-            })->paginate(15, pageName: 'categories-page'),
-            'orders' => Order::all()->map(function ($order) {
-                return [
-                    'name' => $order->name,
-                    'payment' => $order->payment,
-                    'phone' => $order->phone,
-                    'address' => $order->address,
-                    'delivery' => $order->delivery,
-                    'itens' => $order->itens,
-                ];
-            }),
-        ]);
+{
+    $orders = Order::orderBy('created_at', 'desc')->get()->all();
+    $newOrders = [];
+    foreach ($orders as $o) {
+        $createdAt = Carbon::parse($o->created_at);
+        $isNew = $createdAt->diffInMinutes(Carbon::now()) <= 10;
+        $newOrders[] = [
+            'name' => $o->name,
+            'payment' => $o->payment,
+            'phone' => $o->phone,
+            'address' => $o->address,
+            'delivery' => $o->delivery,
+            'itens' => $o->itens,
+            'created_at' => $o->created_at,
+            'isNew' => $isNew
+        ];
     }
+    
+
+    return view('livewire.dashboard-content', [
+        'isNew' => $this->isNew, // Passa isNew para a visualização
+        'products' => Product::where(function ($sub_query) {
+            $sub_query->where('name', 'like', '%' . $this->search . '%');
+        })->paginate(15, pageName: 'products-page'),
+        'categories' => Category::where(function ($sub_query) {
+            $sub_query->where('name', 'like', '%' . $this->searchCategory . '%');
+        })->paginate(15, pageName: 'categories-page'),
+        'orders' => $newOrders,
+    ]);
+}
+
 }

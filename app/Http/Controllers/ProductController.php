@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function indexPage() {
-        $products = Product::get()->all();
-        return view('site/userPages/main', compact('products'));
+        return view('site/userPages/main');
     }
 
     public function dashboard() {
