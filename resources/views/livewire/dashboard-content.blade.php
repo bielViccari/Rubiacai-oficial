@@ -100,13 +100,12 @@
                 <tbody class="bg-white">
                     @if ($orders)
                         @foreach ($orders as $o)
-                            <tr>
+                            <tr class="{{ $o['isNew'] != false ? 'bg-green-200' : '' }}">
                                 <td class="py-4 px-6 border-b border-gray-200">{{ $o['name'] }}</td>
                                 <td class="py-4 px-6 border-b border-gray-200 truncate">{{ $o['address'] }}</td>
                                 <td class="py-4 px-6 border-b border-gray-200">{{ $o['phone'] }}</td>
                                 <td class="py-4 px-6 border-b border-gray-200">
-                                    <span class="bg-green-500 text-white py-1 px-2 rounded-full text-xs">Pedido
-                                        entregue</span>
+                                    <span class="bg-green-500 text-white py-1 px-2 rounded-full text-xs">Pedido Entregue</span>
                                 </td>
                                 <td class="py-4 px-6 border-b border-gray-200">
                                     <button class="bg-blue-500 text-white py-1 px-2 rounded text-xs">Alterar</span>

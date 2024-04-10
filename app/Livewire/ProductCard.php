@@ -78,6 +78,7 @@ class ProductCard extends Component
         $category = Category::find($categoryId);
         $this->nameOfCategoryFiltered = $category ? $category->name : null;
         $this->filteredProducts = Product::with('category')->where('category_id', $categoryId)->get();
+        $this->resetPage();
     }
 
     public function removeFilter()
@@ -86,7 +87,6 @@ class ProductCard extends Component
         $this->nameOfCategoryFiltered = null;
         $this->filteredProducts = null;
 
-        $this->redirectRoute('pagina.inicial');
     }
 
     public $totalProducts;
@@ -121,7 +121,7 @@ class ProductCard extends Component
         } else {
             $products = Product::with('category')->where(function ($sub_query) {
                 $sub_query->where('name', 'like', '%' . $this->searchProduct . '%');
-            })->paginate(12, pageName: 'products-page');
+            })->paginate(12, pageName: 'products');
         }
 
         foreach ($products as $product) {
