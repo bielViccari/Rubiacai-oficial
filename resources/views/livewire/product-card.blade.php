@@ -1,4 +1,4 @@
-<div wire:poll>
+<div>
     <div class="flex justify-center items-center">
         <h3 class="pb-4 font-semibold text-2xl text-gray-600">Veja os produtos</h3>
     </div>
