@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('payment');
             $table->string('phone');
             $table->string('address');
-            $table->string('delivery');
+            $table->enum('status', ['d', 'i', 'n']); //d - delivered, i- in proccess, n - not delivered
             $table->double('precoTotal');
             $table->json('itens')->nullable();
             $table->timestamps();
