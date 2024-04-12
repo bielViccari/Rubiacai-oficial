@@ -24,7 +24,6 @@ class Invoice extends ModalComponent
     #[Validate('required', message: 'Insira seu indereço para entrega.')]
     public $address;
     #[Validate('required', message: 'Selecione o método de entrega.')]
-    public $delivery;
 
     public $valorEntrega = 1;
 
@@ -35,7 +34,7 @@ class Invoice extends ModalComponent
             'payment' => $this->payment,
             'phone' => $this->phone,
             'address' => $this->address,
-            'delivery' => $this->delivery,
+            'status' => 'n',
             'precoTotal' => $this->precoTotal,
             'itens' => $this->carrinho,
         ]);

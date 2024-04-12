@@ -17,6 +17,19 @@ class DashboardContent extends Component
     public $search;
     public $searchCategory;
     public $isNew = false;
+    public $modal = false;
+
+    public Order $selectedOrder;
+
+    public function toggleModal()
+    {
+        $this->modal = !$this->modal;
+    }
+
+    public function viewOrder($id) {
+        $this->selectedOrder = Order::find($id);
+        $this->toggleModal();
+    }
 
     public function deleteProduct($id)
     {
@@ -44,11 +57,14 @@ class DashboardContent extends Component
         $createdAt = Carbon::parse($o->created_at);
         $isNew = $createdAt->diffInMinutes(Carbon::now()) <= 10;
         $newOrders[] = [
+            'id' => $o->id,
             'name' => $o->name,
             'payment' => $o->payment,
             'phone' => $o->phone,
             'address' => $o->address,
             'delivery' => $o->delivery,
+            'price' => $o->precoTotal,
+            'status' => $o->status,
             'itens' => $o->itens,
             'created_at' => $o->created_at,
             'isNew' => $isNew
