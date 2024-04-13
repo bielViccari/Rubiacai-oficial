@@ -1,4 +1,16 @@
 <div class="p-4 sm:ml-64 flex justify-center items-center bg-gray-200 flex-col">
+    @if (session('success'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: '{{ Session('success') }}',
+            showConfirmButton: false,
+            timer: 1000
+        });
+    </script>
+@endif
     <h1 class="text-center font-bold text-gray-600 mb-2 uppercase">Tabela de pedidos</h1>
     <table class="min-w-full divide-y divide-gray-200">
         <thead>
@@ -31,7 +43,9 @@
                             wire:click="viewOrder({{ $o['id'] }})"
                                 class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Ver</button>
                             <button
-                                class="ml-2 px-4 py-2 font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 focus:outline-none focus:shadow-outline-orange active:bg-orange-600 transition duration-150 ease-in-out">Editar</button>
+                            wire:click="deleteOrder({{ $o['id'] }})"
+                            wire:confirm="Tem certeza que deseja excluir este pedido?"
+                                class="ml-2 px-4 py-2 font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 focus:outline-none focus:shadow-outline-orange active:bg-orange-600 transition duration-150 ease-in-out">Excluir</button>
                         </td>
                     </tr>
                 @endforeach

@@ -20,7 +20,17 @@
         <livewire:categories-slide />
         <livewire:product-card />
     </div>
-
+    @if (Session::has('success'))
+        <script>
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: '{{ Session::get('success') }}',
+                showConfirmButton: false,
+                timer: 4000
+            });
+        </script>
+    @endif
     <x-footer />
 </body>
 </html>

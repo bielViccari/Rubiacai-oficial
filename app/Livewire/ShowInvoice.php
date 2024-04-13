@@ -30,6 +30,10 @@ class ShowInvoice extends Component
         $pedido = Order::find($this->order->id);
         $pedido->status = $this->status;
         $pedido->save();
+
+        session()->flash('success', 'Status do pedido alterado com sucesso');
+ 
+        $this->redirectRoute('dashboard');
     }
 
     public function prices()
