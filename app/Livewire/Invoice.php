@@ -40,7 +40,8 @@ class Invoice extends ModalComponent
         ]);
         
         $request->session()->forget('carrinho');
-        return redirect()->route('pagina.inicial');
+        session()->flash('success', 'Pedido realizado com sucesso! Aguarde a mensagem no whatsapp para confirmação');
+        $this->redirectRoute('pagina.inicial');
     }
 
     #[On('product-added')]

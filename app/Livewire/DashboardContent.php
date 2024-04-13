@@ -31,6 +31,12 @@ class DashboardContent extends Component
         $this->toggleModal();
     }
 
+    public function deleteOrder($id)
+    {
+        $order = Order::find($id);
+        $order->delete();
+        session()->flash('success', 'Pedido excluido com sucesso');
+    }
     public function deleteProduct($id)
     {
         $product = Product::find($id);
