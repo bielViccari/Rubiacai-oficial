@@ -17,6 +17,7 @@ class MakeAçaiPersonalized extends ModalComponent
     public $categories;
     public $fruits;
     public $aditionals;
+    public $successMessage;
     public function increment($categoryId)
     {
         $this->quantities[$categoryId]++;
@@ -114,7 +115,7 @@ class MakeAçaiPersonalized extends ModalComponent
     $carrinho['acaiPersonalizado'][] = $acaiPersonalized;
     $request->session()->put('carrinho', $carrinho);
     $this->dispatch('product-added');
-    return redirect()->route('pagina.inicial')->with('success', 'Açai personalizado adicionado com sucesso!');
+    $this->successMessage = 'Produto adicionado ao carrinho';
 }
 
     public function decrement($categoryId)

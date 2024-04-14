@@ -20,6 +20,7 @@ class ProductCard extends Component
     public $filteredProducts;
     public $filterId;
     public $nameOfCategoryFiltered;
+    public $successMessage;
     public function increment($productId)
     {
         $this->quantities[$productId]++;
@@ -68,6 +69,7 @@ class ProductCard extends Component
 
         $request->session()->put('carrinho', $carrinho);
         $this->dispatch('product-added');
+        $this->successMessage = 'Produto adicionado ao carrinho';
         return response()->json(['carrinho' => $carrinho]);
     }
 

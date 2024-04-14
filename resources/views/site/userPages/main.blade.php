@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rubiaçai</title>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @vite(['resources/css/app.css', 'resources/js/category-slide.js', 'resources/js/show-navbar.js'])
 @livewire('wire-elements-modal')
 <body class="bg-gray-200">
@@ -20,17 +21,7 @@
         <livewire:categories-slide />
         <livewire:product-card />
     </div>
-    @if (Session::has('success'))
-        <script>
-            Swal.fire({
-                position: 'top',
-                icon: 'success',
-                title: '{{ Session::get('success') }}',
-                showConfirmButton: false,
-                timer: 4000
-            });
-        </script>
-    @endif
+
     <x-footer />
 </body>
 </html>

@@ -12,7 +12,7 @@ class Cart extends ModalComponent
     public $carrinho = [];
     public $precoTotal = 0;
     public $valorUnitarioAcaiPersonalizado = [];
-
+    public $successMessage;
     public static function modalMaxWidth(): string
     {
         return '7xl';
@@ -30,7 +30,10 @@ class Cart extends ModalComponent
                 $this->valorUnitarioAcaiPersonalizado[$index] = $acai['precoTotal'];
             }
         }
+        if ($this->successMessage) {
+            $this->successMessage = null;
         }
+    }
 
     public function removeProduct($id, Request $request)
     {
@@ -38,8 +41,9 @@ class Cart extends ModalComponent
         unset($removeProduct[$id]);
         $request->session()->put('carrinho', $removeProduct);
         $this->dispatch('product-deleted');
-        session()->flash('sucess', 'Produto removido com sucesso');
+        $this->successMessage = 'Produto removido';
         return response()->json(['carrinho' => $removeProduct]);
+  
     }
 
     private function calcularPrecoTotal()
@@ -69,7 +73,7 @@ class Cart extends ModalComponent
     unset($removeAcai['acaiPersonalizado'][$index]);
     $request->session()->put('carrinho', $removeAcai);
     $this->dispatch('product-deleted');
-    session()->flash('success', 'Açai montado, removido com sucesso');
+    $this->successMessage = 'Produto removido';
     return response()->json(['carrinho' => $removeAcai]);
 }
 
