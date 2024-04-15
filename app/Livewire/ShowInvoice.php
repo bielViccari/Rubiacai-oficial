@@ -11,29 +11,41 @@ use Livewire\Component;
 class ShowInvoice extends Component
 {
 
-        public $order;
-        public $priceOfSize = [];
-        public $unityPrice = [];
-        public $precoTotal;
-        public $valorEntrega;
-        public $status;
-    
+    public $order;
+    public $priceOfSize = [];
+    public $unityPrice = [];
+    public $precoTotal;
+    public $valorEntrega;
+    public $status;
+    public $phoneNumber;
     public function mount()
     {
         $this->prices();
+        $this->formatNumber();
     }
-  
-    public function update() {
+
+    public function update()
+    {
         $validatedData = $this->validate([
-            'status' => 'required', 
+            'status' => 'required',
         ]);
         $pedido = Order::find($this->order->id);
         $pedido->status = $this->status;
         $pedido->save();
 
         session()->flash('success', 'Status do pedido alterado com sucesso');
- 
+
         $this->redirectRoute('dashboard');
+    }
+
+    public function formatNumber()
+    {
+        $codigo_area = substr($this->order->phone, 0, 2);
+
+        $parte1 = substr($this->order->phone, 2, 5);
+        $parte2 = substr($this->order->phone, 7);
+
+        $this->phoneNumber = "($codigo_area) $parte1-$parte2";
     }
 
     public function prices()

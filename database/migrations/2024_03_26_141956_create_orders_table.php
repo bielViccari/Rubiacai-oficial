@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('payment');
+            $table->string('delivery');
             $table->string('phone');
             $table->string('address');
             $table->enum('status', ['d', 'i', 'n']); //d - delivered, i- in proccess, n - not delivered

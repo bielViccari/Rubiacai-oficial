@@ -4,8 +4,14 @@
             <div class="text-gray-700">
                 <div class="font-bold text-xl mb-2">Pedido - {{ $order->name }}</div>
                 <div class="text-sm">Data: {{ $order->created_at }}</div>
-                <div class="text-sm">Numero do pedido #: INV12345</div>
-
+                <div class="text-sm">Forma de pagamento:
+                    {{ $order->payment == 'card' ? 'Cartão' : ($order->payment == 'money' ? 'Dinheiro' : 'Pix') }}</div>
+                <div class="text-sm">Forma de retirada:
+                    {{ $order->delivery == 'takeaway' ? 'Retirar na loja' : 'Entregar no endereço' }}</div>
+                @if ($order->delivery == 'delivery')
+                    <div class="text-sm">Endereço de entrega: {{ $order->address }}</div>
+                @endif
+                <div class="text-sm">Telefone para contato: <a target="_blank" class="text-blue-500" href="https://api.whatsapp.com/send?phone={{ $order->phone }}">{{ $phoneNumber }}</a></div>
             </div>
 
         </div>
@@ -13,7 +19,8 @@
             <h1
                 class="block mb-2 justify-center text-center text-lg font-medium text-gray-900 dark:text-white uppercase">
                 Alterar Status do Pedido</h1>
-            <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione o status
+            <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione o
+                status
                 do pedido</label>
             <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Atual: <span
                     class="{{ $order->status === 'd' ? 'text-green-500' : ($order->status === 'i' ? 'text-yellow-500' : 'text-red-500') }}">{{ $order->status === 'd' ? 'Entregue' : ($order->status === 'i' ? 'Em Processo' : 'Não Entregue') }}</span></span>
@@ -59,18 +66,12 @@
                         <tr>
                             <td class="py-4 text-gray-700">{{ $acai['tamanho'] }}</td>
                             <td class="py-4 text-gray-700">{{ $acai['quantidade'] }}</td>
-                            <td class="py-4 text-gray-700">R$ {{ number_format($unityPrice[$index], 2, ',', '.') }}</td>
+                            <td class="py-4 text-gray-700">R$ {{ number_format($unityPrice[$index], 2, ',', '.') }}
+                            </td>
                             <td class="py-4 text-gray-700">R$
                                 {{ isset($priceOfSize) ? number_format($priceOfSize[$index], 2, ',', '.') : 0 }}</td>
                         </tr>
-                        <tr class="">
-                            <td class="pb-12">Observação: {{ $acai['observacao'] != null ? $acai['observacao'] : '' }}
-                            </td>
-                        </tr>
                         @if (isset($acai['frutas']))
-                            <tr>
-                                <td class="text-gray-700 border-b border-gray-300">Frutas</td>
-                            </tr>
                             @foreach ($acai['frutas'] as $index => $fruta)
                                 <tr>
                                     <td class="py-4 text-gray-700">{{ $fruta['name'] }}</td>
@@ -85,9 +86,6 @@
                         @endif
 
                         @if (isset($acai['adicionais']))
-                            <tr>
-                                <td class="text-gray-700 border-b border-gray-300">Adicionais</td>
-                            </tr>
                             @foreach ($acai['adicionais'] as $index => $adicionais)
                                 <tr>
                                     <td class="py-4 text-gray-700">{{ $adicionais['name'] }}</td>
@@ -100,6 +98,11 @@
                                 </tr>
                             @endforeach
                         @endif
+                        <tr class="">
+                            <td>Observação: {{ $acai['observacao'] != null ? $acai['observacao'] : '' }}
+                            </td>
+                            <hr>
+                        </tr>
                     @endforeach
                 @endif
 
