@@ -35,6 +35,10 @@ class Cart extends ModalComponent
         }
     }
 
+    #[On('ordered')]
+    public function fresh() {
+        $this->closeModal();
+    }
     public function removeProduct($id, Request $request)
     {
         $removeProduct = $request->session()->get('carrinho');

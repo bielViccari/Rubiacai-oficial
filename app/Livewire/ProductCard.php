@@ -37,7 +37,8 @@ class ProductCard extends Component
 
     public $carrinho = [];
     #[On('product-deleted')]
-    #[On('product-added')]
+    #[On('product-added')]   
+    #[On('ordered')]
     public function mount(Request $request)
     {
         $products = Product::get()->all();
