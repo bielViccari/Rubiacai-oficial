@@ -17,9 +17,9 @@ class DashboardContent extends Component
     public $search;
     public $searchCategory;
     public $isNew = false;
-    public $modal = false;
-
+    public $modal = false;  
     public Order $selectedOrder;
+
 
     public function toggleModal()
     {
@@ -27,7 +27,8 @@ class DashboardContent extends Component
     }
 
     public function viewOrder($id) {
-        $this->selectedOrder = Order::find($id);
+        $order = Order::find($id);
+        $this->selectedOrder = $order;
         $this->toggleModal();
     }
 
