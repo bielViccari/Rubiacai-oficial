@@ -5,6 +5,7 @@ namespace App\Livewire;
 
 use App\Models\Order;
 use App\Models\Product;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 
@@ -18,12 +19,13 @@ class ShowInvoice extends Component
     public $valorEntrega;
     public $status;
     public $phoneNumber;
+
     public function mount()
     {
         $this->prices();
         $this->formatNumber();
     }
-
+    public $successMessage;
     public function update()
     {
         $validatedData = $this->validate([
@@ -33,9 +35,8 @@ class ShowInvoice extends Component
         $pedido->status = $this->status;
         $pedido->save();
 
-        session()->flash('success', 'Status do pedido alterado com sucesso');
-
-        $this->redirectRoute('dashboard');
+        $this->successMessage = 'Status do pedido alterado com sucesso!';
+        $this->dispatch('statusChanged');
     }
 
     public function formatNumber()
@@ -80,10 +81,9 @@ class ShowInvoice extends Component
         $this->valorEntrega = 1;
     }
 
+
     public function render()
     {
-        return view('livewire.show-invoice', [
-            'order' => $this->order,
-        ]);
+        return view('livewire.show-invoice');
     }
 }
