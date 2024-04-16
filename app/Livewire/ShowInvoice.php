@@ -81,7 +81,7 @@ class ShowInvoice extends Component
         $this->valorEntrega = 1;
     }
 
-
+    #[On('statusChanged')]
     public function render()
     {
         return view('livewire.show-invoice');

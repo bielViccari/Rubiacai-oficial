@@ -56,6 +56,7 @@ class DashboardContent extends Component
 
     #[On('deleteProduct')]
     #[On('deleteCategory')]
+    #[On('statusChanged')]
     public function render()
 {
     $orders = Order::orderBy('created_at', 'desc')->get()->all();
