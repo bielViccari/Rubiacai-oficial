@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\System;
 use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,12 +36,18 @@ class ProductCard extends Component
         }
     }
 
+    public $system;
     public $carrinho = [];
     #[On('product-deleted')]
     #[On('product-added')]   
     #[On('ordered')]
     public function mount(Request $request)
     {
+        $systemIsWorking = System::find(1);
+        if($systemIsWorking->status == 1) {
+            $this->system = $systemIsWorking;
+        }
+
         $products = Product::get()->all();
         foreach ($products as $p) {
             $this->quantities[$p->id] = 1;

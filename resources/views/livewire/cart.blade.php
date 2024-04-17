@@ -16,6 +16,11 @@
                         </script>
                     @endscript
                 @endif
+                @if ($closed == true)
+                <span
+                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Não
+                    estamos aceitando pedido, abrimos de Terça-feira à Domingo das 15:00 às 21:00</span>
+            @endif
             </div>
 
             <div class="mx-auto mt-8 max-w-md md:mt-12">
@@ -120,7 +125,11 @@
 
                                 @endif
                                 @if (!$carrinho)
-                                    <h1>Nenhum produto adicionado ao carrinho</h1>
+                                <div class="flex flex-col justify-center items-center">
+
+                                    <img class="w-full h-full" src="images/empty-cart.png" alt="" srcset="">
+                                    <span wire:click="$dispatch('closeModal')" class="cursor-pointer text-sm font-semibold text-gray-700 uppercase">Procurar produtos...</span>
+                                </div>
                                 @endif
                             </ul>
                         </div>
@@ -145,16 +154,32 @@
                                 </p>
                             </div>
                             <div class="mt-6 text-center flex flex-col">
-                                <button type="button" wire:click="$dispatch('openModal', {component: 'invoice'})"
-                                    class="group inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-purple-800">
+                                @if ($closed == true || $system->status == 1)
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Não
+                                        estamos aceitando pedido</span>
+                                    <button type="button" disabled
+                                    class="group inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-6 py-4 text-lg font-semibold text-white">
                                     Gerar pedido
                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none"
+                                        class=" ml-4 h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                     </svg>
                                 </button>
+                                @else   
+                                    <button type="button" wire:click="$dispatch('openModal', {component: 'invoice'})"
+                                        class="group inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-purple-800">
+                                        Gerar pedido
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </button>
+                                @endif
                                 <span class="text-gray-400 text-sm pt-2">ou</span>
                                 <a wire:click="$dispatch('closeModal')"
                                     class=" text-gray-600 cursor-pointer font-bold text-sm py-2 px-4 rounded">Continuar
