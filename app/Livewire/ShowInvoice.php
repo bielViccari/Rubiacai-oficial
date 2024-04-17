@@ -29,7 +29,7 @@ class ShowInvoice extends Component
     public function update()
     {
         $validatedData = $this->validate([
-            'status' => 'required',
+            'status' => 'required|min:1',
         ]);
         $pedido = Order::find($this->order->id);
         $pedido->status = $this->status;

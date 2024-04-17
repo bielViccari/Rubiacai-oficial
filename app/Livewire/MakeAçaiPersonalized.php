@@ -87,68 +87,72 @@ class MakeAçaiPersonalized extends ModalComponent
 
     #[Validate('required', message: 'Selecione o tamanho.')]
     public $size;
-    #[Validate('required', message: 'Selecione a quantidade.')]
+    #[Validate('required', 'min:1', message: 'Selecione a quantidade.')]
     public $quantity;
     public $observation;
     public $errorMessage;
 
     public function addToCart(Request $request)
     {
-        if ($this->closed == true) {
-            $this->errorMessage = 'Atendemos de Terça-feira à Domingo das 15:00 às 21:00';
-        }
+        $system = System::find(1);
 
-        if ($system = System::find(1)) {
+        if ($this->closed == true && $system->status == 1) {
+            if($this->closed == true) {
+                $this->errorMessage = 'Atendemos de Terça-feira à Domingo das 15:00 às 21:00';
+            }
+
             if ($system->status == 1) {
                 $this->errorMessage = $system->message;
             }
-        }
-        $this->validate();
-        $acaiPersonalized = [
-            'frutas' => [],
-            'frutas_quantidade' => [],
-            'adicionais' => [],
-            'adicionais_quantidade' => [],
-            'tamanho' => $this->size,
-            'quantidade' => $this->quantity,
-            'observacao' => $this->observation,
-            'precoTotal' => 0,
-        ];
+        } else {
 
-        $precoFrutas = 0;
-        if (isset($this->fruits)) {
-            foreach ($this->fruits as $fruit) {
-                if ($this->quantities[$fruit->id] > 0) {
-                    $acaiPersonalized['frutas'][] = $fruit;
-                    $acaiPersonalized['frutas_quantidade'][] = $this->quantities[$fruit->id];
-                    $precoFrutas += $fruit->price * $this->quantities[$fruit->id];
+            $this->validate();
+            $acaiPersonalized = [
+                'frutas' => [],
+                'frutas_quantidade' => [],
+                'adicionais' => [],
+                'adicionais_quantidade' => [],
+                'tamanho' => $this->size,
+                'quantidade' => $this->quantity,
+                'observacao' => $this->observation,
+                'precoTotal' => 0,
+            ];
+    
+            $precoFrutas = 0;
+            if (isset($this->fruits)) {
+                foreach ($this->fruits as $fruit) {
+                    if ($this->quantities[$fruit->id] > 0) {
+                        $acaiPersonalized['frutas'][] = $fruit;
+                        $acaiPersonalized['frutas_quantidade'][] = $this->quantities[$fruit->id];
+                        $precoFrutas += $fruit->price * $this->quantities[$fruit->id];
+                    }
                 }
             }
-        }
-
-        $precoAditionals = 0;
-        if (isset($this->aditionals)) {
-            foreach ($this->aditionals as $additional) {
-                if ($this->quantities[$additional->id] > 0) {
-                    $acaiPersonalized['adicionais'][] = $additional;
-                    $acaiPersonalized['adicionais_quantidade'][] = $this->quantities[$additional->id];
-                    $precoAditionals += $additional->price * $this->quantities[$additional->id];
+    
+            $precoAditionals = 0;
+            if (isset($this->aditionals)) {
+                foreach ($this->aditionals as $additional) {
+                    if ($this->quantities[$additional->id] > 0) {
+                        $acaiPersonalized['adicionais'][] = $additional;
+                        $acaiPersonalized['adicionais_quantidade'][] = $this->quantities[$additional->id];
+                        $precoAditionals += $additional->price * $this->quantities[$additional->id];
+                    }
                 }
             }
+            if ($this->size != '') {
+    
+                $product = Product::where('name', $this->size)->first();
+                $sizeValue = $product->price;
+                $acaiPersonalized['precoTotal'] = $precoAditionals + $precoFrutas + ($this->quantity * $sizeValue);
+            }
+    
+            $carrinho = $request->session()->get('carrinho', []);
+            $carrinho['acaiPersonalizado'][] = $acaiPersonalized;
+            $request->session()->put('carrinho', $carrinho);
+            $this->dispatch('product-added');
+            $this->successMessage = 'Produto adicionado ao carrinho';
+            $this->closeModal();
         }
-        if ($this->size != '') {
-
-            $product = Product::where('name', $this->size)->first();
-            $sizeValue = $product->price;
-            $acaiPersonalized['precoTotal'] = $precoAditionals + $precoFrutas + ($this->quantity * $sizeValue);
-        }
-
-        $carrinho = $request->session()->get('carrinho', []);
-        $carrinho['acaiPersonalizado'][] = $acaiPersonalized;
-        $request->session()->put('carrinho', $carrinho);
-        $this->dispatch('product-added');
-        $this->successMessage = 'Produto adicionado ao carrinho';
-        $this->closeModal();
     }
 
     public function decrement($categoryId)

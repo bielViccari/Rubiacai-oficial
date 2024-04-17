@@ -36,7 +36,7 @@ class CreateProduct extends Component
         $validatedData = $this->validate([
             'name' => 'required',
             'price' => 'required',
-            'category_id' => 'required',
+            'category_id' => 'required|min:1',
             'image' => 'required|image', 
         ]);
 

@@ -40,7 +40,7 @@
             @if ($errors->has('status'))
                 <select id="status" wire:model='status'
                     class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
-                    <option>Escolher</option>
+                    <option value="">Escolher</option>
                     <option value="d">Entregue</option>
                     <option value="i">Em processo</option>
                     <option value="n">Não entregue</option>

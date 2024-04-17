@@ -83,7 +83,7 @@
                             class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">quantidade</label>
                         <select id="category" wire:model='quantity'
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500">
-                            <option selected="">Selecionar quantidade</option>
+                            <option selected>Selecionar quantidade</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -96,7 +96,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">quantidade</label>
                         <select id="category" wire:model='quantity'
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected="">Selecionar quantidade</option>
+                            <option value="">Selecionar quantidade</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
