@@ -1,4 +1,17 @@
 <div>
+    @if ($successMessage != null)
+    @script
+        <script>
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: '{{ $successMessage }}',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        </script>
+    @endscript
+@endif
     <div class="bg-white rounded-lg shadow-lg px-8 py-10 max-w-xl mx-auto">
         <div class="flex items-center justify-between mb-8">
             <div class="text-gray-700">

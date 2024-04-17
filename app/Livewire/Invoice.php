@@ -14,6 +14,7 @@ class Invoice extends ModalComponent
 {
     public $carrinho;
     public $dataAtual;
+    public $successMessage;
 
     #[Validate('required', message: 'Insira um método de pagamento.')]
     public $payment;
@@ -25,7 +26,6 @@ class Invoice extends ModalComponent
     public $address;
     #[Validate('required', message: 'Selecione o método de entrega.')]
     public $delivery;
-
     public $valorEntrega = 1;
 
     public function save(Request $request) {
@@ -35,13 +35,16 @@ class Invoice extends ModalComponent
             'payment' => $this->payment,
             'phone' => $this->phone,
             'address' => $this->address,
+            'status' => 'n',
             'delivery' => $this->delivery,
             'precoTotal' => $this->precoTotal,
             'itens' => $this->carrinho,
         ]);
         
         $request->session()->forget('carrinho');
-        return redirect()->route('pagina.inicial');
+        $this->dispatch('ordered');
+        $this->successMessage = 'Pedido realizado com sucesso! Aguarde a mensagem no whatsapp para confirmação';
+        $this->closeModal();
     }
 
     #[On('product-added')]

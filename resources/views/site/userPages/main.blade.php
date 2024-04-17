@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rubiaçai</title>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @vite(['resources/css/app.css', 'resources/js/category-slide.js', 'resources/js/show-navbar.js'])
 @livewire('wire-elements-modal')
 <body class="bg-gray-200">

@@ -1,4 +1,28 @@
 <div>
+    @if($successMessage != null)
+                    @script
+                        <script>
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: '{{ $successMessage }}',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        </script>
+                    @endscript
+    @endif
+    @if ($system)
+        @script
+        <script>
+                Swal.fire({
+    title: "Não estamos recebendo pedidos",
+    text: "{{ $system->message }}",
+    icon: "warning"
+    });
+        </script>
+        @endscript
+    @endif
     <div class="flex justify-center items-center">
         <h3 class="pb-4 font-semibold text-2xl text-gray-600">Veja os produtos</h3>
     </div>
@@ -15,7 +39,7 @@
             </svg>
         </div>
     </div>
-    <div class="flex justify-between px-14">
+    <div id="card" class="flex justify-between px-14">
         <div id="montarAçai">
             <button type="button" wire:click="$dispatch('openModal', {component: 'makeAçaiPersonalized'})"
                 class="rounded-md bg-purple-500 px-3.5 py-2.5 mt-5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Montar
@@ -32,7 +56,7 @@
               
             @endif
         </span>
-        <div class="py-2">
+        <div  class="py-2">
             <a wire:click="$dispatch('openModal', { component: 'cart' })"
                 class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
                 <span class="mt-3">Meu carrinho</span>
@@ -51,7 +75,7 @@
             </a>
         </div>
     </div>
-    <div  class="flex flex-wrap justify-center flex-row">
+    <div class="flex flex-wrap justify-center flex-row">
         @if (count($products) == 0)
           <span class="pt-6 text-gray-600 font-semibold">Oops.. Nenhum produto encontrado... </span>  
         @endif
@@ -116,8 +140,10 @@
             </div>
         @endforeach
     </div>
+<div class="p-12">
     @if ($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
-    <span>{{ $products->links('vendor.pagination.personalized') }}</span>
+    <span>{{ $products->links( data: ['scrollTo' => '#card']) }}</span>
     @endif
+</div>
 
 </div>

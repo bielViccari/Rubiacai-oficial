@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\System;
+use Carbon\Carbon;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Http\Request;
 use Livewire\Attributes\On;
@@ -12,12 +14,14 @@ class Cart extends ModalComponent
     public $carrinho = [];
     public $precoTotal = 0;
     public $valorUnitarioAcaiPersonalizado = [];
-
+    public $successMessage;
+    public $errorMessage;
     public static function modalMaxWidth(): string
     {
         return '7xl';
     }
 
+    public $closed;
     #[On('product-added')]
     #[On('product-deleted')]
     public function mount(Request $request)
@@ -30,16 +34,44 @@ class Cart extends ModalComponent
                 $this->valorUnitarioAcaiPersonalizado[$index] = $acai['precoTotal'];
             }
         }
+        if ($this->successMessage) {
+            $this->successMessage = null;
+        }
+        $this->checkIsOpen();
+    }
+
+    #[On('ordered')]
+    public function fresh()
+    {
+        $this->closeModal();
+    }
+
+    public $system;
+    public function checkIsOpen()
+    {
+        $currentTime = Carbon::now();
+        $startLimit = Carbon::parse('15:00:00');
+        $endLimit = Carbon::parse('21:00:00');
+
+        if ($currentTime->between($startLimit, $endLimit) && !$currentTime->isMonday()) {
+            $this->closed = false;
+        } else {
+            $this->closed = true;
         }
 
+        if ($system = System::find(1)) {
+            $this->system = $system;
+        }
+    }
     public function removeProduct($id, Request $request)
     {
         $removeProduct = $request->session()->get('carrinho');
         unset($removeProduct[$id]);
         $request->session()->put('carrinho', $removeProduct);
         $this->dispatch('product-deleted');
-        session()->flash('sucess', 'Produto removido com sucesso');
+        $this->successMessage = 'Produto removido';
         return response()->json(['carrinho' => $removeProduct]);
+
     }
 
     private function calcularPrecoTotal()
@@ -55,8 +87,8 @@ class Cart extends ModalComponent
                     $this->precoTotal += $precoItem * $quantidadeItem;
                 }
             }
-            if(isset($this->carrinho['acaiPersonalizado'])) {
-                foreach($this->carrinho['acaiPersonalizado'] as $a) {
+            if (isset($this->carrinho['acaiPersonalizado'])) {
+                foreach ($this->carrinho['acaiPersonalizado'] as $a) {
                     $this->precoTotal += $a['precoTotal'];
                 }
             }
@@ -64,14 +96,14 @@ class Cart extends ModalComponent
     }
 
     public function removeAcaiPersonalizado($index, Request $request)
-{
-    $removeAcai = $request->session()->get('carrinho');
-    unset($removeAcai['acaiPersonalizado'][$index]);
-    $request->session()->put('carrinho', $removeAcai);
-    $this->dispatch('product-deleted');
-    session()->flash('success', 'Açai montado, removido com sucesso');
-    return response()->json(['carrinho' => $removeAcai]);
-}
+    {
+        $removeAcai = $request->session()->get('carrinho');
+        unset($removeAcai['acaiPersonalizado'][$index]);
+        $request->session()->put('carrinho', $removeAcai);
+        $this->dispatch('product-deleted');
+        $this->successMessage = 'Produto removido';
+        return response()->json(['carrinho' => $removeAcai]);
+    }
 
 
     public function render()
