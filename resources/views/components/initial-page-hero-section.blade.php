@@ -20,10 +20,16 @@
                      da maneira mais saborosa que somente o rubiaçai pode fornecer</p>
                  <div class="mt-10 flex items-center justify-center gap-x-6">
                      <div>
-                         <button wire:click="$dispatch('openModal', {component: 'MakeAçaiPersonalized'})"
+                         <button id="openModalButton"
                              class="rounded-md bg-purple-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                              <a href="#montarAçai">Montar Açai</a>
                             </button>
+
+                            <script>
+                                document.getElementById('openModalButton').addEventListener('click', function() {
+                                    Livewire.dispatch('openModal', { component: 'MakeAçaiPersonalized' });
+                                });
+                            </script>
                      </div>
                      <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Procurar produtos
                          <span aria-hidden="true">→</span></a>
