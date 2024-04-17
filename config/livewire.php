@@ -156,7 +156,4 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
-
-    'asset_url' => 'https://rubiacai-oficial-production.up.railway.app/public',
-
 ];
