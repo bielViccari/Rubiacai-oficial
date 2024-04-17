@@ -7,6 +7,9 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/js/category-slide.js',
+                'resources/js/show-navbar.js',
+                'resources/js/show-sidebar.js'
             ],
             refresh: true,
         }),

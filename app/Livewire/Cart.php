@@ -41,12 +41,14 @@ class Cart extends ModalComponent
     }
 
     #[On('ordered')]
-    public function fresh() {
+    public function fresh()
+    {
         $this->closeModal();
     }
 
     public $system;
-    public function checkIsOpen() {
+    public function checkIsOpen()
+    {
         $currentTime = Carbon::now();
         $startLimit = Carbon::parse('15:00:00');
         $endLimit = Carbon::parse('21:00:00');
@@ -57,7 +59,7 @@ class Cart extends ModalComponent
             $this->closed = true;
         }
 
-        if($system = System::find(1)) {
+        if ($system = System::find(1)) {
             $this->system = $system;
         }
     }
@@ -69,7 +71,7 @@ class Cart extends ModalComponent
         $this->dispatch('product-deleted');
         $this->successMessage = 'Produto removido';
         return response()->json(['carrinho' => $removeProduct]);
-  
+
     }
 
     private function calcularPrecoTotal()
@@ -85,8 +87,8 @@ class Cart extends ModalComponent
                     $this->precoTotal += $precoItem * $quantidadeItem;
                 }
             }
-            if(isset($this->carrinho['acaiPersonalizado'])) {
-                foreach($this->carrinho['acaiPersonalizado'] as $a) {
+            if (isset($this->carrinho['acaiPersonalizado'])) {
+                foreach ($this->carrinho['acaiPersonalizado'] as $a) {
                     $this->precoTotal += $a['precoTotal'];
                 }
             }
@@ -94,14 +96,14 @@ class Cart extends ModalComponent
     }
 
     public function removeAcaiPersonalizado($index, Request $request)
-{
-    $removeAcai = $request->session()->get('carrinho');
-    unset($removeAcai['acaiPersonalizado'][$index]);
-    $request->session()->put('carrinho', $removeAcai);
-    $this->dispatch('product-deleted');
-    $this->successMessage = 'Produto removido';
-    return response()->json(['carrinho' => $removeAcai]);
-}
+    {
+        $removeAcai = $request->session()->get('carrinho');
+        unset($removeAcai['acaiPersonalizado'][$index]);
+        $request->session()->put('carrinho', $removeAcai);
+        $this->dispatch('product-deleted');
+        $this->successMessage = 'Produto removido';
+        return response()->json(['carrinho' => $removeAcai]);
+    }
 
 
     public function render()

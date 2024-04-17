@@ -67,7 +67,8 @@ class MakeAçaiPersonalized extends ModalComponent
     }
 
     public $system;
-    public function checkIsOpen() {
+    public function checkIsOpen()
+    {
         $currentTime = Carbon::now();
         $startLimit = Carbon::parse('15:00:00');
         $endLimit = Carbon::parse('21:00:00');
@@ -79,7 +80,7 @@ class MakeAçaiPersonalized extends ModalComponent
         }
 
         $systemIsWorking = System::find(1);
-        if($systemIsWorking->status == 1) {
+        if ($systemIsWorking->status == 1) {
             $this->system = $systemIsWorking;
         }
     }
@@ -97,8 +98,8 @@ class MakeAçaiPersonalized extends ModalComponent
             $this->errorMessage = 'Atendemos de Terça-feira à Domingo das 15:00 às 21:00';
         }
 
-        if($system = System::find(1)) {
-            if($system->status == 1) {
+        if ($system = System::find(1)) {
+            if ($system->status == 1) {
                 $this->errorMessage = $system->message;
             }
         }
