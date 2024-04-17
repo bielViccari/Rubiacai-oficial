@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\System;
+use Carbon\Carbon;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Http\Request;
 use Livewire\Attributes\On;
@@ -13,11 +15,13 @@ class Cart extends ModalComponent
     public $precoTotal = 0;
     public $valorUnitarioAcaiPersonalizado = [];
     public $successMessage;
+    public $errorMessage;
     public static function modalMaxWidth(): string
     {
         return '7xl';
     }
 
+    public $closed;
     #[On('product-added')]
     #[On('product-deleted')]
     public function mount(Request $request)
@@ -33,11 +37,29 @@ class Cart extends ModalComponent
         if ($this->successMessage) {
             $this->successMessage = null;
         }
+        $this->checkIsOpen();
     }
 
     #[On('ordered')]
     public function fresh() {
         $this->closeModal();
+    }
+
+    public $system;
+    public function checkIsOpen() {
+        $currentTime = Carbon::now();
+        $startLimit = Carbon::parse('15:00:00');
+        $endLimit = Carbon::parse('21:00:00');
+
+        if ($currentTime->between($startLimit, $endLimit) && !$currentTime->isMonday()) {
+            $this->closed = false;
+        } else {
+            $this->closed = true;
+        }
+
+        if($system = System::find(1)) {
+            $this->system = $system;
+        }
     }
     public function removeProduct($id, Request $request)
     {

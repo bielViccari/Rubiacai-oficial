@@ -11,7 +11,18 @@
                             });
                         </script>
                     @endscript
-                @endif
+    @endif
+    @if ($system)
+        @script
+        <script>
+                Swal.fire({
+    title: "Não estamos recebendo pedidos",
+    text: "{{ $system->message }}",
+    icon: "warning"
+    });
+        </script>
+        @endscript
+    @endif
     <div class="flex justify-center items-center">
         <h3 class="pb-4 font-semibold text-2xl text-gray-600">Veja os produtos</h3>
     </div>

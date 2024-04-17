@@ -12,6 +12,17 @@
             </script>
         @endscript
     @endif
+    @if ($errorMessage != null)
+        @script
+            <script>
+                Swal.fire({
+                    title: "Estamos fechados !",
+                    text: "{{ $errorMessage }}",
+                    icon: "warning"
+                });
+            </script>
+        @endscript
+    @endif
     <!-- Modal header -->
     <div class="flex items-center justify-between pl-5 md:pl-5 border-b rounded-t dark:border-gray-600">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white pt-4">
@@ -34,6 +45,11 @@
     @if (isset($acai))
 
         <form class="p-4 md:p-5">
+            @if ($closed == true)
+                <span
+                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Não
+                    estamos aceitando pedido, abrimos de Terça-feira à Domingo das 15:00 às 21:00</span>
+            @endif
             <div class="grid gap-4 mb-4 grid-cols-2">
                 @if ($errors->has('size'))
                     <div class="col-span-2 sm:col-span-1">
