@@ -35,7 +35,7 @@
     
             @if ($image)
                 <figure class="max-w-lg">
-                    <img class="h-auto max-w-full rounded-lg" src="{{ $image->temporaryUrl() }}" alt="image description">
+                    <img class="h-auto max-w-full rounded-lg" src="{{ str_replace("http://", "https://", $image->temporaryUrl()) }}" alt="image description">
                     <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Prévia da imagem</figcaption>
                 </figure>
             @endif
