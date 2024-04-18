@@ -73,13 +73,13 @@ class DashboardContent extends Component
     {
         $order = Order::find($id);
         $order->delete();
-        session()->flash('success', 'Pedido excluido com sucesso');
+        $this->successMessage = 'Pedido excluido com sucesso';
     }
     public function deleteProduct($id)
     {
         $product = Product::find($id);
         $product->delete();
-        session()->flash('success', 'produto deletado com sucesso');
+        $this->successMessage = 'produto deletado com sucesso';
         $this->dispatch('deleteProduct');
     }
 

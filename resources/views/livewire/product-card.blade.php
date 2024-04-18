@@ -80,6 +80,7 @@
           <span class="pt-6 text-gray-600 font-semibold">Oops.. Nenhum produto encontrado... </span>  
         @endif
         @foreach ($products as $p)
+        @if($p->category->name != "Frutas" && $p->category->name != "Adicionais")
             <div class="flex flex-col mx-2">
                 <div class="relative my-2 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
                     <a href="#" class="flex justify-center items-center">
@@ -138,6 +139,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         @endforeach
     </div>
 <div class="p-12">
