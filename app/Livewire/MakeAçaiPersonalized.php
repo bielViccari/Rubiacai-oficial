@@ -21,10 +21,6 @@ class MakeAçaiPersonalized extends ModalComponent
     public $fruits;
     public $aditionals;
     public $successMessage;
-    public function increment($categoryId)
-    {
-        $this->quantities[$categoryId]++;
-    }
 
     public $closed = false;
     public function mount()
@@ -97,7 +93,7 @@ class MakeAçaiPersonalized extends ModalComponent
         $system = System::find(1);
 
         if ($this->closed == true || $system->status == 1) {
-            if($this->closed == true) {
+            if ($this->closed == true) {
                 $this->errorMessage = 'Atendemos de Terça-feira à Domingo das 15:00 às 21:00';
             }
 
@@ -117,7 +113,7 @@ class MakeAçaiPersonalized extends ModalComponent
                 'observacao' => $this->observation,
                 'precoTotal' => 0,
             ];
-    
+
             $precoFrutas = 0;
             if (isset($this->fruits)) {
                 foreach ($this->fruits as $fruit) {
@@ -128,7 +124,7 @@ class MakeAçaiPersonalized extends ModalComponent
                     }
                 }
             }
-    
+
             $precoAditionals = 0;
             if (isset($this->aditionals)) {
                 foreach ($this->aditionals as $additional) {
@@ -140,12 +136,12 @@ class MakeAçaiPersonalized extends ModalComponent
                 }
             }
             if ($this->size != '') {
-    
+
                 $product = Product::where('name', $this->size)->first();
                 $sizeValue = $product->price;
                 $acaiPersonalized['precoTotal'] = $precoAditionals + $precoFrutas + ($this->quantity * $sizeValue);
             }
-    
+
             $carrinho = $request->session()->get('carrinho', []);
             $carrinho['acaiPersonalizado'][] = $acaiPersonalized;
             $request->session()->put('carrinho', $carrinho);
@@ -155,12 +151,66 @@ class MakeAçaiPersonalized extends ModalComponent
         }
     }
 
+    public $totalPrice = 0;
+    public $sizePrice;
+    public $totalQtdSize;
+
+    private function updateTotalPrice()
+    {
+        $totalPrice = 0;
+    
+        // Calcular o preço das frutas selecionadas
+        foreach ($this->fruits as $fruit) {
+            $totalPrice += $this->quantities[$fruit->id] * $fruit->price;
+        }
+    
+        // Calcular o preço dos adicionais selecionados
+        foreach ($this->aditionals as $additional) {
+            $totalPrice += $this->quantities[$additional->id] * $additional->price;
+        }
+    
+        // Adicionar o preço do tamanho selecionado, se houver
+        if ($this->totalQtdSize) {
+            $totalPrice += $this->totalQtdSize;
+        } elseif ($this->sizePrice) {
+            $totalPrice += $this->sizePrice;
+        }
+    
+        // Atualizar o preço total
+        $this->totalPrice = $totalPrice;
+    }
+    
+
+    public function updateSizePrice()
+    {
+        $this->sizePrice = $this->acai->where('name', $this->size)->first()->price;
+        $this->updateSizePriceByQuantity();
+        $this->updateTotalPrice();
+    }
+
+    public function updateSizePriceByQuantity()
+    {
+        if($this->sizePrice) {
+            $this->totalQtdSize = $this->sizePrice * $this->quantity;
+            $this->updateTotalPrice();
+        }
+    }
+
+    public function increment($categoryId)
+    {
+        $this->quantities[$categoryId]++;
+        $this->updateTotalPrice();
+    }
+
+
     public function decrement($categoryId)
     {
         if ($this->quantities[$categoryId] > 0) {
             $this->quantities[$categoryId]--;
+            $this->updateTotalPrice();
         }
     }
+
     public function render()
     {
         return view('livewire.make-açai-personalized');
