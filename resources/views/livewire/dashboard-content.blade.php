@@ -111,7 +111,7 @@
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Endereço</th>
+                    Telefone</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">preço
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -125,7 +125,7 @@
                 @foreach ($orders as $o)
                     <tr wire:key="{{ strval($o['id']) }}">
                         <td class="px-6 py-4 whitespace-nowrap">{{ $o['name'] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $o['address'] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap"><a target="_blank" class="text-blue-500" href="https://api.whatsapp.com/send?phone={{ $o['phone'] }}">{{ $o['phone'] }}</a></td>
                         <td class="px-6 py-4 whitespace-nowrap">R$ {{ number_format($o['price'], 2, '.', ',') }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span

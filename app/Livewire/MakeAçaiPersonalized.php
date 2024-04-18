@@ -96,7 +96,7 @@ class MakeAçaiPersonalized extends ModalComponent
     {
         $system = System::find(1);
 
-        if ($this->closed == true && $system->status == 1) {
+        if ($this->closed == true || $system->status == 1) {
             if($this->closed == true) {
                 $this->errorMessage = 'Atendemos de Terça-feira à Domingo das 15:00 às 21:00';
             }

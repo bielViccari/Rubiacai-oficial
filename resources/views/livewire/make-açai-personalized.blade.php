@@ -54,7 +54,7 @@
                 @if ($errors->has('size'))
                     <div class="col-span-2 sm:col-span-1">
                         <label for="size"
-                            class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">quantidade</label>
+                            class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">Tamanho</label>
                         <select id="size" wire:model='size'
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500">
                             <option selected="">selecionar tamanho</option>
@@ -83,7 +83,7 @@
                             class="block mb-2 text-sm font-medium text-red-700 dark:text-red-500">quantidade</label>
                         <select id="category" wire:model='quantity'
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500">
-                            <option selected>Selecionar quantidade</option>
+                            <option value="">Selecionar quantidade</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
