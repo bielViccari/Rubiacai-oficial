@@ -16,7 +16,7 @@ class Invoice extends ModalComponent
     public $dataAtual;
     public $successMessage;
 
-    #[Validate('required', message: 'Insira um método de pagamento.')]
+    #[Validate('required','min:1', message: 'Insira um método de pagamento.')]
     public $payment;
     #[Validate('required', message: 'Insira o nome de quem receberá a entrega.')]
     public $name;
@@ -24,7 +24,7 @@ class Invoice extends ModalComponent
     public $phone;
     #[Validate('required', message: 'Insira seu indereço para entrega.')]
     public $address;
-    #[Validate('required', message: 'Selecione o método de entrega.')]
+    #[Validate('required','min:1', message: 'Selecione o método de entrega.')]
     public $delivery;
     public $valorEntrega = 1;
 
