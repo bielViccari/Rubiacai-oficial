@@ -168,7 +168,7 @@ class MakeAçaiPersonalized extends ModalComponent
         foreach ($this->aditionals as $additional) {
             $totalPrice += $this->quantities[$additional->id] * $additional->price;
         }
-    
+
         // Adicionar o preço do tamanho selecionado, se houver
         if ($this->totalQtdSize) {
             $totalPrice += $this->totalQtdSize;
@@ -198,8 +198,14 @@ class MakeAçaiPersonalized extends ModalComponent
 
     public function increment($categoryId)
     {
-        $this->quantities[$categoryId]++;
-        $this->updateTotalPrice();
+        $filtered_array = array_filter($this->quantities, function($value) {
+            return $value > 0;
+        });
+
+        if($total = array_sum($filtered_array) < 5) {
+            $this->quantities[$categoryId]++;
+            $this->updateTotalPrice();
+        }
     }
 
 

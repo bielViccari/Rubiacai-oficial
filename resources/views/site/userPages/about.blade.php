@@ -26,7 +26,7 @@
                 <h1 class="text-4xl lg:text-6xl font-bold">Fornecendo o melhor <span class="text-purple-700">açai</span></h1>
                 <div class="w-20 h-2 bg-purple-700 my-4"></div>
                 <p class="text-xl mb-10">Fundado em 2022, para trazer a cultura do açai para a cidade na intenção de aumentar o comercio da cidade e à variedade de locais para visitar ou comer algo diferente e refrescante como o açai.</p>
-                <button class="bg-purple-500 text-white text-2xl font-medium px-4 py-2 rounded shadow hover:bg-purple-600 ">Ver mais</button>
+                <button class="bg-purple-500 text-white text-2xl font-medium px-4 py-2 rounded shadow hover:bg-purple-600 "><a target="_blank" href="https://www.instagram.com/rubiacai.acai/">Ver mais</a></button>
               </div>
             </header>
           </div>

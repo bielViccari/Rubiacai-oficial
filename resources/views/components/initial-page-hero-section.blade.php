@@ -31,7 +31,7 @@
                                 });
                             </script>
                      </div>
-                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Procurar produtos
+                     <a href="#products" class="text-sm font-semibold leading-6 text-gray-900">Procurar produtos
                          <span aria-hidden="true">→</span></a>
                  </div>
              </div>

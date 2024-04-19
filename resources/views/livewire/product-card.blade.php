@@ -23,7 +23,7 @@
         </script>
         @endscript
     @endif
-    <div class="flex justify-center items-center">
+    <div id="products" class="flex justify-center items-center">
         <h3 class="pb-4 font-semibold text-2xl text-gray-600">Veja os produtos</h3>
     </div>
     <div class="relative px-14">
@@ -45,21 +45,25 @@
                 class="rounded-md bg-purple-500 px-3.5 py-2.5 mt-5 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Montar
                 Açai</button>
         </div>
-        <span class="pt-6 flex flex-row">
+        <span class="pt-3 flex flex-row">
             @if ($nameOfCategoryFiltered)    
-            <span class="">
-                Filtrando por: {{ $nameOfCategoryFiltered }} 
-            </span> 
-            <svg wire:click='removeFilter' class="w-6 h-6 pt-1 text-gray-500 hover:text-gray-700 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-              </svg>
-              
+            <div class="flex flex-col">
+                <span class="text-md text-gray-600">
+                    Filtrando por: 
+                </span> 
+                <span class="flex flex-row text-md text-gray-600">
+                    {{ $nameOfCategoryFiltered }}
+                    <svg wire:click='removeFilter' class="w-6 h-6 pt-1 text-gray-500 hover:text-gray-700 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
+                      </svg>
+                </span>
+            </div>
             @endif
         </span>
         <div  class="py-2">
             <a wire:click="$dispatch('openModal', { component: 'cart' })"
                 class="text-sm font-semibold leading-6 text-gray-900 hover:cursor-pointer pr-4 items-center flex">
-                <span class="mt-3">Meu carrinho</span>
+                <span class="mt-3 hidden sm:inline">Meu carrinho</span>
                 <div class="relative py-2">
                     <div class="t-0 absolute left-3">
                         <p

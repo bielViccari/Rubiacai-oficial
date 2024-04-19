@@ -32,10 +32,13 @@
                 <div class="text-sm uppercase text-purple-600 font-bold">Entre em contato</div>
                 <ul>
                     <li class="my-2">
-                        <a class="hover:text-purple-600" href="#">R. Cel. Francisco Corrêa, 231 - Centro, Rubiácea - SP, 16750-000</a>
+                        <a class="hover:text-purple-600" target="_blank" href="https://maps.app.goo.gl/mdZSitwE26quSPNb9">R. Cel. Francisco Corrêa, 231 - Centro, Rubiácea - SP, 16750-000</a>
                     </li>
                     <li class="my-2">
-                        <a class="hover:text-purple-600" href="#">rubiacai@contato.com</a>
+                        <a class="hover:text-purple-600 cursor-pointer">rubiacai@contato.com</a>
+                    </li>
+                    <li class="my-2">
+                        <a class="hover:text-purple-600" target="_blank"  href="https://api.whatsapp.com/send?phone=18997226055">(18) 99722-6055</a>
                     </li>
                 </ul>
             </div>
