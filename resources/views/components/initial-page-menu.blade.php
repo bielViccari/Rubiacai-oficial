@@ -37,8 +37,8 @@
         </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Produtos</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Categorias</a>
+        <a href="#products" class="text-sm font-semibold leading-6 text-gray-900">Produtos</a>
+        <a href="#categories" class="text-sm font-semibold leading-6 text-gray-900">Categorias</a>
         <a href="{{ route('about-us') }}" class="text-sm font-semibold leading-6 text-gray-900">Sobre Nós</a>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">

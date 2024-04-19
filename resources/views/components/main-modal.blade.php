@@ -14,12 +14,13 @@
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
     x-show="show"
-    class="fixed inset-0 z-20 p-4 everflow"
+    class="fixed inset-0 z-20 p-4 overflow-y-auto everflow bg-gray-400 bg-opacity-75"
     style="display: none;"
-    >
+>
     <div 
         x-on:click="show = false"  
-        class="absolute inset-0 overflow-hidden transition-opacity bg-gray-400 bg-opacity-75"
+        class="absolute inset-0 overflow-hidden transition-opacity"
+        x-bind:class="{ '': show }"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -43,7 +44,4 @@
         </div>
 
     </div>
-
-
-
 </div>

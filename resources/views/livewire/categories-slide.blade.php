@@ -1,9 +1,9 @@
-<div class="p-12 relative">
+<div id="categories" class="p-12 relative">
     <div class="flex justify-center items-center">
         <h3 class="pb-4 font-semibold text-lg text-gray-600">Procure por categorias</h3>
     </div>
     <div class="relative overflow-hidden">
-        <button aria-label="slide backward" class="absolute z-30 left-0 top-1/2 transform -translate-y-1/2 ml-10 focus:outline-none cursor-pointer" id="prev">
+        <button aria-label="slide backward" class="absolute left-0 top-1/2 transform -translate-y-1/2 ml-10 focus:outline-none" id="prev" style="z-index: 1;">
             <svg class="dark:text-gray-900" width="20" height="20" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 1L1 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -20,7 +20,7 @@
                 </div>
             @endforeach
         </div>
-        <button aria-label="slide forward" class="absolute z-30 right-0 top-1/2 transform -translate-y-1/2 mr-10 focus:outline-none " id="next">
+        <button aria-label="slide forward" class="absolute right-0 top-1/2 transform -translate-y-1/2 mr-10 focus:outline-none " style="z-index: 1;" id="next">
             <svg class="dark:text-gray-900" width="20" height="20" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>

@@ -1,4 +1,4 @@
-<div class="relative bg-gray-200 rounded-lg shadow dark:bg-gray-700">
+<div id="modal" class="relative bg-gray-200 rounded-lg shadow dark:bg-gray-700">
     @if ($successMessage != null)
         @script
             <script>
@@ -104,9 +104,9 @@
                     </div>
                 @endif
 
-                <div class="flex flex-col">
+                <div class="flex flex-col mt-6">
+                    <span class="text-nowrap text-sm text-red-600">Adicione até no máximo, 5 complementos*</span>
                     <span class="font-bold text-gray-600">Frutas:</span>
-                    <span class="font-semibold text-sm text-gray-600">por unidade*</span>
                 </div>
                 @if (isset($fruits))
                     @foreach ($fruits as $f)
@@ -143,7 +143,6 @@
                 @endif
                 <div class="flex flex-col">
                     <span class="font-bold text-gray-600">Adicionais:</span>
-                    <span class="font-semibold text-sm text-gray-600">por unidade*</span>
                 </div>
                 @if (isset($aditionals))
                     @foreach ($aditionals as $a)
