@@ -72,7 +72,8 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="">selecionar tamanho</option>
                             @foreach ($acai as $p)
-                                <option value="{{ $p->name }}">{{ $p->name }} - R${{ number_format($p->price, 2, ',', '.') }}</option>
+                                <option value="{{ $p->name }}">{{ $p->name }} -
+                                    R${{ number_format($p->price, 2, ',', '.') }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -103,103 +104,130 @@
                         </select>
                     </div>
                 @endif
-
-                <div class="flex flex-col mt-6">
-                    <span class="text-nowrap text-sm text-red-600">Adicione até no máximo, 5 complementos*</span>
-                    <span class="font-bold text-gray-600">Frutas:</span>
-                </div>
-                @if (isset($fruits))
-                    @foreach ($fruits as $f)
-                        <div class="grid lg:gap-48 sm:gap-36 grid-cols-2 col-span-2 bg-white">
-                            <div class="flex items-center flex-row">
-                                <span class=" px-2">R${{ number_format($f->price, 2, ',', '.') }}</span>
-                                -
-                                <span class="px-2">{{ $f->name }}</span>
-                            </div>
-                            <div class="inline-flex items-center m-1">
-                                <button wire:click.prevent='decrement({{ $f->id }})'
-                                    class="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M20 12H4" />
-                                    </svg>
-                                </button>
-                                <div
-                                    class="bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center px-4 py-1 select-none">
-                                    {{ $quantities[$f->id] }}
-                                </div>
-                                <button wire:click.prevent='increment({{ $f->id }})'
-                                    class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-                <div class="flex flex-col">
-                    <span class="font-bold text-gray-600">Adicionais:</span>
-                </div>
-                @if (isset($aditionals))
-                    @foreach ($aditionals as $a)
-                        <div class="grid lg:gap-48 sm:gap-36 grid-cols-2 col-span-2 bg-white">
-                            <div class="flex items-center">
-                                <span class=" px-2">R${{ number_format($a->price, 2, ',', '.') }}</span>
-                                -
-                                <span class="px-2">{{ $a->name }}</span>
-                            </div>
-                            <div class="inline-flex items-center m-1">
-                                <button wire:click.prevent='decrement({{ $a->id }})'
-                                    class="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M20 12H4" />
-                                    </svg>
-                                </button>
-                                <div
-                                    class="bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center px-4 py-1 select-none">
-                                    {{ $quantities[$a->id] }}
-                                </div>
-                                <button wire:click.prevent='increment({{ $a->id }})' type="button"
-                                    class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-                <div class="col-span-2">
-                    <label for="description"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observação:</label>
-                    <textarea id="description" rows="4" wire:model='observation'
-                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Obs..."></textarea>
-                </div>
             </div>
-            <p>Total: R$ {{ number_format($totalPrice, 2, ',', '.') }}</p>
-            <div class="flex justify-between">
-                <div>
-                    <button type="button" wire:click="addToCart"
-                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
-                        </svg>
+            <div class="flex flex-col mt-6 justify-center items-center">
+                <span class="font-bold text-gray-600 uppercase">Selecionar complementos</span>
+            </div>
+            <div class="flex flex-col mt-6">
+                <span class="font-bold text-gray-600">Frutas:</span>
+            </div>
+            @if (isset($fruits))
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5">
+                    @foreach ($fruits as $f)
+                        <section class="text-gray-700 body-font">
+                            <div class="container px-2 py-2 mx-auto">
+                                <div class="flex flex-col justify-center items-center">
+                                    <div class="border-2 border-gray-300 rounded-lg overflow-hidden">
+                                        <div class=" flex items-center justify-center">
+                                            <img src="storage/productImages/{{ $f->image }}"
+                                                class=" object-center w-24 h-24 mt-2" alt="{{ $f->name }}">
+                                        </div>
+                                        <div class="p-2 flex items-center justify-center flex-col">
+                                            <h2 class="text-lg font-medium text-gray-900">{{ $f->name }}</h2>
+                                            <p class="mt-2 text-sm text-gray-500">
+                                                R${{ number_format($f->price, 2, ',', '.') }}</p>
+                                            <div class="flex justify-center mt-2">
+                                                <button wire:click.prevent='decrement({{ $f->id }})'
+                                                    class="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M20 12H4" />
+                                                    </svg>
+                                                </button>
+                                                <div
+                                                    class="text-gray-600 inline-flex items-center px-4 py-1 select-none">
+                                                    {{ $quantities[$f->id] }}
+                                                </div>
+                                                <button wire:click.prevent='increment({{ $f->id }})'
+                                                    class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M12 4v16m8-8H4" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    @endforeach
+                </div>
+            @endif
+            <div class="flex flex-col">
+                <span class="font-bold text-gray-600">Adicionais:</span>
+            </div>
+            @if (isset($aditionals))
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5">
+                    @foreach ($aditionals as $a)
+                        <section class="text-gray-700 body-font">
+                            <div class="container px-2 py-2 mx-auto">
+                                <div class="flex flex-col justify-center items-center">
+                                    <div class="border-2 border-gray-300 rounded-lg overflow-hidden">
+                                        <div class=" flex items-center justify-center">
+                                            <img src="storage/productImages/{{ $a->image }}"
+                                                class=" object-center w-24 h-24 mt-2" alt="{{ $a->name }}">
+                                        </div>
+                                        <div class="p-2 flex items-center justify-center flex-col">
+                                            <h2 class="text-lg font-medium text-gray-900">{{ $a->name }}</h2>
+                                            <p class="mt-2 text-sm text-gray-500">
+                                                R${{ number_format($a->price, 2, ',', '.') }}</p>
+                                            <div class="flex justify-center mt-2">
+                                                <button wire:click.prevent='decrement({{ $a->id }})'
+                                                    class="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M20 12H4" />
+                                                    </svg>
+                                                </button>
+                                                <div
+                                                    class="text-gray-600 inline-flex items-center px-4 py-1 select-none">
+                                                    {{ $quantities[$a->id] }}
+                                                </div>
+                                                <button wire:click.prevent='increment({{ $a->id }})'
+                                                    class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M12 4v16m8-8H4" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    @endforeach
+                </div>
+            @endif
 
-                        Adicionar ao carrinho
-                    </button>
+            <div class="col-span-2">
+                <label for="description"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observação:</label>
+                <textarea id="description" rows="4" wire:model='observation'
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Obs..."></textarea>
+            </div>
+
+            <div class="flex justify-center items-center flex-col">
+                <p class="text-lg text-gray-500 mb-4 mt-2">Total a pagar: R$ {{ number_format($totalPrice, 2, ',', '.') }}</p>
+                <div class="flex justify-between">
+                        <button type="button" wire:click="addToCart"
+                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4" />
+                            </svg>
+
+                            Adicionar ao carrinho
+                        </button>
                 </div>
             </div>
         </form>

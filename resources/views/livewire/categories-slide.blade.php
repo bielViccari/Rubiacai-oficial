@@ -10,6 +10,7 @@
         </button>
         <div id="slider" class="flex items-center space-x-2 transition-transform ease-in-out duration-300">
             @foreach ($categories as $c)
+            @if ($c->name != 'Frutas' && $c->name != 'Adicionais')
                 <div class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/5 xl:w-1/5 px-2">
                     <div wire:click='selectedCategory({{ $c->id }})' class="p-4 bg-white cursor-pointer rounded-lg overflow-hidden hover:shadow flex justify-center items-center flex-col">
                         <div class="w-16 h-16 rounded-lg overflow-hidden flex justify-center items-center"> <!-- Adicionado classes de alinhamento -->
@@ -18,6 +19,7 @@
                         <h2 class="mt-2 text-gray-800 text-sm font-semibold line-clamp-1">{{ $c->name }}</h2>
                     </div>
                 </div>
+            @endif
             @endforeach
         </div>
         <button aria-label="slide forward" class="absolute right-0 top-1/2 transform -translate-y-1/2 mr-10 focus:outline-none " style="z-index: 1;" id="next">
