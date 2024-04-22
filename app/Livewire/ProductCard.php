@@ -129,10 +129,18 @@ class ProductCard extends Component
         if ($this->filteredProducts) {
             $products = $this->filteredProducts;
         } else {
-            $products = Product::with('category')->where(function ($sub_query) {
-                $sub_query->where('name', 'like', '%' . $this->searchProduct . '%');
-            })->paginate(12, pageName: 'products');
+            $products = Product::with('category')
+                ->where(function ($sub_query) {
+                    $sub_query->where('name', 'like', '%' . $this->searchProduct . '%');
+                })
+                ->whereNotIn('category_id', function ($categoryQuery) {
+                    $categoryQuery->select('id')
+                        ->from('categories')
+                        ->whereIn('name', ['Frutas', 'Adicionais']);
+                })
+                ->paginate(12, pageName: 'products');
         }
+        
 
         foreach ($products as $product) {
             //pega a data, e verifica com a atual, para verificar se o produto é novo.
