@@ -59,7 +59,8 @@
                             class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500">
                             <option value="">selecionar tamanho</option>
                             @foreach ($acai as $p)
-                                <option value="{{ $p->name }}">{{ $p->name }}</option>
+                                <option value="{{ $p->name }}">{{ $p->name }} -
+                                    R${{ number_format($p->price, 2, ',', '.') }}</option>
                             @endforeach
                         </select>
                         <p class="mt-2 text-sm text-red-600 dark:text-red-500">Selecione o tamanho do seu açai</p>
