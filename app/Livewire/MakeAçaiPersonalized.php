@@ -67,7 +67,7 @@ class MakeAçaiPersonalized extends ModalComponent
     {
         $currentTime = Carbon::now();
         $startLimit = Carbon::parse('15:00:00');
-        $endLimit = Carbon::parse('21:00:00');
+        $endLimit = Carbon::parse('23:40:00');
 
         if ($currentTime->between($startLimit, $endLimit) && !$currentTime->isMonday()) {
             $this->closed = false;
@@ -81,9 +81,7 @@ class MakeAçaiPersonalized extends ModalComponent
         }
     }
 
-    #[Validate('required', message: 'Selecione o tamanho.')]
     public $size;
-    #[Validate('required', 'min:1', message: 'Selecione a quantidade.')]
     public $quantity;
     public $observation;
     public $errorMessage;
@@ -102,7 +100,10 @@ class MakeAçaiPersonalized extends ModalComponent
             }
         } else {
 
-            $this->validate();
+            $this->validate([
+                'size' => 'required|min:1', // Adicione suas regras de validação, se necessário
+                'quantity' => 'required|min:1', // Adicione suas regras de validação, se necessário
+            ]);
             $acaiPersonalized = [
                 'frutas' => [],
                 'frutas_quantidade' => [],
@@ -183,16 +184,23 @@ class MakeAçaiPersonalized extends ModalComponent
 
     public function updateSizePrice()
     {
-        $this->sizePrice = $this->acai->where('name', $this->size)->first()->price;
-        $this->updateSizePriceByQuantity();
-        $this->updateTotalPrice();
+        if($this->size) {
+            $this->sizePrice = $this->acai->where('name', $this->size)->first()->price;
+            $this->updateSizePriceByQuantity();
+            $this->updateTotalPrice();
+        }
     }
 
     public function updateSizePriceByQuantity()
     {
         if($this->sizePrice) {
-            $this->totalQtdSize = $this->sizePrice * $this->quantity;
-            $this->updateTotalPrice();
+            if($this->quantity) {
+                $this->totalQtdSize = $this->sizePrice * $this->quantity;
+                $this->updateTotalPrice();
+            } else {
+                $this->totalQtdSize = $this->sizePrice * 1;
+                $this->updateTotalPrice();
+            }
         }
     }
 

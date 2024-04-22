@@ -62,7 +62,7 @@
                                 <option value="{{ $p->name }}">{{ $p->name }}</option>
                             @endforeach
                         </select>
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('size') }}</p>
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">Selecione o tamanho do seu açai</p>
                     </div>
                 @else
                     <div class="col-span-2 sm:col-span-1">
@@ -89,7 +89,7 @@
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('quantity') }}</p>
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">Selecione a quantidade de açai que você deseja</p>
                     </div>
                 @else
                     <div class="col-span-2 sm:col-span-1">
