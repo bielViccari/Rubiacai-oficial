@@ -105,45 +105,49 @@
         @endif
     @endif
     <h1 class="text-center font-bold text-gray-600 mb-2 uppercase">Tabela de pedidos</h1>
-    <table class="min-w-full divide-y divide-gray-200">
-        <thead>
-            <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Telefone</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">preço
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ações
-                </th>
-            </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-            @if ($orders)
-                @foreach ($orders as $o)
-                    <tr wire:key="{{ strval($o['id']) }}">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $o['name'] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap"><a target="_blank" class="text-blue-500" href="https://api.whatsapp.com/send?phone={{ $o['phone'] }}">{{ $o['phone'] }}</a></td>
-                        <td class="px-6 py-4 whitespace-nowrap">R$ {{ number_format($o['price'], 2, '.', ',') }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span
-                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $o['status'] == 'n' ? 'bg-red-200 text-red-800' : ($o['status'] == 'd' ? 'bg-green-200 text-green-800' : 'bg-orange-200 text-orange-800') }}">{{ $o['status'] === 'd' ? 'Entregue' : ($o['status'] === 'i' ? 'Em Processo' : 'Não Entregue') }}</span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <button type="button" wire:click="viewOrder({{ $o['id'] }})"
-                                class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Ver</button>
-                            <button wire:click="deleteOrder({{ $o['id'] }})"
-                                wire:confirm="Tem certeza que deseja excluir este pedido?"
-                                class="ml-2 px-4 py-2 font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 focus:outline-none focus:shadow-outline-orange active:bg-orange-600 transition duration-150 ease-in-out">Excluir</button>
-                        </td>
-                    </tr>
-                @endforeach
-            @endif
-        </tbody>
-    </table>
-
+    <div class="overflow-x-auto w-full">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Telefone</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">preço
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ações
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @if ($orders)
+                    @foreach ($orders as $o)
+                        <tr wire:key="{{ strval($o['id']) }}">
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $o['name'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a target="_blank" class="text-blue-500"
+                                    href="https://api.whatsapp.com/send?phone={{ $o['phone'] }}">{{ $o['phone'] }}</a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">R$ {{ number_format($o['price'], 2, '.', ',') }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $o['status'] == 'n' ? 'bg-red-200 text-red-800' : ($o['status'] == 'd' ? 'bg-green-200 text-green-800' : 'bg-orange-200 text-orange-800') }}">{{ $o['status'] === 'd' ? 'Entregue' : ($o['status'] === 'i' ? 'Em Processo' : 'Não Entregue') }}</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <button type="button" wire:click="viewOrder({{ $o['id'] }})"
+                                    class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Ver</button>
+                                <button wire:click="deleteOrder({{ $o['id'] }})"
+                                    wire:confirm="Tem certeza que deseja excluir este pedido?"
+                                    class="ml-2 px-4 py-2 font-medium text-white bg-orange-600 rounded-md hover:bg-orange-500 focus:outline-none focus:shadow-outline-orange active:bg-orange-600 transition duration-150 ease-in-out">Excluir</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
+    </div>
     <x-main-modal title="Pedido" id="order-modal" wire:model="modal">
         @if (isset($selectedOrder))
             <livewire:show-invoice :order="$selectedOrder" />
@@ -189,7 +193,8 @@
                                     class="text-orange-500 text-sm font-semibold">Editar</a>
                             </div>
                             <div>
-                                <span wire:click='deleteProduct({{ $p->id }})' wire:confirm="Deletar produto ?"
+                                <span wire:click='deleteProduct({{ $p->id }})'
+                                    wire:confirm="Deletar produto ?"
                                     class="text-red-500 text-sm font-semibold cursor-pointer">Apagar</span>
                             </div>
                         </div>
@@ -198,7 +203,7 @@
             </div>
             <div class="flex justify-end pb-12">
                 @if ($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                <span>{{ $products->links( data: ['scrollTo' => '#card']) }}</span>
+                    <span>{{ $products->links(data: ['scrollTo' => '#card']) }}</span>
                 @endif
             </div>
         @endif
