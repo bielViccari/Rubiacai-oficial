@@ -67,7 +67,7 @@ class MakeAçaiPersonalized extends ModalComponent
     {
         $currentTime = Carbon::now();
         $startLimit = Carbon::parse('15:00:00');
-        $endLimit = Carbon::parse('23:40:00');
+        $endLimit = Carbon::parse('22:00:00');
 
         if ($currentTime->between($startLimit, $endLimit) && !$currentTime->isMonday()) {
             $this->closed = false;
@@ -210,7 +210,7 @@ class MakeAçaiPersonalized extends ModalComponent
             return $value > 0;
         });
 
-        if($total = array_sum($filtered_array) < 5) {
+        if($total = array_sum($filtered_array) < 15) {
             $this->quantities[$categoryId]++;
             $this->updateTotalPrice();
         }

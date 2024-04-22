@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 use Livewire\Attributes\On;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Validate; 
-
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Notification;
+use NotificationChannels\Telegram\TelegramChannel;
+use App\Notifications\TelegramNotification;
 class Invoice extends ModalComponent
 {
     public $carrinho;
@@ -41,6 +44,8 @@ class Invoice extends ModalComponent
             'itens' => $this->carrinho,
         ]);
         
+        Notification::route('telegram', Config::get('services.telegram_id'))
+        ->notify(new TelegramNotification());
         $request->session()->forget('carrinho');
         $this->dispatch('ordered');
         $this->successMessage = 'Pedido realizado com sucesso! Aguarde a mensagem no whatsapp para confirmação';
