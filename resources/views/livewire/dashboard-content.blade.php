@@ -196,6 +196,11 @@
                     </div>
                 @endforeach
             </div>
+            <div class="flex justify-end pb-12">
+                @if ($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                <span>{{ $products->links( data: ['scrollTo' => '#card']) }}</span>
+                @endif
+            </div>
         @endif
 
         @if ($categories)
