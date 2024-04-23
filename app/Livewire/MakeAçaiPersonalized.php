@@ -198,7 +198,7 @@ class MakeAçaiPersonalized extends ModalComponent
                 $this->totalQtdSize = $this->sizePrice * $this->quantity;
                 $this->updateTotalPrice();
             } else {
-                $this->totalQtdSize = $this->sizePrice * 1;
+                $this->totalQtdSize = $this->sizePrice * 0;
                 $this->updateTotalPrice();
             }
         }

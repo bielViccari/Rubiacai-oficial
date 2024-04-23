@@ -63,37 +63,42 @@ class Invoice extends ModalComponent
     public $priceOfSize = [];
     public $unityPrice = [];
     public $precoTotal;
+
     public function prices()
     {
+        // Verifica se o carrinho está definido e se contém a chave 'acaiPersonalizado'
         if (isset($this->carrinho['acaiPersonalizado'])) {
-
+            $this->precoTotal = 0; // Reinicializa o preço total
+    
             foreach ($this->carrinho['acaiPersonalizado'] as $index => $item) {
                 if ($item['tamanho'] != '') {
                     $product = Product::where('name', $item['tamanho'])->first();
                     $sizeValue = $product->price;
                     $this->priceOfSize[$index] = $sizeValue * $item['quantidade'];
                     $this->unityPrice[$index] = $sizeValue;
-                }
-            }
-            $this->precoTotal = 0; // Resetar o preço total
-
-            if (isset($this->carrinho['acaiPersonalizado'])) {
-                foreach ($this->carrinho['acaiPersonalizado'] as $a) {
-                    $this->precoTotal += $a['precoTotal'];
+                    $this->precoTotal += $sizeValue * $item['quantidade']; // Adiciona ao preço total
                 }
             }
         }
+    
+        // Verifica se o carrinho está definido
         if (isset($this->carrinho)) {
             foreach ($this->carrinho as $item) {
                 if (is_array($item) && array_key_exists('price', $item)) {
                     $precoItem = $item['price'];
                     $quantidadeItem = $item['quantity'];
-                    $this->precoTotal += $precoItem * $quantidadeItem;
+                    $this->precoTotal += $precoItem * $quantidadeItem; // Adiciona ao preço total
                 }
             }
         }
-
+    
+        // Define o valor da entrega com base na opção selecionada
+        $this->valorEntrega = ($this->delivery == 'delivery') ? 1 : 0;
+    
+        // Adiciona o valor da entrega ao preço total
+        $this->precoTotal += $this->valorEntrega;
     }
+    
 
     public function render()
     {

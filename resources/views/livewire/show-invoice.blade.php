@@ -137,19 +137,35 @@
 
             </tbody>
         </table>
+        @if($order->delivery != 'delivery')
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Subtotal:</div>
             <div class="text-gray-700">R$ {{ number_format($precoTotal, 2, ',', '.') }} </div>
         </div>
         <div class="text-right mb-8">
             <div class="text-gray-700 mr-2">Entrega:</div>
-            <div class="text-gray-700">R${{ number_format($valorEntrega, 2, ',', '.') }}</div>
+            <div class="text-gray-700">R$ 00,00</div>
 
         </div>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Total:</div>
-            <div class="text-gray-700 font-bold text-xl">R$ {{ number_format($precoTotal + 1, 2, ',', '.') }}</div>
+            <div class="text-gray-700 font-bold text-xl">R$ {{ number_format($precoTotal, 2, ',', '.') }}</div>
         </div>
     </div>
+    @else
+    <div class="flex justify-end mb-8">
+        <div class="text-gray-700 mr-2">Subtotal:</div>
+        <div class="text-gray-700">R$ {{ number_format($precoTotal, 2, ',', '.') }} </div>
+    </div>
+    <div class="text-right mb-8">
+        <div class="text-gray-700 mr-2">Entrega:</div>
+        <div class="text-gray-700">R$ {{ number_format($valorEntrega, 2, ',', '.') }}</div>
 
+    </div>
+    <div class="flex justify-end mb-8">
+        <div class="text-gray-700 mr-2">Total:</div>
+        <div class="text-gray-700 font-bold text-xl">R$ {{ number_format($precoTotal + $valorEntrega, 2, ',', '.') }}</div>
+    </div>
+</div>
+    @endif
 </div>
