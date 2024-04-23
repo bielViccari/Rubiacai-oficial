@@ -101,6 +101,7 @@ class DashboardContent extends Component
         foreach ($orders as $o) {
             $createdAt = Carbon::parse($o->created_at);
             $isNew = $createdAt->diffInMinutes(Carbon::now()) <= 10;
+            $createdAtFormated = $createdAt->format('d/m/Y H:i');
             $newOrders[] = [
                 'id' => $o->id,
                 'name' => $o->name,
@@ -111,7 +112,7 @@ class DashboardContent extends Component
                 'price' => $o->precoTotal,
                 'status' => $o->status,
                 'itens' => $o->itens,
-                'created_at' => $o->created_at,
+                'created_at' => $createdAtFormated,
                 'isNew' => $isNew
             ];
         }

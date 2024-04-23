@@ -113,7 +113,7 @@
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Telefone</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">preço
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status</th>
@@ -124,12 +124,12 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @if ($orders)
                     @foreach ($orders as $o)
-                        <tr wire:key="{{ strval($o['id']) }}">
+                        <tr class="{{ $o['isNew'] == true ? 'bg-green-100' : 'bg-white' }}" wire:key="{{ strval($o['id']) }}">
                             <td class="px-6 py-4 whitespace-nowrap">{{ $o['name'] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap"><a target="_blank" class="text-blue-500"
                                     href="https://api.whatsapp.com/send?phone={{ $o['phone'] }}">{{ $o['phone'] }}</a>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">R$ {{ number_format($o['price'], 2, '.', ',') }}
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $o['created_at'] }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span
