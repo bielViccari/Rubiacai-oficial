@@ -1,9 +1,13 @@
 <div>
+    @if($showLoading)
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.8); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+        <img src="images/spinner.svg" alt="" srcset="">
+    </div>
+    @endif
     <x-modal-category form-action="createCategory">
         <x-slot name="title">
             Cadastrar Categoria
         </x-slot>
-
         <x-slot name="content">
             <form wire:submit='createCategory'>
                 <div class="px-6 py-4">

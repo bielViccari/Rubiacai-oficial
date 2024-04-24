@@ -22,9 +22,8 @@ class CreateProduct extends Component
     public $price = '';
     #[Validate('required', 'image', 'mimes:jpeg,png,jpg,gif', message: 'Por favor, selecione uma imagem válida (JPEG, PNG, JPG ou GIF) com tamanho máximo de 2MB e dimensões entre 100x100 e 2000x2000 pixels.')]
     public $image = '';
-
     public $categories;
-
+    public $showLoading = false;
     
     public function mount()
     {
@@ -48,10 +47,13 @@ class CreateProduct extends Component
             'image' => $this->image->getClientOriginalName()
         ]);
 
+        $this->showLoading = true;
         $imageName = $this->image->getClientOriginalName();
         $this->image->storeAs('public/productImages', $imageName);
+
         return redirect()->route('dashboard');
     }
+
  
     public function render()
     {

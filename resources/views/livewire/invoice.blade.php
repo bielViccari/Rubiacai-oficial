@@ -96,9 +96,8 @@
     
                 @if($errors->has('delivery'))
                     <div class="mb-2">
-                        <label for="delivery" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Selecione um método de pagamento</label>
-                        <select id="delivery" wire:model='delivery' wire:change='prices' name="delivery" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
-                        <option value="">Forma de entrega</option>
+                        <label for="delivery" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Selecione um método de entrega</label>
+                        <select id="delivery" wire:model='delivery' wire:change='isDelivery' name="delivery" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
                         <option value="takeaway">Retirar na loja</option>
                         <option value="delivery">Entregar no endereço</option>
                         </select>
@@ -106,11 +105,10 @@
                     </div>
                 @else
                     <div class="mb-2">
-                        <label for="delivery" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um método de pagamento</label>
-                        <select id="delivery" wire:model='delivery' wire:change='prices' name="delivery" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">Forma de entrega</option>
-                        <option value="takeaway">Retirar na loja</option>
-                        <option value="delivery">Entregar no endereço</option>
+                        <label for="delivery" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um método de entrega</label>
+                        <select id="delivery" name="delivery" wire:model='delivery' wire:change='isDelivery' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="takeaway">Retirar na loja</option>
+                            <option value="delivery">Entregar no endereço</option>
                         </select>
                     </div>
                 @endif
@@ -128,7 +126,7 @@
                 @if(isset($carrinho['acaiPersonalizado']))
                     @foreach ($carrinho['acaiPersonalizado'] as $index => $acai)
                     <tr>
-                        <td class="text-gray-700 border-b border-gray-300">Açai Personalizado</td>
+                        <td class="text-gray-700 border-b border-gray-300">Açai Personalizado - valor total: R$ {{ number_format($acai['precoTotal'], 2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="py-4 text-gray-700">{{ $acai['tamanho'] }}</td>
@@ -146,12 +144,22 @@
                             </tr>
                         @endforeach
                     @endif
+                    @if(isset($acai['adicionais']))
+                    @foreach ($acai['adicionais'] as $index => $adicionais)
+                        <tr>
+                            <td class="py-4 text-gray-700">{{ $adicionais->name }}</td>
+                            <td class="py-4 text-gray-700">{{ $acai['adicionais_quantidade'][$index] }}</td>
+                            <td class="py-4 text-gray-700">R$ {{ number_format($adicionais->price, 2, ',', '.') }}</td>
+                            <td class="py-4 text-gray-700">R$ {{ number_format($adicionais->price * $acai['adicionais_quantidade'][$index], 2, ',', '.') }}</td>
+                        </tr>
+                    @endforeach
+                @endif
                 @endforeach
                 @endif
 
                 @if (isset($carrinho))
                     <tr>
-                        <td class="text-gray-700 border-b border-gray-300">Produtos separados</td>
+                        <td class="text-gray-700 border-b border-gray-300 mt-4">Produtos separados</td>
                     </tr>
                     @foreach ($carrinho as $c)
                         @if (isset($c['name']))
@@ -169,7 +177,7 @@
         </table>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Subtotal:</div>
-            <div class="text-gray-700">R$  {{ number_format($precoTotal - $valorEntrega, 2, ',', '.') }} </div>
+            <div class="text-gray-700">R$  {{ $valorEntrega == 1 ? number_format($precoTotal - $valorEntrega, 2, ',', '.') : number_format($precoTotal, 2, ',', '.') }} </div>
         </div>
         <div class="text-right mb-8">
             <div class="text-gray-700 mr-2">Entrega:</div>

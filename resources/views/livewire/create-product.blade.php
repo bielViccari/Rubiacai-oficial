@@ -6,6 +6,13 @@
         <div class="max-w-sm mx-auto mt-20 bg-white rounded-md shadow-md overflow-hidden">
             <div class="px-6 py-4 bg-gray-900 text-white">
                 <h1 class="text-lg font-bold">Cadastrar produto</h1>
+                
+                <!-- Spinner SVG -->
+                @if($showLoading)
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                    <img src="images/spinner.svg" alt="" srcset="">
+                </div>
+            @endif
             </div>
             <div class="px-6 py-4">
                 <!-- Nome do Produto -->
