@@ -29,7 +29,7 @@ class Invoice extends ModalComponent
     public $address;
     #[Validate('required','min:1', message: 'Selecione o método de entrega.')]
     public $delivery;
-    public $valorEntrega = 1;
+    public $valorEntrega = 0;
 
     public function save(Request $request) {
         $this->validate();
@@ -52,12 +52,14 @@ class Invoice extends ModalComponent
         $this->closeModal();
     }
 
+    public $valorAnteriorEntrega = 0;
     #[On('product-added')]
     public function mount(Request $request)
     {
         $this->carrinho = $request->session()->get('carrinho');
         $this->prices();
         $this->dataAtual = Carbon::now()->format('d/m/Y H:i');
+        $this->valorAnteriorEntrega = 0;
     }
 
     public $priceOfSize = [];
@@ -66,9 +68,9 @@ class Invoice extends ModalComponent
 
     public function prices()
     {
+        $this->precoTotal = 0; // Reinicializa o preço total
         // Verifica se o carrinho está definido e se contém a chave 'acaiPersonalizado'
         if (isset($this->carrinho['acaiPersonalizado'])) {
-            $this->precoTotal = 0; // Reinicializa o preço total
     
             foreach ($this->carrinho['acaiPersonalizado'] as $index => $item) {
                 if ($item['tamanho'] != '') {
@@ -76,7 +78,7 @@ class Invoice extends ModalComponent
                     $sizeValue = $product->price;
                     $this->priceOfSize[$index] = $sizeValue * $item['quantidade'];
                     $this->unityPrice[$index] = $sizeValue;
-                    $this->precoTotal += $sizeValue * $item['quantidade']; // Adiciona ao preço total
+                    $this->precoTotal += $item['precoTotal']; // Adiciona ao preço total
                 }
             }
         }
@@ -91,13 +93,20 @@ class Invoice extends ModalComponent
                 }
             }
         }
-    
-        // Define o valor da entrega com base na opção selecionada
-        $this->valorEntrega = ($this->delivery == 'delivery') ? 1 : 0;
-    
-        // Adiciona o valor da entrega ao preço total
-        $this->precoTotal += $this->valorEntrega;
     }
+    public function isDelivery()
+    {
+        // Se a opção for "delivery", o valor da entrega é 1, caso contrário é 0
+        $this->valorEntrega = ($this->delivery === 'delivery') ? 1 : 0;
+    
+        // Atualiza o preço total com base no valor da entrega, considerando a diferença entre o valor atual e o valor anterior da entrega
+        $this->precoTotal += ($this->valorEntrega - $this->valorAnteriorEntrega);
+    
+        // Atualiza o valor anterior da entrega para ser usado na próxima chamada da função
+        $this->valorAnteriorEntrega = $this->valorEntrega;
+    }
+    
+    
     
 
     public function render()

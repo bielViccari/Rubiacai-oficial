@@ -1,6 +1,5 @@
 <div class="z-50">
     <div class="flex items-center justify-center flex-col mt-12">
-        <h1 class="text-2xl font-semibold text-gray-900">Meu Carrinho</h1>
         @if ($successMessage != null)
             @script
                 <script>
@@ -27,6 +26,7 @@
                 <div class="flow-root">
                     <ul class="-my-8">
                         @if ($carrinho)
+                            <h1 class="text-2xl font-semibold text-gray-900">Meu Carrinho</h1>
                             @foreach ($carrinho as $c)
                                 @if (isset($c['name']))
                                     <!-- Verifica se é um produto padrão -->
@@ -79,9 +79,68 @@
                                                         <p class="text-base font-semibold text-gray-900">
                                                             {{ $acai['quantidade'] }}x - Açai Montado</p>
                                                         @if (isset($acai['tamanho']))
-                                                            <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">
-                                                                {{ $acai['tamanho'] }}</p>
+                                                            <div class="relative">
+                                                                <details class="mb-2">
+                                                                    <summary class="text-gray-900 cursor-pointer mb-1">
+                                                                        <span class="font-semibold">Ver itens</span>
+                                                                    </summary>
+                                                                    <ul
+                                                                        class="absolute top-full left-0 mt-1 ml-0 max-h-[20rem] overflow-y-auto bg-white p-2  z-50">
+                                                                        @if ($acai['frutas'])
+                                                                            <li>
+                                                                                <details class="mb-2">
+                                                                                    <summary
+                                                                                        class="bg-gray-100 p-3 rounded-lg cursor-pointer shadow">
+                                                                                        <span
+                                                                                            class="font-semibold">Frutas</span>
+                                                                                    </summary>
+                                                                                    @foreach ($acai['frutas'] as $i => $fruta)
+                                                                                        <div class="bg-white p-4">
+                                                                                            <p class="text-gray-800">
+                                                                                                @if (isset($acai['frutas_quantidade'][$i]))
+                                                                                                    
+                                                                                                    {{ $acai['frutas_quantidade'][$i] }}x
+                                                                                                    -
+                                                                                                @endif
+                                                                                                {{ $fruta->name }} - R$
+                                                                                                {{ number_format($fruta->price, 2, ',', '.') }}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    @endforeach
+                                                                                </details>
+                                                                            </li>
+                                                                        @endif
+                                                                        @if ($acai['adicionais'])
+                                                                            <li>
+                                                                                <details class="mb-2">
+                                                                                    <summary
+                                                                                        class="bg-gray-100 p-3 rounded-lg cursor-pointer shadow">
+                                                                                        <span
+                                                                                            class="font-semibold">Adicionais</span>
+                                                                                    </summary>
+                                                                                    @foreach ($acai['adicionais'] as $i => $adicionais)
+                                                                                        <div class="bg-white p-4">
+                                                                                            <p class="text-gray-800">
+                                                                                                @if (isset($acai['adicionais_quantidade'][$i]))
+                                                                                                    QTD
+                                                                                                    {{ $acai['adicionais_quantidade'][$i] }}
+                                                                                                @endif
+                                                                                                {{ $adicionais->name }}
+                                                                                                - R$
+                                                                                                {{ number_format($adicionais->price, 2, ',', '.') }}
+                                                                                            </p>
+
+                                                                                        </div>
+                                                                                    @endforeach
+                                                                                </details>
+                                                                            </li>
+                                                                        @endif
+                                                                    </ul>
+                                                                </details>
+                                                                </p>
+                                                            </div>
                                                         @endif
+
                                                         @if (isset($acai['observação']))
                                                             <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">
                                                                 {{ $acai['observação'] }}</p>
@@ -120,9 +179,6 @@
                             <div class="flex flex-col justify-center items-center">
 
                                 <img class="w-full h-full" src="images/empty-cart.png" alt="" srcset="">
-                                <span wire:click="$dispatch('closeModal')"
-                                    class="cursor-pointer text-sm font-semibold text-gray-700 uppercase">Procurar
-                                    produtos...</span>
                             </div>
                         @endif
                     </ul>
@@ -167,7 +223,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
                             </button>
                         @endif

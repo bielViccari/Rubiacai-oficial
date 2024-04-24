@@ -50,7 +50,7 @@ class Cart extends ModalComponent
     public function checkIsOpen()
     {
         $currentTime = Carbon::now();
-        $startLimit = Carbon::parse('15:00:00');
+        $startLimit = Carbon::parse('10:00:00');
         $endLimit = Carbon::parse('22:00:00');
 
         if ($currentTime->between($startLimit, $endLimit) && !$currentTime->isMonday()) {
