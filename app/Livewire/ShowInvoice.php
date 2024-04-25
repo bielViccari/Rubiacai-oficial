@@ -34,8 +34,12 @@ class ShowInvoice extends Component
         $pedido = Order::find($this->order->id);
         $pedido->status = $this->status;
         $pedido->save();
-
-        $this->successMessage = 'Status do pedido alterado com sucesso!';
+        $this->dispatch(
+            'alert',
+            type: 'success',
+            title: 'Status alterado!',
+            position: 'center',
+        );
         $this->dispatch('statusChanged');
     }
 
@@ -69,8 +73,8 @@ class ShowInvoice extends Component
                 }
             }
         }
-        if (isset($this->order)) {
-            foreach ($this->order as $item) {
+        if (isset($this->order->itens)) {
+            foreach ($this->order->itens as $item) {
                 if (is_array($item) && array_key_exists('price', $item)) {
                     $precoItem = $item['price'];
                     $quantidadeItem = $item['quantity'];

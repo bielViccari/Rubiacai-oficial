@@ -9,5 +9,7 @@
     <body>
         {{ $slot }}
     </body>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/show-sidebar.js', 'resources/js/show-navbar.js'])
+    @stack('modals')
+    @livewireScripts
 </html>

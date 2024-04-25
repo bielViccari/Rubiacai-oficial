@@ -45,7 +45,7 @@ class Invoice extends ModalComponent
         ]);
         
         Notification::route('telegram', Config::get('services.telegram_id'))
-        ->notify(new TelegramNotification());
+        ->notify(new TelegramNotification($order['name']));
         $request->session()->forget('carrinho');
         $this->dispatch('ordered');
         $this->successMessage = 'Pedido realizado com sucesso! Aguarde a mensagem no whatsapp para confirmação';

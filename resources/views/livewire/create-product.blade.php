@@ -1,18 +1,31 @@
 <div>
+    @if($successMessage != null)
+    @script
+        <script>
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: '{{ $successMessage }}',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        </script>
+    @endscript
+@endif
     @livewire('wire-elements-modal')
-    @vite(['resources/css/app.css', 'resources/js/show-sidebar.js'])
     <x-navbar />
     <form wire:submit='save'>
         <div class="max-w-sm mx-auto mt-20 bg-white rounded-md shadow-md overflow-hidden">
             <div class="px-6 py-4 bg-gray-900 text-white">
                 <h1 class="text-lg font-bold">Cadastrar produto</h1>
-                
+
                 <!-- Spinner SVG -->
-                @if($showLoading)
-                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 9999;">
-                    <img src="images/spinner.svg" alt="" srcset="">
-                </div>
-            @endif
+                @if ($showLoading)
+                    <div
+                        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                        <img src="images/spinner.svg" alt="" srcset="">
+                    </div>
+                @endif
             </div>
             <div class="px-6 py-4">
                 <!-- Nome do Produto -->
@@ -43,7 +56,7 @@
                         </label>
                         <input
                             class="appearance-none border border-red-400 rounded w-full py-2 px-3 text-red-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="price" type="text" placeholder="20,00" wire:model='price'>
+                            id="price" type="number" placeholder="20,00" wire:model='price'>
                         <span class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $errors->first('price') }}</span>
                     @else
                         <label class="block text-gray-700 font-bold mb-2" for="price">
@@ -51,7 +64,7 @@
                         </label>
                         <input
                             class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="price" type="text" placeholder="20,00" wire:model='price'>
+                            id="price" type="number" placeholder="20,00" wire:model='price'>
                     @endif
                 </div>
 
@@ -88,18 +101,27 @@
                                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                             @endforeach
                         </select>
-                        <span class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $errors->first('category_id') }}</span>
+                        <span
+                            class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $errors->first('category_id') }}</span>
                     @else
                         <label class="block text-gray-700 font-bold mb-2" for="category_id">
                             Categoria do produto
                         </label>
-                        <select id="category_id" wire:model='category_id'
+                        <select id="category_id" wire:model='category_id' wire:change='checkCategory'
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="">Selecione uma categoria</option>
+                            <option value="" disabled selected>Selecione uma categoria</option>
                             @foreach ($categories as $c)
                                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                             @endforeach
                         </select>
+                    @endif
+
+                    @if($needDescription)
+                    <label class="block text-gray-700 font-bold mb-2 mt-4" for="description">
+                        descrição do produto
+                    </label>
+                        <textarea name="description" id="description" cols="30" rows="3" wire:model='description'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
                     @endif
                 </div>
                 <button type="button" wire:click="$dispatch('openModal', { component: 'modal-category' })"
@@ -109,7 +131,8 @@
 
                 <!-- Botão de Salvar Produto -->
                 <div class="flex justify-end mt-4">
-                    <button type="submit" class="bg-gray-900 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+                    <button type="submit"
+                        class="bg-gray-900 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
                         Salvar Produto
                     </button>
                 </div>
