@@ -40,7 +40,7 @@
             @if ($errors->has('status'))
                 <select id="status" wire:model='status'
                     class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
-                    <option value="">Escolher</option>
+                    <option value="" disabled selected>Altere o status</option>
                     <option value="d">Entregue</option>
                     <option value="i">Em processo</option>
                     <option value="n">Não entregue</option>
@@ -49,7 +49,7 @@
             @else
                 <select id="status" wire:model='status'
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">Escolher</option>
+                    <option value="" disabled selected>Altere o status</option>
                     <option value="d">Entregue</option>
                     <option value="i">Em processo</option>
                     <option value="n">Não entregue</option>
@@ -123,7 +123,7 @@
                     <tr>
                         <td class="text-gray-700 border-b border-gray-300">Produtos separados</td>
                     </tr>
-                    @foreach ($order as $c)
+                    @foreach ($order->itens as $c)
                         @if (isset($c['name']))
                             <tr>
                                 <td class="py-4 text-gray-700">{{ $c['name'] }}</td>

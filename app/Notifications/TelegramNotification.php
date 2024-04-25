@@ -12,13 +12,13 @@ use NotificationChannels\Telegram\TelegramMessage;
 class TelegramNotification extends Notification
 {
     use Queueable;
-
+    private $name;
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($name)
     {
-        //
+        $this->name = $name;
     }
 
     /**
@@ -34,7 +34,7 @@ class TelegramNotification extends Notification
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-        ->content("Novo pedido realizado no sistema")
+        ->content($this->name . " acabou de fazer um pedido no sistema")
         ->button("Veja o novo pedido", 'https://rubiacai-oficial-production.up.railway.app/dashboard');
     }
     /**

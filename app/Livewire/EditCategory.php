@@ -53,7 +53,6 @@ class EditCategory extends Component
             $category->image = $imageName;
         }
         $category->save();
-
         return redirect()->route('dashboard');
     }
 

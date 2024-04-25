@@ -18,12 +18,14 @@ class CreateProduct extends Component
     public $name = '';
     #[Validate('required', 'min:1', message: 'Selecione uma categoria para o produto.')]
     public $category_id = '';
-    #[Validate('required', 'min:1', message: 'Insira um preço válido para o produto')]
+    #[Validate('required', 'decimal:2', 'min:1', message: 'Insira um preço válido para o produto')]
     public $price = '';
     #[Validate('required', 'image', 'mimes:jpeg,png,jpg,gif', message: 'Por favor, selecione uma imagem válida (JPEG, PNG, JPG ou GIF) com tamanho máximo de 2MB e dimensões entre 100x100 e 2000x2000 pixels.')]
     public $image = '';
+    public $description = '';
     public $categories;
     public $showLoading = false;
+    public $successMessage;
     
     public function mount()
     {
@@ -44,16 +46,32 @@ class CreateProduct extends Component
             'name' => $this->name,
             'price' => $this->price,
             'category_id' => $this->category_id,
+            'description' => $this->description,
             'image' => $this->image->getClientOriginalName()
         ]);
 
-        $this->showLoading = true;
         $imageName = $this->image->getClientOriginalName();
         $this->image->storeAs('public/productImages', $imageName);
-
-        return redirect()->route('dashboard');
+        $this->dispatch(
+            'alert',
+            type: 'success',
+            title: 'Produto adicionado com sucesso!',
+            position: 'center',
+        );
+        $this->reset('name', 'price', 'image', 'description');
     }
 
+    public $needDescription = false;
+    public function checkCategory() {
+        if($this->categories[$this->category_id - 1]->name == 'Açai Pronto') {
+            $this->needDescription = true;
+        } else {
+            $this->needDescription = false;
+        }
+    }
+    public function setLoading() {
+        $this->showLoading = true;
+    }
  
     public function render()
     {

@@ -20,7 +20,8 @@ class EditProduct extends Component
     public $categories;
     public $product;
     public $productId;
-
+    public $description;
+    public $needDescription = false;
 
 
     public function mount()
@@ -33,9 +34,18 @@ class EditProduct extends Component
         $this->name = $this->product->name;
         $this->category_id = $this->product->category_id;
         $this->price = $this->product->price;
+        $this->description = $this->product->description;
         $this->categories = Category::all();
+        $this->checkCategory();
     }
 
+    public function checkCategory() {
+        if($this->categories[$this->category_id - 1]->name == 'Açai Pronto') {
+            $this->needDescription = true;
+        } else {
+            $this->needDescription = false;
+        }
+    }
 
     #[On('category-created')]
     public function updateCategories()
@@ -74,8 +84,13 @@ class EditProduct extends Component
             $product->image = $imageName;
         }
         $product->save();
-
-        return redirect()->route('dashboard');
+        $this->dispatch(
+            'alert',
+            type: 'success',
+            title: 'Produto Editado com sucesso!',
+            position: 'center',
+        );
+        $this->reset('name', 'price', 'image', 'description');
     }
     
 

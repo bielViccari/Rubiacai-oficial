@@ -22,6 +22,27 @@ class ProductCard extends Component
     public $filterId;
     public $nameOfCategoryFiltered;
     public $successMessage;
+    public ?Product $selectedProduct = null; // Inicialize com null para permitir valores nulos
+
+    public $modal = false;
+
+    public function toggleModal()
+    {
+        $this->modal = !$this->modal;
+        if($this->modal) { // Verifica se o modal está aberto
+            $this->dispatch('update');
+        }
+    }
+    
+    public function viewProduct($id)
+    {
+        $product = Product::find($id);
+        $this->selectedProduct = $product;
+        $this->toggleModal();
+    }
+    
+
+
     public function increment($productId)
     {
         $this->quantities[$productId]++;
@@ -30,7 +51,7 @@ class ProductCard extends Component
 
     public function decrement($productId)
     {
-        if ($this->quantities[$productId] > 0) {
+        if ($this->quantities[$productId] > 1) {
             $this->quantities[$productId]--;
             $this->dispatch('decrement');
         }
@@ -55,6 +76,7 @@ class ProductCard extends Component
         $this->carrinho = $request->session()->get('carrinho');
         $this->totalProductsInCard();
     }
+
     public function addToCart($product, $quantity, Request $request)
     {
 
@@ -100,7 +122,7 @@ class ProductCard extends Component
     }
 
     public $totalProducts;
-
+    #[On('modalClosed')]
     public function totalProductsInCard()
     {
         $this->totalProducts = 0;
@@ -122,8 +144,6 @@ class ProductCard extends Component
 
     }
 
-    #[On('increment')]
-    #[On('decrement')]
     public function render()
     {
         if ($this->filteredProducts) {

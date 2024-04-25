@@ -103,9 +103,15 @@
                             <span
                                 class="mr-2 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">{{ $p->category->name }}</span>
                         </div>
-                        <p>
+                        <p class="flex flex-row justify-between">
                             <span class="text-2xl font-bold text-slate-900">R$
                                 {{ number_format($p->price, 2, ',', '.') }}</span>
+                                @if ($p->category->name == 'Açai Pronto') 
+                                    <a wire:click="$dispatch('openModal', { component: 'show-product', arguments: { productId: {{ $p->id }} }})"
+                                        class="flex cursor-pointer items-center px-4 py-2 text-center text-sm font-medium text-purple-500 hover:text-purple-700">
+                                        Ver mais</a>
+                                @endif
+    
                         </p>
                         <div class="flex items-center justify-between">
                             <div class="inline-flex items-center mt-2">
@@ -130,15 +136,16 @@
                                     </svg>
                                 </button>
                             </div>
-                            <a wire:click="addToCart({{ $p }},{{ $quantities ? $quantities[$p->id] : 1 }}); $dispatch('openModal', { component: 'cart' })"
-                                href="#"
-                                class="flex items-center rounded-md bg-purple-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                                Adicionar</a>
+
+                                <a wire:click="addToCart({{ $p }},{{ $quantities ? $quantities[$p->id] : 1 }}); $dispatch('openModal', { component: 'cart' })"
+                                    href="#"
+                                    class="flex items-center rounded-md bg-purple-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    Adicionar</a>
                         </div>
                     </div>
                 </div>
@@ -146,6 +153,11 @@
             @endif
         @endforeach
     </div>
+    <x-main-modal title="Produto" id="product-modal" wire:model="modal">
+        @if (isset($selectedProduct))
+            <livewire:show-product :product="$selectedProduct" />
+        @endif
+    </x-main-modal>
 <div class="p-12">
     @if ($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
     <span>{{ $products->links( data: ['scrollTo' => '#card']) }}</span>
