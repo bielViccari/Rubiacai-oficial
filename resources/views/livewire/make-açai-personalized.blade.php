@@ -233,6 +233,8 @@
             </div>
         </form>
     @else
-        <span>Nenhum produto adicionado...</span>
+    <div class="flex justify-center items-center">
+        <span class="text-lg font-bold text-gray-600 mb-4">Nenhum produto adicionado...</span>
+    </div>
     @endif
 </div>

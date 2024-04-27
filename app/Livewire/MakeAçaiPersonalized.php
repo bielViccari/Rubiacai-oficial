@@ -160,7 +160,10 @@ class MakeAçaiPersonalized extends ModalComponent
 
     public function setInitialSize()
     {
-        $firstAcai = $this->acai->first();
+        $firstAcai = null;
+        if($this->acai) {
+            $firstAcai = $this->acai->first();
+        }
         if ($firstAcai) {
             $this->sizePrice = $firstAcai->price;
             $this->size = $firstAcai->name;
@@ -181,14 +184,18 @@ class MakeAçaiPersonalized extends ModalComponent
     {
         $totalPrice = 0;
     
-        // Calcular o preço das frutas selecionadas
-        foreach ($this->fruits as $fruit) {
-            $totalPrice += $this->quantities[$fruit->id] * $fruit->price;
+        if($this->fruits) {
+            // Calcular o preço das frutas selecionadas
+            foreach ($this->fruits as $fruit) {
+                $totalPrice += $this->quantities[$fruit->id] * $fruit->price;
+            }
         }
     
-        // Calcular o preço dos adicionais selecionados
-        foreach ($this->aditionals as $additional) {
-            $totalPrice += $this->quantities[$additional->id] * $additional->price;
+        if($this->aditionals) {
+            // Calcular o preço dos adicionais selecionados
+            foreach ($this->aditionals as $additional) {
+                $totalPrice += $this->quantities[$additional->id] * $additional->price;
+            }
         }
 
         // Adicionar o preço do tamanho selecionado, se houver
