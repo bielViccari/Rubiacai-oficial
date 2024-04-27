@@ -56,15 +56,15 @@
                         </label>
                         <input
                             class="appearance-none border border-red-400 rounded w-full py-2 px-3 text-red-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="price" type="number" placeholder="20,00" wire:model='price'>
-                        <span class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $errors->first('price') }}</span>
+                            id="price" type="text" placeholder="20,00" wire:model='price'>
+                        <span class="mt-2 text-xs text-red-600 dark:text-red-400">O preço deve ser somente numeros, por ex: 12.99 ou 12,99</span>
                     @else
                         <label class="block text-gray-700 font-bold mb-2" for="price">
                             Preço
                         </label>
                         <input
                             class="appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="price" type="number" placeholder="20,00" wire:model='price'>
+                            id="price" type="text" placeholder="20,00" wire:model='price'>
                     @endif
                 </div>
 
@@ -79,7 +79,7 @@
                                 alt="Prévia da imagem">
                         @endif
                     </div>
-                    <input wire:model='image'
+                    <input wire:model='image' accept="image/png, image/jpg, image/jpeg"
                         class="block w-full mt-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="small_size" type="file">
                     @if ($errors->has('image'))
