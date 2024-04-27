@@ -59,7 +59,9 @@ class MakeAçaiPersonalized extends ModalComponent
                 }
             }
         }
+        $this->setInitialSize();
         $this->checkIsOpen();
+        $this->updateTotalPrice();
     }
 
     public $system;
@@ -100,7 +102,6 @@ class MakeAçaiPersonalized extends ModalComponent
         }
     } else {
         $this->validate([
-            'size' => 'required|min:1',
             'quantity' => 'required|min:1',
         ]);
 
@@ -156,6 +157,25 @@ class MakeAçaiPersonalized extends ModalComponent
     public $totalPrice = 0;
     public $sizePrice;
     public $totalQtdSize;
+
+    public function setInitialSize()
+    {
+        $firstAcai = $this->acai->first();
+        if ($firstAcai) {
+            $this->sizePrice = $firstAcai->price;
+            $this->size = $firstAcai->name;
+    
+            $this->quantity = 1;
+    
+            $this->totalQtdSize = $firstAcai->price * $this->quantity;
+        } else {
+            $this->sizePrice = null;
+            $this->size = null;
+            $this->quantity = null;
+            $this->totalQtdSize = null;
+        }
+    }
+    
 
     private function updateTotalPrice()
     {

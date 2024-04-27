@@ -14,13 +14,13 @@ class CreateProduct extends Component
 {
     use WithFileUploads;
 
-    #[Validate('required', 'min:1', message: 'Selecione o nome do produto.')]
+    #[Validate('required|min:1', message: 'Selecione o nome do produto.')]
     public $name = '';
     #[Validate('required', 'min:1', message: 'Selecione uma categoria para o produto.')]
     public $category_id = '';
-    #[Validate('required', 'decimal:2', 'min:1', message: 'Insira um preço válido para o produto')]
+    #[Validate('required|min:1|decimal:0,4', message: 'Insira um preço válido para o produto')]
     public $price = '';
-    #[Validate('required', 'image', 'mimes:jpeg,png,jpg,gif', message: 'Por favor, selecione uma imagem válida (JPEG, PNG, JPG ou GIF) com tamanho máximo de 2MB e dimensões entre 100x100 e 2000x2000 pixels.')]
+    #[Validate('required', 'image', 'max:1024', message: 'Por favor, selecione uma imagem válida (JPEG, PNG, JPG ou GIF) com tamanho máximo de 2MB e dimensões entre 100x100 e 2000x2000 pixels.')]
     public $image = '';
     public $description = '';
     public $categories;
