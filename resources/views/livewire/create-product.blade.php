@@ -94,7 +94,7 @@
                         <label class="block text-red-700 font-bold mb-2" for="category_id">
                             Categoria do produto
                         </label>
-                        <select id="category_id" wire:model='category_id'
+                        <select id="category_id" wire:model='category_id' wire:change='checkCategory'
                             class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
                             <option value="">Selecione uma categoria</option>
                             @foreach ($categories as $c)

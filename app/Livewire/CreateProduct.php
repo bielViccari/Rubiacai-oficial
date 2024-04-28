@@ -42,7 +42,7 @@ class CreateProduct extends Component
     {
         $this->validate();
 
-        $product = Product::create([
+        Product::create([
             'name' => $this->name,
             'price' => $this->price,
             'category_id' => $this->category_id,
@@ -63,12 +63,20 @@ class CreateProduct extends Component
 
     public $needDescription = false;
     public function checkCategory() {
-        if($this->categories[$this->category_id - 1]->name == 'Açai Pronto') {
-            $this->needDescription = true;
+        $categoryName = '';
+    
+        foreach ($this->categories as $category) {
+            if ($category->id == $this->category_id) {
+                $categoryName = $category->name;
+            }
+        }
+        if ($categoryName == 'Açai Pronto' || $categoryName == 'Açai pronto') {
+           $this->needDescription = true;
         } else {
             $this->needDescription = false;
         }
     }
+    
     public function setLoading() {
         $this->showLoading = true;
     }

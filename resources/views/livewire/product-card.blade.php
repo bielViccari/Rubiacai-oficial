@@ -106,7 +106,7 @@
                         <p class="flex flex-row justify-between">
                             <span class="text-2xl font-bold text-slate-900">R$
                                 {{ number_format($p->price, 2, ',', '.') }}</span>
-                                @if ($p->category->name == 'Açai Pronto') 
+                                @if ($p->category->name == 'Açai Pronto' || $p->category->name == 'Açai pronto') 
                                     <a wire:click="$dispatch('openModal', { component: 'show-product', arguments: { productId: {{ $p->id }} }})"
                                         class="flex cursor-pointer items-center px-4 py-2 text-center text-sm font-medium text-purple-500 hover:text-purple-700">
                                         Ver mais</a>
