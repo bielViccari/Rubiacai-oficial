@@ -31,21 +31,30 @@ class EditProduct extends Component
             $this->redirectRoute('dashboard');
         }
 
+        $priceFormated = number_format($this->product->price, 2, ',', '.');
         $this->name = $this->product->name;
         $this->category_id = $this->product->category_id;
-        $this->price = $this->product->price;
+        $this->price = $priceFormated;
         $this->description = $this->product->description;
         $this->categories = Category::all();
         $this->checkCategory();
     }
 
     public function checkCategory() {
-        if($this->categories[$this->category_id - 1]->name == 'Açai Pronto') {
-            $this->needDescription = true;
+        $categoryName = '';
+    
+        foreach ($this->categories as $category) {
+            if ($category->id == $this->category_id) {
+                $categoryName = $category->name;
+            }
+        }
+        if ($categoryName == 'Açai Pronto' || $categoryName == 'Açai pronto') {
+           $this->needDescription = true;
         } else {
             $this->needDescription = false;
         }
     }
+    
 
     #[On('category-created')]
     public function updateCategories()
@@ -62,11 +71,11 @@ class EditProduct extends Component
             'price' => 'required',
             'category_id' => 'required',
         ]);
-    
+        $priceFormated = number_format(floatval($this->price), 2, '.', ',');
+
         $product = Product::findOrFail($this->productId);
-    
         $product->name = $this->name;
-        $product->price = $this->price;
+        $product->price = $priceFormated;
         $product->category_id = $this->category_id;
     
         if ($this->image) {
@@ -74,12 +83,12 @@ class EditProduct extends Component
                 'image' => 'image',
             ]);
 
-            $imageName = $this->image->getClientOriginalName();
-            $this->image->storeAs('public/productImages', $imageName);
-
             if ($product->image && Storage::exists('public/productImages/' . $product->image)) {
                 Storage::delete('public/productImages/' . $product->image);
             }
+            $imageName = $this->image->getClientOriginalName();
+            $this->image->storeAs('public/productImages', $imageName);
+
 
             $product->image = $imageName;
         }
@@ -90,7 +99,7 @@ class EditProduct extends Component
             title: 'Produto Editado com sucesso!',
             position: 'center',
         );
-        $this->reset('name', 'price', 'image', 'description');
+        $this->redirectRoute('dashboard');
     }
     
 

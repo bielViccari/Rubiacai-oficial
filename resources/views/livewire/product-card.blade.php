@@ -87,18 +87,31 @@
         @if($p->category->name != "Frutas" && $p->category->name != "Adicionais")
             <div class="flex flex-col mx-2">
                 <div class="relative my-2 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
-                    <a href="#" class="flex justify-center items-center">
+                    @if ($p->category->name == 'Açai Pronto' || $p->category->name == 'Açai pronto')
+                    <a class="cursor-pointer" wire:click="$dispatch('openModal', { component: 'show-product', arguments: { productId: {{ $p->id }} }})" class="flex justify-center items-center">
                         <img class="h-60 w-60 rounded-t-lg object-cover"
                             src="storage/productImages{{ asset($p->image) }}" alt="product image" />
                     </a>
+                    @else
+                    <a class="flex justify-center items-center">
+                        <img class="h-60 w-60 rounded-t-lg object-cover"
+                            src="storage/productImages{{ asset($p->image) }}" alt="product image" />
+                    </a>
+                    @endif
                     @if ($isNew)
                         <span
                             class="absolute top-0 left-0 w-28 translate-y-4 -translate-x-6 -rotate-45 bg-purple-500 text-center text-sm text-white">Novo</span>
                     @endif
                     <div class="mt-4 px-5 pb-5">
-                        <a href="#">
+                        @if ($p->category->name == 'Açai Pronto' || $p->category->name == 'Açai pronto')
+                        <a class="cursor-pointer" wire:click="$dispatch('openModal', { component: 'show-product', arguments: { productId: {{ $p->id }} }})">
                             <h5 class="text-xl font-semibold tracking-tight text-slate-900">{{ $p->name }}</h5>
                         </a>
+                        @else
+                        <a>
+                            <h5 class="text-xl font-semibold tracking-tight text-slate-900">{{ $p->name }}</h5>
+                        </a>
+                        @endif
                         <div class="mt-2.5 mb-5 flex items-center">
                             <span
                                 class="mr-2 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">{{ $p->category->name }}</span>
