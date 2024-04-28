@@ -1,21 +1,3 @@
-<script>
-    window.addEventListener('scroll', function() {
-        var navbar = document.querySelector('.navbar');
-        if (window.scrollY > 0) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-</script>
-
-<style>
-    .scrolled {
-        background-color: rgba(150, 131, 236, 0.3);
-        backdrop-filter: blur(10px);
-    }
-</style>
-
 <nav class="flex items-center justify-between p-2 lg:px-8 navbar  z-40 top-0 left-0 right-0 transition-all duration-300">
     <div class="flex lg:flex-1">
         <a class="-m-1.5 p-1.5">

@@ -1,4 +1,17 @@
 <div class="flex justify-center items-center">
+    @if($successMessage != null)
+                    @script
+                        <script>
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: '{{ $successMessage }}',
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        </script>
+                    @endscript
+    @endif
             <a class="flex justify-center items-center">
                 <img class="h-60 w-60 rounded-t-lg object-cover" src="storage/productImages{{ asset($product->image) }}"
                     alt="product image" />
@@ -48,7 +61,7 @@
                     </div>
 
                         <a wire:click="addToCart({{ $product }},{{ $quantities ? $quantities[$product->id] : 1 }}); $dispatch('openModal', { component: 'cart' })"
-                            class="flex items-center rounded-md bg-purple-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                            class="flex items-center cursor-pointer rounded-md bg-purple-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"

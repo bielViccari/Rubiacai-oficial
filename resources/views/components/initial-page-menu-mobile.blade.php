@@ -19,9 +19,9 @@
                     <div class="mt-6 flow-root">
                         <div class="-my-6 divide-y divide-gray-500/10">
                             <div class="space-y-2 py-6">
-                                <a href="#products" 
+                                <a href="#products"
                                     class="-mx-3 test block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Produtos</a>
-                                <a href="#categories" 
+                                <a href="#categories"
                                     class="-mx-3 test block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Categorias</a>
                                 <a href="{{ route('about-us') }}"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Sobre

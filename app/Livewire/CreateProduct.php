@@ -18,7 +18,7 @@ class CreateProduct extends Component
     public $name = '';
     #[Validate('required', 'min:1', message: 'Selecione uma categoria para o produto.')]
     public $category_id = '';
-    #[Validate('required|min:1|decimal:0,4', message: 'Insira um preço válido para o produto')]
+    #[Validate('required|min:1|regex:/^[0-9]+([,.][0-9]+)?$/', message: 'Insira um preço válido para o produto')]
     public $price = '';
     #[Validate('required', 'image', 'max:1024', message: 'Por favor, selecione uma imagem válida (JPEG, PNG, JPG ou GIF) com tamanho máximo de 2MB e dimensões entre 100x100 e 2000x2000 pixels.')]
     public $image = '';
@@ -41,10 +41,10 @@ class CreateProduct extends Component
     public function save()
     {
         $this->validate();
-
+        $priceFormated = number_format(floatval($this->price), 2, '.', ',');
         Product::create([
             'name' => $this->name,
-            'price' => $this->price,
+            'price' => $priceFormated,
             'category_id' => $this->category_id,
             'description' => $this->description,
             'image' => $this->image->getClientOriginalName()

@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Product;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use LivewireUI\Modal\ModalComponent;
 
 class ShowProduct extends ModalComponent
@@ -36,6 +36,7 @@ class ShowProduct extends ModalComponent
         }
     }
 
+    public $successMessage;
     public function addToCart($product, $quantity, Request $request)
     {
 
