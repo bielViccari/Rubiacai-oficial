@@ -187,14 +187,14 @@ class MakeAçaiPersonalized extends ModalComponent
         if($this->fruits) {
             // Calcular o preço das frutas selecionadas
             foreach ($this->fruits as $fruit) {
-                $totalPrice += $this->quantities[$fruit->id] * $fruit->price;
+                $totalPrice += ($this->quantities[$fruit->id] * $fruit->price) * $this->quantity;
             }
         }
     
         if($this->aditionals) {
             // Calcular o preço dos adicionais selecionados
             foreach ($this->aditionals as $additional) {
-                $totalPrice += $this->quantities[$additional->id] * $additional->price;
+                $totalPrice += ($this->quantities[$additional->id] * $additional->price) * $this->quantity;
             }
         }
 
