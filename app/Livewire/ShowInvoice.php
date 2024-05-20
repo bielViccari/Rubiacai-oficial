@@ -82,7 +82,7 @@ class ShowInvoice extends Component
                 }
             }
         }
-        $this->valorEntrega = 1;
+        $this->valorEntrega = $this->order->delivery == 'delivery' ? 1 : 0;
     }
 
     #[On('statusChanged')]
