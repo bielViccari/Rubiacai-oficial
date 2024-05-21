@@ -78,7 +78,13 @@ class DashboardContent extends Component
                 }
             }
         }
-        // Prepara os dados para o gráfico
+// Remover os elementos com valor 0 dos dois arrays
+foreach ($orderCounts as $order => $o) {
+    if ($o === 0) {
+        unset($orderCounts[$order]);
+        unset($productos[$order]);
+    }
+}
         $this->productsGraph = array_values($productos);
         $this->productsOrderCounts = array_values($orderCounts);
     }
@@ -216,8 +222,7 @@ class DashboardContent extends Component
                     'itens' => $o->itens,
                     'created_at' => $o->created_at,
                 ];
-
-                $this->valueOrderWeek += number_format($o->precoTotal, 2, '.', ',');
+                $this->valueOrderDiary += number_format($o->precoTotal, 2, '.', ',');
             }
             if ($o->created_at->diffInDays(Carbon::now()) < 8 && $o->status === 'd') {
                 $this->weekendRelatory[] = [
@@ -232,7 +237,7 @@ class DashboardContent extends Component
                     'itens' => $o->itens,
                     'created_at' => $o->created_at,
                 ];
-                $this->valueOrderDiary += number_format($o->precoTotal, 2, '.', ',');
+                $this->valueOrderWeek += number_format($o->precoTotal, 2, '.', ',');
             }
             if ($o->created_at->diffInMonths(Carbon::now()) < 1 && $o->status === 'd') {
                 $this->monthRelatory[] = [
