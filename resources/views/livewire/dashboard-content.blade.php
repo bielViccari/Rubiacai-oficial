@@ -35,7 +35,10 @@
         integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
 
     <main>
-        <div class="flex flex-col md:flex-row">
+        
+    <div class="flex flex-col md:flex-row">
+        <nav aria-label="alternative nav">
+        </nav>
         <section>
             <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
                 <div class=" bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
@@ -137,7 +140,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">faturamento do dia</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderDiary }}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderDiary == null ? '00,00' : $valueOrderDiary}}</p>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +282,7 @@
                 </div>
             </div>
         </section>
-        </div>
+    </div>
     </main>
 
     @if ($system)

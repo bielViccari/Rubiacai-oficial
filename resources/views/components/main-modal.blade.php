@@ -33,7 +33,7 @@
     <div class="flex flex-col w-full max-w-2xl mx-auto transform bg-white rounded shadow"> 
         <div class="flex items-center justify-between px-5 py-3 border-b">
             <div>{{$title}}</div>
-            <button x-on:click="show = false" class="text-2xl"> 
+            <button x-on:click="show = false; window.location.reload()" class="text-2xl"> 
                 &times;
             </button>
             
