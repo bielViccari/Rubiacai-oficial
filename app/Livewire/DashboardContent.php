@@ -239,6 +239,7 @@ foreach ($orderCounts as $order => $o) {
                 ];
                 $this->valueOrderWeek += number_format($o->precoTotal, 2, '.', ',');
             }
+
             if ($o->created_at->diffInMonths(Carbon::now()) < 1 && $o->status === 'd') {
                 $this->monthRelatory[] = [
                     'id' => $o->id,
