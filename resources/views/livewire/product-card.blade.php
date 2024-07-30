@@ -152,7 +152,7 @@
 
                                 <a wire:click="addToCart({{ $p }},{{ $quantities ? $quantities[$p->id] : 1 }}); $dispatch('openModal', { component: 'cart' })"
                                     href="#"
-                                    class="flex items-center rounded-md bg-purple-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                                    class="flex items-center rounded-md bg-purple-500 px-4 py-2 ml-2 mt-1 text-center text-sm font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
