@@ -40,7 +40,7 @@ class Invoice extends ModalComponent
             'address' => $this->address,
             'status' => 'n',
             'delivery' => $this->delivery,
-            'precoTotal' => $this->precoTotal,
+            'precoTotal' => $this->totalPrice,
             'itens' => $this->carrinho,
         ]);
         
@@ -64,11 +64,11 @@ class Invoice extends ModalComponent
 
     public $priceOfSize = [];
     public $unityPrice = [];
-    public $precoTotal;
+    public $totalPrice;
 
     public function prices()
     {
-        $this->precoTotal = 0; // Reinicializa o preço total
+        $this->totalPrice = 0; // Reinicializa o preço total
         // Verifica se o carrinho está definido e se contém a chave 'acaiPersonalizado'
         if (isset($this->carrinho['acaiPersonalizado'])) {
     
@@ -78,7 +78,7 @@ class Invoice extends ModalComponent
                     $sizeValue = $product->price;
                     $this->priceOfSize[$index] = $sizeValue * $item['quantidade'];
                     $this->unityPrice[$index] = $sizeValue;
-                    $this->precoTotal += $item['precoTotal']; // Adiciona ao preço total
+                    $this->totalPrice += $item['precoTotal']; // Adiciona ao preço total
                 }
             }
         }
@@ -89,7 +89,7 @@ class Invoice extends ModalComponent
                 if (is_array($item) && array_key_exists('price', $item)) {
                     $precoItem = $item['price'];
                     $quantidadeItem = $item['quantity'];
-                    $this->precoTotal += $precoItem * $quantidadeItem; // Adiciona ao preço total
+                    $this->totalPrice += $precoItem * $quantidadeItem; // Adiciona ao preço total
                 }
             }
         }
@@ -100,7 +100,7 @@ class Invoice extends ModalComponent
         $this->valorEntrega = ($this->delivery === 'delivery') ? 1 : 0;
     
         // Atualiza o preço total com base no valor da entrega, considerando a diferença entre o valor atual e o valor anterior da entrega
-        $this->precoTotal += ($this->valorEntrega - $this->valorAnteriorEntrega);
+        $this->totalPrice += ($this->valorEntrega - $this->valorAnteriorEntrega);
     
         // Atualiza o valor anterior da entrega para ser usado na próxima chamada da função
         $this->valorAnteriorEntrega = $this->valorEntrega;

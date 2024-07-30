@@ -29,7 +29,7 @@
             Montar Açai
         </h3>
         <button type="button" wire:click="dispatch('closeModal')"
-            class="text-gray-400 bg-transparent hover:bg-gray-200 pr-4 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 mr-2 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-toggle="crud-modal">
             <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,6 +89,8 @@
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                         <p class="mt-2 text-sm text-red-600 dark:text-red-500">Selecione a quantidade de açai que você deseja</p>
                     </div>
@@ -107,10 +109,10 @@
                 @endif
             </div>
             <div class="flex flex-col mt-6 justify-center items-center">
-                <span class="font-bold text-gray-600 uppercase">Selecionar complementos</span>
+                <span class="font-bold text-gray-600 dark:text-gray-200 uppercase">Selecionar complementos</span>
             </div>
             <div class="flex flex-col mt-6">
-                <span class="font-bold text-gray-600">Frutas:</span>
+                <span class="font-bold text-gray-600 dark:text-gray-200">Frutas:</span>
             </div>
             @if (isset($fruits))
                 <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5">
@@ -124,12 +126,12 @@
                                                 class=" object-center w-24 h-24 mt-2" alt="{{ $f->name }}">
                                         </div>
                                         <div class="p-2 flex items-center justify-center flex-col">
-                                            <h2 class="text-lg font-medium text-gray-900">{{ $f->name }}</h2>
-                                            <p class="mt-2 text-sm text-gray-500">
+                                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">{{ $f->name }}</h2>
+                                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-200">
                                                 R${{ number_format($f->price, 2, ',', '.') }}</p>
                                             <div class="flex justify-center mt-2">
                                                 <button wire:click.prevent='decrement({{ $f->id }})'
-                                                    class="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    class=" dark:text-gray-200 dark:hover:text-gray-600 text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 ">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -137,11 +139,11 @@
                                                     </svg>
                                                 </button>
                                                 <div
-                                                    class="text-gray-600 inline-flex items-center px-4 py-1 select-none">
+                                                    class="text-gray-600 dark:text-gray-200 inline-flex items-center px-4 py-1 select-none">
                                                     {{ $quantities[$f->id] }}
                                                 </div>
                                                 <button wire:click.prevent='increment({{ $f->id }})'
-                                                    class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    class="text-gray-600 dark:hover:text-gray-600 dark:text-gray-200 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 ">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -158,7 +160,7 @@
                 </div>
             @endif
             <div class="flex flex-col">
-                <span class="font-bold text-gray-600">Adicionais:</span>
+                <span class="font-bold text-gray-600 dark:text-gray-200">Adicionais:</span>
             </div>
             @if (isset($aditionals))
                 <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5">
@@ -172,12 +174,12 @@
                                                 class=" object-center w-24 h-24 mt-2" alt="{{ $a->name }}">
                                         </div>
                                         <div class="p-2 flex items-center justify-center flex-col">
-                                            <h2 class="text-lg font-medium text-gray-900">{{ $a->name }}</h2>
-                                            <p class="mt-2 text-sm text-gray-500">
+                                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">{{ $a->name }}</h2>
+                                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-200">
                                                 R${{ number_format($a->price, 2, ',', '.') }}</p>
                                             <div class="flex justify-center mt-2">
                                                 <button wire:click.prevent='decrement({{ $a->id }})'
-                                                    class="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    class=" dark:text-gray-200 dark:hover:text-gray-600 text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 ">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -185,11 +187,11 @@
                                                     </svg>
                                                 </button>
                                                 <div
-                                                    class="text-gray-600 inline-flex items-center px-4 py-1 select-none">
+                                                    class="text-gray-600 dark:text-gray-200 inline-flex items-center px-4 py-1 select-none">
                                                     {{ $quantities[$a->id] }}
                                                 </div>
                                                 <button wire:click.prevent='increment({{ $a->id }})'
-                                                    class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                                                    class=" dark:text-gray-200 dark:hover:text-gray-600 text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 ">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -215,7 +217,7 @@
             </div>
 
             <div class="flex justify-center items-center flex-col">
-                <p class="text-lg text-gray-500 mb-4 mt-2">Total a pagar: R$ {{ number_format($totalPrice, 2, ',', '.') }}</p>
+                <p class="text-lg text-gray-500 dark:text-gray-200 mb-4 mt-2">Total a pagar: R$ {{ number_format($totalPrice, 2, ',', '.') }}</p>
                 <div class="flex justify-between">
                         <button type="button" wire:click="addToCart"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
