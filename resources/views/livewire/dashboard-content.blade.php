@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento total</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $invoicedAmountFormated }}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $invoicedAmountFormated == null ? '00,00' : $invoicedAmountFormated}}</p>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento da semana</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderWeek }}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderWeek == null ? '00,00' : $valueOrderWeek}}</p>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento do mês</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderMonthly }}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderMonthly == null ? '00,00' : $valueOrderMonthly}}</p>
                                 </div>
                             </div>
                         </div>

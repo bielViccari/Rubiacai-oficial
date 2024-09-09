@@ -10,14 +10,14 @@
          <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
              <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                  <div class="relative  px-3 py-1 text-sm leading-6 text-gray-600">
-                     <img width="150px" height="150px" src="{{ asset('images/rubiacai.png') }}" alt="">
+                     <img width="200px" height="200px" src="{{ config('app.logo_acai') }}" alt="">
                  </div>
              </div>
              <div class="text-center">
                  <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Desfrute do melhor açai da
                      cidade</h1>
                  <p class="mt-6 text-lg leading-8 text-gray-600">Escolha diversas opções para criar seu próprio açai,
-                     da maneira mais saborosa que somente o rubiaçai pode fornecer</p>
+                     da maneira mais saborosa que somente o Delicious Açai pode fornecer</p>
                  <div class="mt-10 flex items-center justify-center gap-x-6">
                      <div>
                          <button id="openModalButton"

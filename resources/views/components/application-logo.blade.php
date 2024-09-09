@@ -1,1 +1,1 @@
-<img class="h-12 w-auto" src="{{ asset('images/rubiacai.png') }}" alt="Rubiaçai">
+<img class="h-24 w-auto" src="{{ config('app.logo_acai') }}" alt="logo">

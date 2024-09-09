@@ -17,6 +17,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    /* application logo */
+
+    'logo_acai' => asset('images/logo_acai.png'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

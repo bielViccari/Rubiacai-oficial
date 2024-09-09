@@ -254,7 +254,6 @@ foreach ($orderCounts as $order => $o) {
                     'created_at' => $o->created_at,
                 ];
                 $this->valueOrderMonthly += number_format($o->precoTotal, 2, '.', ',');
-
             }
         }
     }

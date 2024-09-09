@@ -2,7 +2,7 @@
     <div class="flex lg:flex-1">
         <a class="-m-1.5 p-1.5">
             <span class="sr-only">Rubiaçai</span>
-            <img class="h-12 w-auto" src="{{ asset('images/rubiacai.png') }}" alt="">
+            <img class="h-12 w-auto" src="{{ config('app.logo_acai') }}" alt="">
         </a>
     </div>
     <!-- Botão para abrir slideOver do Carrinho -->
