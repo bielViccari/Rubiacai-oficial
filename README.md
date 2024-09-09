@@ -1,66 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Açaiteria
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![GitHub repo size](https://img.shields.io/github/repo-size/bielViccari/Rubiacai-oficial)
+![GitHub language count](https://img.shields.io/github/languages/count/bielViccari/Rubiacai-oficial)
+![GitHub forks](https://img.shields.io/github/forks/bielViccari/Rubiacai-oficial)
 
-## About Laravel
+> Aplicação criada pensando em solucionar o dificil controle do negócio, tendo que fazer pedidos via whatsapp, demorando na resposta e na entrega da mercadoria.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### funcionalidades
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O projeto se encontra concluido, porem com necessidades de refatoração:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [x] CRUD de administrador
+- [x] CRUD de produtos
+- [x] CRUD de comentários
+- [x] CRUD de categorias
+- [x] Ativação e desativação do sistema 
+- [x] Relacionamento de tabelas - produtos to categorias
+- [x] Autenticação e autorização com Laravel Breeze
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 💻 Pré-requisitos
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP instalando >= 8.
+- Composer instalado na máquina
+- Node.js instalado na máquina para utilizar o npm.
 
-## Laravel Sponsors
+## 🚀 Instalando a aplicação
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Para instalar o sistema de açaiteria, siga estas etapas:
 
-### Premium Partners
+clone o projeto na sua máquina
+```
+git clone https://github.com/bielViccari/Rubiacai-oficial.git
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+vá até a pasta clonada
+```
+cd Rubiacai-oficial
+```
 
-## Contributing
+execute o composer install
+```
+composer install
+```
+execute o npm install
+```
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+crie o arquivo .env para as variáveis do projeto
+```
+copy .env.example .env
+```
 
-## Code of Conduct
+gere a chave da sua aplicação laravel
+```
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+faça o link da storage na pasta public
+```
+php artisan storage:link
+```
 
-## Security Vulnerabilities
+## ☕ Usando o sistema de Açaiteria
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Para usar o sistema, siga estas etapas:
 
-## License
+configure seu arquivo .env
+```
+DB_CONNECTION=mysql 
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=<nome-da_sua_base_de_dados>
+DB_USERNAME=<username_para_acessar_sua_base>
+DB_PASSWORD=<password_para_acessar_sua_base>
+```
+no seu banco de dados, crie uma tabela do mesmo nome do DB_DATABASE do arquivo .env
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+realize as migrations do projeto para o banco de dados configurado no .env
+```
+php artisan migrate
+```
+
+rode a aplicação com o comando
+```
+php artisan serve
+```
+
+## 🤝 Colaboradores
+
+Agradecemos às seguintes pessoas que contribuíram para este projeto:
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#" title="defina o titulo do link">
+        <img src="https://avatars.githubusercontent.com/u/87938998?v=4" width="100px;" alt="Foto Gabriel Viccari no GitHub"/><br>
+        <sub>
+          <b>Gabriel Viccari</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
