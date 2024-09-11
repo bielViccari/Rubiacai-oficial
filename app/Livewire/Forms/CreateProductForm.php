@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\Product;
 use App\Models\Category;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use LivewireUI\Modal\ModalComponent;
 use Livewire\Attributes\On; 
 
-class CreateProduct extends Component
+class CreateProductForm extends Component
 {
     use WithFileUploads;
 
@@ -21,7 +20,7 @@ class CreateProduct extends Component
     #[Validate('required|min:1|regex:/^[0-9]+([,.][0-9]+)?$/', message: 'Insira um preço válido para o produto')]
     public $price = '';
     #[Validate('required', 'image', 'max:1024', message: 'Por favor, selecione uma imagem válida (JPEG, PNG, JPG ou GIF) com tamanho máximo de 2MB e dimensões entre 100x100 e 2000x2000 pixels.')]
-    public $image = '';
+    public $image;
     public $description = '';
     public $categories;
     public $showLoading = false;

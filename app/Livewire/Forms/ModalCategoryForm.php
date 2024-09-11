@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\Category;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 
-class ModalCategory extends ModalComponent
+class ModalCategoryForm extends ModalComponent
 {
     use WithFileUploads;
     public $name = '';
-    public $image ='';
+    public $image;
     public $showLoading = false;
     public function createCategory() {
         $this->validate([

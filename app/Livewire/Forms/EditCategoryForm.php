@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -8,7 +8,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
-class EditCategory extends Component
+class EditCategoryForm extends Component
 {
     use WithFileUploads;
 
@@ -25,7 +25,7 @@ class EditCategory extends Component
         }
 
         $this->name = $this->category->name;
-        $this->category_id = $this->category->image;
+        $this->image = $this->category->image;
     }
 
     public function update()

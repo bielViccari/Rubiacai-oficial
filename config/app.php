@@ -19,7 +19,7 @@ return [
 
     /* application logo */
 
-    'logo_acai' => asset('images/logo_acai.png'),
+    'logo_acai' => 'images/logo_acai.png',
 
     /*
     |--------------------------------------------------------------------------

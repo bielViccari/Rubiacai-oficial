@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\System;
 use Carbon\Carbon;
-use Livewire\Attributes\On;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Http\Request;
-use Livewire\Attributes\Validate;
 
-class MakeAçaiPersonalized extends ModalComponent
+class MakeAçaiPersonalizedForm extends ModalComponent
 {
 
     public $quantities = [];

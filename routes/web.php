@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProductController;
-use App\Livewire\AboutUs;
-use App\Livewire\CreateProduct;
-use App\Livewire\EditCategory;
-use App\Livewire\EditProduct;
+use App\Livewire\Forms\CreateProductForm;
+use App\Livewire\Forms\EditCategoryForm;
+use App\Livewire\Forms\EditProductForm;
 use App\Livewire\ProductCard;
 use Illuminate\Support\Facades\Route;
 
@@ -32,13 +31,13 @@ Route::view('profile', 'site/admin/profile')
 Route::get('/products', ProductCard::class)->name('products');
 Route::view('/about-us', 'site/userPages/about')->name('about-us');
 
-Route::get('/create-products', CreateProduct::class)->name('create.products')
+Route::get('/create-products', CreateProductForm::class)->name('create.products')
     ->middleware('auth');
 
-Route::get('/edit-product/{id}', EditProduct::class)->name('edit.product')
+Route::get('/edit-product/{id}', EditProductForm::class)->name('edit.product')
     ->middleware('auth');
 
-Route::get('/edit-category/{id}', EditCategory::class)->name('edit.category')
+Route::get('/edit-category/{id}', EditCategoryForm::class)->name('edit.category')
     ->middleware('auth');
 
 require __DIR__.'/auth.php';

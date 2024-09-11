@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\Order;
 use App\Models\Product;
@@ -11,9 +11,8 @@ use Illuminate\Support\Carbon;
 use Livewire\Attributes\Validate; 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Notification;
-use NotificationChannels\Telegram\TelegramChannel;
 use App\Notifications\TelegramNotification;
-class Invoice extends ModalComponent
+class InvoiceForm extends ModalComponent
 {
     public $carrinho;
     public $dataAtual;

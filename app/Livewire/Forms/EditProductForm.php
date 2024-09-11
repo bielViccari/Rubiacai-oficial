@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Forms;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -9,14 +9,14 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Storage;
 
-class EditProduct extends Component
+class EditProductForm extends Component
 {
     use WithFileUploads;
 
     public $name = '';
     public $category_id = '';
     public $price = '';
-    public $image = '';
+    public $image;
     public $categories;
     public $product;
     public $productId;
