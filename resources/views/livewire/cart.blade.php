@@ -217,7 +217,7 @@
                                 </svg>
                             </button>
                         @else
-                            <button type="button" wire:click="$dispatch('openModal', {component: 'invoice'})"
+                            <button type="button" wire:click="$dispatch('openModal', {component: 'Forms.invoiceForm'})"
                                 class="group inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-purple-800">
                                 Gerar pedido
                                 <svg xmlns="http://www.w3.org/2000/svg"

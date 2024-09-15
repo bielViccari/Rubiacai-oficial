@@ -29,32 +29,40 @@ class EditCategoryForm extends Component
     }
 
     public function update()
-    {
-        $validatedData = $this->validate([
-            'name' => 'required',
+{
+    $validatedData = $this->validate([
+        'name' => 'required',
+    ]);
+
+    $category = Category::findOrFail($this->categoryId);
+    $category->name = $this->name;
+
+    if ($this->image) {
+        // Validação do tipo de arquivo
+        $this->validate([
+            'image' => 'image|max:2048', // Limite de 2MB, ajuste conforme necessário
         ]);
-    
-        $category = Category::findOrFail($this->categoryId);
-    
-        $category->name = $this->name;
 
-        if ($this->image) {
-            $this->validate([
-                'image' => 'image',
-            ]);
+        // Definindo o nome único para a imagem (para evitar sobrescrever)
+        $imageName = time() . '_' . $this->image->getClientOriginalName();
 
-            $imageName = $this->image->getClientOriginalName();
-            $this->image->storeAs('public/productImages', $imageName);
+        // Salvando a imagem na pasta 'public/categoryImages'
+        $this->image->storeAs('public/categoryImages', $imageName);
 
-            if ($category->image && Storage::exists('public/categoryImages/' . $category->image)) {
-                Storage::delete('public/categoryImages/' . $category->image);
-            }
-
-            $category->image = $imageName;
+        // Removendo a imagem antiga, se existir
+        if ($category->image && Storage::exists('public/categoryImages/' . $category->image)) {
+            Storage::delete('public/categoryImages/' . $category->image);
         }
-        $category->save();
-        return redirect()->route('dashboard');
+
+        // Atualizando o nome da imagem no banco de dados
+        $category->image = $imageName;
     }
+
+    $category->save();
+
+    return redirect()->route('dashboard');
+}
+
 
 
     public function render()

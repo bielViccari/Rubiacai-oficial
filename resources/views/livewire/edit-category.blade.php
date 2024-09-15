@@ -21,7 +21,7 @@
             </div>
 
 
-            @if ($image)
+            @if ($image instanceof \Illuminate\Http\UploadedFile)
                 <figure class="max-w-lg">
                     <img class="h-auto max-w-full rounded-lg" src="{{ $image->temporaryUrl() }}" alt="image description">
                     <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Prévia da imagem</figcaption>

@@ -39,7 +39,7 @@
         </button>
     </div>
     <div class="flex items-center justify-center border-b rounded-t dark:border-gray-600">
-        <img width="150px" height="150px" src="{{ asset('images/rubiacai.png') }}" alt="">
+        <img width="150px" height="150px" src="{{ config('app.logo_acai') }}" alt="">
     </div>
     <!-- Modal body -->
     @if (isset($acai))

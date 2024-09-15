@@ -12,7 +12,7 @@
         </script>
     @endscript
 @endif
-    <div class="bg-white rounded-lg shadow-lg px-8 py-10 max-w-xl mx-auto">
+    <div class="px-4 py-5 max-w-xl mx-auto">
         <div class="flex items-center justify-between mb-8">
             <div class="text-gray-700">
                 <div class="font-bold text-xl mb-2">Pedido</div>
@@ -165,7 +165,7 @@
                         @if (isset($c['name']))
                         <tr>
                             <td class="py-4 text-gray-700">{{ $c['name'] }}</td>
-                            <td>{{ $c['quantity'] }}</td>
+                            <td class=" text-gray-700 text-center">{{ $c['quantity'] }}</td>
                             <td class="py-4 text-gray-700">R$ {{ number_format($c['price'], 2, ',', '.') }}</td>
                             <td class="py-4 text-gray-700">R$ {{ number_format($c['price'], 2, ',', '.') }}</td>
                         </tr>
@@ -177,7 +177,7 @@
         </table>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Subtotal:</div>
-            <div class="text-gray-700">R$  {{ $valorEntrega == 1 ? number_format($precoTotal - $valorEntrega, 2, ',', '.') : number_format($precoTotal, 2, ',', '.') }} </div>
+            <div class="text-gray-700">R$  {{ $valorEntrega == 1 ? number_format($totalPrice - $valorEntrega, 2, ',', '.') : number_format($totalPrice, 2, ',', '.') }} </div>
         </div>
         <div class="text-right mb-8">
             <div class="text-gray-700 mr-2">Entrega:</div>
@@ -186,7 +186,7 @@
         </div>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Total:</div>
-            <div class="text-gray-700 font-bold text-xl">R$  {{ number_format($precoTotal, 2, ',', '.') }}</div>
+            <div class="text-gray-700 font-bold text-xl">R$  {{ number_format($totalPrice, 2, ',', '.') }}</div>
         </div>
         <div class="border-t-2 border-gray-300 pt-8 mb-8">
             <div class="text-gray-700 mb-2">O pedido será enviado no seu whatsapp para confirmação. E então seu pedido será entregue.</div>
