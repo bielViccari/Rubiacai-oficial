@@ -222,7 +222,9 @@ foreach ($orderCounts as $order => $o) {
                     'itens' => $o->itens,
                     'created_at' => $o->created_at,
                 ];
-                $this->valueOrderDiary += number_format($o->precoTotal, 2, '.', ',');
+                $valueDiary = 0;
+                $valueDiary += $o->precoTotal;
+                $this->valueOrderDiary = number_format($valueDiary, 2, ',', '.');
             }
             if ($o->created_at->diffInDays(Carbon::now()) < 8 && $o->status === 'd') {
                 $this->weekendRelatory[] = [
@@ -237,7 +239,9 @@ foreach ($orderCounts as $order => $o) {
                     'itens' => $o->itens,
                     'created_at' => $o->created_at,
                 ];
-                $this->valueOrderWeek += number_format($o->precoTotal, 2, '.', ',');
+                $valueWeek = 0;
+                $valueWeek += $o->precoTotal;
+                $this->valueOrderWeek = number_format($valueWeek, 2, ',', '.');
             }
 
             if ($o->created_at->diffInMonths(Carbon::now()) < 1 && $o->status === 'd') {
@@ -253,7 +257,9 @@ foreach ($orderCounts as $order => $o) {
                     'itens' => $o->itens,
                     'created_at' => $o->created_at,
                 ];
-                $this->valueOrderMonthly += number_format($o->precoTotal, 2, '.', ',');
+                $valueMonthly = 0;
+                $valueMonthly += $o->precoTotal;
+                $this->valueOrderMonthly = number_format($valueMonthly, 2, ',', '.');
             }
         }
     }

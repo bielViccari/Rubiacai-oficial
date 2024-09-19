@@ -17,7 +17,7 @@ class ShowInvoice extends Component
     public $unityPrice = [];
     public $precoTotal;
     public $valorEntrega;
-    public $status;
+    public $status = 'd';
     public $phoneNumber;
 
     public function mount()

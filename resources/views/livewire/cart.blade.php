@@ -177,8 +177,11 @@
                         @endif
                         @if (!$carrinho)
                             <div class="flex flex-col justify-center items-center">
-
-                                <img class="w-full h-full" src="images/empty-cart.png" alt="" srcset="">
+                                <div class="flex flex-col justify-center items-center">
+                                    <p class="text-gray-500 uppercase text-sm font-bold">Nenhum item foi adicionado ao carrinho ainda.</p>
+                                    <img class="w-60 h-60 mb-12" src="images/empty-cart.png" alt="" srcset="">
+                                    <a hidden href="https://www.flaticon.com/free-icons/empty-cart" title="empty cart icons">Empty cart icons created by kerismaker - Flaticon</a>
+                                </div>
                             </div>
                         @endif
                     </ul>

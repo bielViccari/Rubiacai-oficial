@@ -29,11 +29,9 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <!--Replace with your tailwind.css once created-->
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"> <!--Totally optional :) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"
         integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
-
     <main>
         
     <div class="flex flex-col md:flex-row">
@@ -305,7 +303,7 @@
                                 <div class="grid gap-y-4">
                                     <div>
                                         <label for="message"
-                                            class="block text-sm font-bold ml-1 mb-2 dark:text-white">Texto do aviso
+                                            class="block text-sm font-bold ml-1 mb-2">Texto do aviso
                                             atual</label>
                                         <div class="relative">
                                             <span
@@ -331,7 +329,7 @@
                     class="mt-7 bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 border-2 border-gray-300">
                     <div class="p-4 sm:p-7">
                         <div class="text-center">
-                            <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Desativar pedidos</h1>
+                            <h1 class="block text-2xl font-bold text-gray-800">Desativar pedidos</h1>
                             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                                 Feriado? folga? reforma? desative os novos pedidos enquanto estão ocupados.
                             </p>
@@ -341,7 +339,7 @@
                                 <div class="grid gap-y-4">
                                     <div>
                                         <label for="message"
-                                            class="block text-sm font-bold ml-1 mb-2 dark:text-white">Texto do
+                                            class="block text-sm font-bold ml-1 mb-2">Texto do
                                             aviso</label>
                                         <div class="relative">
                                             <input wire:model='message' type="text" id="message" name="message"

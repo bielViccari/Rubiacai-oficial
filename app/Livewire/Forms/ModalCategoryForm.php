@@ -11,7 +11,6 @@ class ModalCategoryForm extends ModalComponent
     use WithFileUploads;
     public $name = '';
     public $image;
-    public $showLoading = false;
     public function createCategory() {
         $this->validate([
             'image' => 'required|image',
@@ -22,8 +21,6 @@ class ModalCategoryForm extends ModalComponent
             'name' => $this->name,
             'image' => $this->image->getClientOriginalName()
         ]);
-
-        $this->showLoading = true;
         $imageName = $this->image->getClientOriginalName();
         $this->image->storeAs('public/categoryImages', $imageName);
         $this->dispatch('category-created');

@@ -14,7 +14,7 @@
           <div class="container mx-auto h-full sm:p-10">
             <nav class="flex px-4 justify-between items-center">
               <div class="text-4xl font-bold">
-                Rubi<span class="text-purple-700">açai.</span>
+                Delicious<span class="text-purple-700">  açai.</span>
               </div>
               <a href="{{ route('pagina.inicial') }}" class="text-sm text-purple-700 font-semibold">Página Inicial</a>
               <div>

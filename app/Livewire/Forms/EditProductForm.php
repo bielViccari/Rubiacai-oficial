@@ -31,7 +31,8 @@ class EditProductForm extends Component
             $this->redirectRoute('dashboard');
         }
 
-        $priceFormated = number_format($this->product->price, 2, ',', '.');
+        $priceFormated = number_format(floatval(str_replace(',', '.', $this->product->price)), 2, '.', '');
+        
         $this->name = $this->product->name;
         $this->category_id = $this->product->category_id;
         $this->price = $priceFormated;

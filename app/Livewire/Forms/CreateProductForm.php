@@ -40,7 +40,7 @@ class CreateProductForm extends Component
     public function save()
     {
         $this->validate();
-        $priceFormated = number_format(floatval($this->price), 2, '.', ',');
+        $priceFormated = number_format(floatval(str_replace(',', '.', $this->price)), 2, '.', '');
         Product::create([
             'name' => $this->name,
             'price' => $priceFormated,

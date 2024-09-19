@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24b564bccdf80ad62b38579c12dbd48f",
+    "content-hash": "94f6b203c0eb305b920b978aaa989c30",
     "packages": [
         {
             "name": "blade-ui-kit/blade-icons",
@@ -6550,16 +6550,16 @@
         },
         {
             "name": "lucascudo/laravel-pt-br-localization",
-            "version": "v2.1.2",
+            "version": "v2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucascudo/laravel-pt-BR-localization.git",
-                "reference": "0472f83c3ef2352476d5f7763bacf88b59427597"
+                "reference": "14a2b2b8f324a34806fdcddc9fade1c7c5ecbbbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/0472f83c3ef2352476d5f7763bacf88b59427597",
-                "reference": "0472f83c3ef2352476d5f7763bacf88b59427597",
+                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/14a2b2b8f324a34806fdcddc9fade1c7c5ecbbbf",
+                "reference": "14a2b2b8f324a34806fdcddc9fade1c7c5ecbbbf",
                 "shasum": ""
             },
             "type": "library",
@@ -6589,7 +6589,7 @@
             "homepage": "https://github.com/lucascudo/laravel-pt-br-localization",
             "support": {
                 "issues": "https://github.com/lucascudo/laravel-pt-BR-localization/issues",
-                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v2.1.2"
+                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v2.2.3"
             },
             "funding": [
                 {
@@ -6605,7 +6605,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-06T15:49:55+00:00"
+            "time": "2024-07-25T18:25:37+00:00"
         },
         {
             "name": "mockery/mockery",
