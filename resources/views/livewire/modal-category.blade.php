@@ -35,7 +35,7 @@
                             @endif
                         </div>
                         <input wire:model='image' accept="image/png, image/jpg, image/jpeg"
-                            class="block w-full mt-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            class="block w-full mt-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                             id="small_size" type="file">
                         @error('image')
                             <span class="mt-2 text-xs text-red-600 dark:text-red-400">{{ $message }}</span>

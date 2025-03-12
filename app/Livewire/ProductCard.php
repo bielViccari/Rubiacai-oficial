@@ -65,7 +65,7 @@ class ProductCard extends Component
     public function mount(Request $request)
     {
         $systemIsWorking = System::find(1);
-        if($systemIsWorking->status == 1) {
+        if($systemIsWorking && $systemIsWorking->status == 1) {
             $this->system = $systemIsWorking;
         }
 

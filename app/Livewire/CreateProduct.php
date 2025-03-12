@@ -8,7 +8,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
-use Livewire\Attributes\On; 
+use Livewire\Attributes\On;
 
 class CreateProduct extends Component
 {
@@ -26,14 +26,14 @@ class CreateProduct extends Component
     public $categories;
     public $showLoading = false;
     public $successMessage;
-    
+
     public function mount()
     {
         // Recupera todas as categorias)
         $this->categories = Category::all();
     }
-    
-    #[On('category-created')] 
+
+    #[On('category-created')]
     public function updateCategories() {
         $this->categories = Category::all();
     }
@@ -41,7 +41,8 @@ class CreateProduct extends Component
     public function save()
     {
         $this->validate();
-        $priceFormated = number_format(floatval($this->price), 2, '.', ',');
+        $this->price = str_replace(',', '.', $this->price); // Troca a vírgula por ponto
+        $priceFormated = floatval($this->price); // Converte para float
         Product::create([
             'name' => $this->name,
             'price' => $priceFormated,
@@ -64,7 +65,7 @@ class CreateProduct extends Component
     public $needDescription = false;
     public function checkCategory() {
         $categoryName = '';
-    
+
         foreach ($this->categories as $category) {
             if ($category->id == $this->category_id) {
                 $categoryName = $category->name;
@@ -76,11 +77,11 @@ class CreateProduct extends Component
             $this->needDescription = false;
         }
     }
-    
+
     public function setLoading() {
         $this->showLoading = true;
     }
- 
+
     public function render()
     {
         return view('livewire.create-product');
