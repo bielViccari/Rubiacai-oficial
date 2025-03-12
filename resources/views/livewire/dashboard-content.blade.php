@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">faturamento do dia</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderDiary == null ? '00,00' : $valueOrderDiary}}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderDiary == null ? '00,00' :  number_format($valueOrderDiary, 2, ',', '.')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento da semana</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderWeek == null ? '00,00' : $valueOrderWeek}}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderWeek == null ? '00,00' :  number_format($valueOrderWeek, 2, ',', '.')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento do mês</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderMonthly == null ? '00,00' : $valueOrderMonthly}}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderMonthly == null ? '00,00' : number_format($valueOrderMonthly, 2, ',', '.')}}</p>
                                 </div>
                             </div>
                         </div>

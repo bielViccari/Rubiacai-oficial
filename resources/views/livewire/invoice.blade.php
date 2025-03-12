@@ -20,7 +20,7 @@
                 <div class="text-sm">Numero do pedido #: INV12345</div>
             </div>
             <button type="button" wire:click="dispatch('closeModal')"
-            class="text-gray-400 bg-transparent pr-4 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            class="text-gray-400 bg-transparent pr-4 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
             data-modal-toggle="crud-modal">
             <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,58 +34,58 @@
                 <h2 class="text-2xl font-bold mb-4">Pagamento em nome de:</h2>
                 @if ($errors->has('name'))
                     <div class="mb-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Nome</label>
-                        <input wire:model='name' type="text" id="name" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="José Miguel" />
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('name') }}</p>
+                        <label for="name" class="block mb-2 text-sm font-medium text-red-600">Nome</label>
+                        <input wire:model='name' type="text" id="name" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 " placeholder="José Miguel" />
+                        <p class="mt-2 text-sm text-red-600 ">{{ $errors->first('name') }}</p>
                     </div>
                 @else
                     <div class="mb-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
-                        <input wire:model='name' type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="José Miguel" />
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nome</label>
+                        <input wire:model='name' type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="José Miguel" />
                     </div>
                 @endif
                 @if ($errors->has('phone'))
                     <div class="mb-2">
-                        <label for="phone" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Celular</label>
-                        <input wire:model='phone' type="tel" id="phone" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Ex..: (99) 9999-999" />
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('phone') }}</p>
+                        <label for="phone" class="block mb-2 text-sm font-medium text-red-600">Celular</label>
+                        <input wire:model='phone' type="tel" id="phone" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Ex..: (99) 9999-999" />
+                        <p class="mt-2 text-sm text-red-600 ">{{ $errors->first('phone') }}</p>
                     </div>
                 @else
                 <div class="mb-2">
-                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                    <input wire:model='phone' type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex..: (99) 9999-999" />
+                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Celular</label>
+                    <input wire:model='phone' type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ex..: (99) 9999-999" />
                 </div>
-                
+
                 @endif
-    
+
                 @if ($errors->has('address'))
                     <div class="mb-2">
-                        <label for="address" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Endereço para entrega</label>
-                        <input wire:model='address' type="text" id="address" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Ex..: Rua José Antônio Bonifácio, 279" />
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('address') }}</p>
+                        <label for="address" class="block mb-2 text-sm font-medium text-red-600">Endereço para entrega</label>
+                        <input wire:model='address' type="text" id="address" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Ex..: Rua José Antônio Bonifácio, 279" />
+                        <p class="mt-2 text-sm text-red-600 ">{{ $errors->first('address') }}</p>
                     </div>
                 @else
                     <div class="mb-2">
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Endereço para entrega</label>
-                        <input wire:model='address' type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex..: Rua José Antônio Bonifácio, 279" />
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Endereço para entrega</label>
+                        <input wire:model='address' type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5    " placeholder="Ex..: Rua José Antônio Bonifácio, 279" />
                     </div>
                 @endif
-    
+
                 @if($errors->has('payment'))
                     <div class="mb-2">
-                        <label for="payment" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Selecione um método de pagamento</label>
-                        <select wire:model='payment' id="payment" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
+                        <label for="payment" class="block mb-2 text-sm font-medium text-red-600">Selecione um método de pagamento</label>
+                        <select wire:model='payment' id="payment" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
                         <option value="">Método de pagamento</option>
                         <option value="pix">Pix</option>
                         <option value="card">Cartão</option>
                         <option value="money">Dinheiro</option>
                         </select>
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('payment') }}</p>
+                        <p class="mt-2 text-sm text-red-600 ">{{ $errors->first('payment') }}</p>
                     </div>
                 @else
                     <div class="mb-2">
-                        <label for="payment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um método de pagamento</label>
-                        <select wire:model='payment' id="payment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <label for="payment" class="block mb-2 text-sm font-medium text-gray-900">Selecione um método de pagamento</label>
+                        <select wire:model='payment' id="payment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5    ">
                         <option value="">Método de pagamento</option>
                         <option value="pix">Pix</option>
                         <option value="card">Cartão</option>
@@ -93,20 +93,20 @@
                         </select>
                     </div>
                 @endif
-    
+
                 @if($errors->has('delivery'))
                     <div class="mb-2">
-                        <label for="delivery" class="block mb-2 text-sm font-medium text-red-600 dark:text-white">Selecione um método de entrega</label>
-                        <select id="delivery" wire:model='delivery' wire:change='isDelivery' name="delivery" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
+                        <label for="delivery" class="block mb-2 text-sm font-medium text-red-600">Selecione um método de entrega</label>
+                        <select id="delivery" wire:model='delivery' wire:change='isDelivery' name="delivery" class="bg-red-50 border border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
                         <option value="takeaway">Retirar na loja</option>
                         <option value="delivery">Entregar no endereço</option>
                         </select>
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $errors->first('delivery') }}</p>
+                        <p class="mt-2 text-sm text-red-600 ">{{ $errors->first('delivery') }}</p>
                     </div>
                 @else
                     <div class="mb-2">
-                        <label for="delivery" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um método de entrega</label>
-                        <select id="delivery" name="delivery" wire:model='delivery' wire:change='isDelivery' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <label for="delivery" class="block mb-2 text-sm font-medium text-gray-900">Selecione um método de entrega</label>
+                        <select id="delivery" name="delivery" wire:model='delivery' wire:change='isDelivery' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5    ">
                             <option value="takeaway">Retirar na loja</option>
                             <option value="delivery">Entregar no endereço</option>
                         </select>
@@ -177,16 +177,15 @@
         </table>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Subtotal:</div>
-            <div class="text-gray-700">R$  {{ $valorEntrega == 1 ? number_format($precoTotal - $valorEntrega, 2, ',', '.') : number_format($precoTotal, 2, ',', '.') }} </div>
+            <div class="text-gray-700">R$  {{ $valorEntrega == 1 ? number_format($totalPrice - $valorEntrega, 2, ',', '.') : number_format($totalPrice, 2, ',', '.') }} </div>
         </div>
         <div class="text-right mb-8">
             <div class="text-gray-700 mr-2">Entrega:</div>
             <div class="text-gray-700">R${{ number_format($valorEntrega, 2, ',', '.') }}</div>
-    
         </div>
         <div class="flex justify-end mb-8">
             <div class="text-gray-700 mr-2">Total:</div>
-            <div class="text-gray-700 font-bold text-xl">R$  {{ number_format($precoTotal, 2, ',', '.') }}</div>
+            <div class="text-gray-700 font-bold text-xl">R$  {{ number_format($totalPrice, 2, ',', '.') }}</div>
         </div>
         <div class="border-t-2 border-gray-300 pt-8 mb-8">
             <div class="text-gray-700 mb-2">O pedido será enviado no seu whatsapp para confirmação. E então seu pedido será entregue.</div>
