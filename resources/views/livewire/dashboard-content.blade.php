@@ -35,7 +35,7 @@
         integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
 
     <main>
-        
+
     <div class="flex flex-col md:flex-row">
         <nav aria-label="alternative nav">
         </nav>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento total</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $invoicedAmountFormated }}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $invoicedAmountFormated == null ? '00,00' : $invoicedAmountFormated }}</p>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento da semana</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderWeek }}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderWeek == null ? '00,00' : $valueOrderWeek}}</p>
                                 </div>
                             </div>
                         </div>
@@ -118,13 +118,13 @@
                                 </div>
                                 <div class="flex-1 text-right md:text-center">
                                     <h2 class="font-bold uppercase text-gray-600">Faturamento do mês</h2>
-                                    <p class="font-bold text-3xl">R$ {{ $valueOrderMonthly }}</p>
+                                    <p class="font-bold text-3xl">R$ {{ $valueOrderMonthly == null ? '00,00' : $valueOrderMonthly}}</p>
                                 </div>
                             </div>
                         </div>
                         <!--/Metric Card-->
                     </div>
-                    
+
                     <div class="w-full md:w-1/2 xl:w-1/3 p-6">
                         <!--Metric Card-->
                         <div

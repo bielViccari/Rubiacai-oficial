@@ -78,7 +78,7 @@ class MakeAçaiPersonalized extends ModalComponent
         }
 
         $systemIsWorking = System::find(1);
-        if ($systemIsWorking->status == 1) {
+        if ($systemIsWorking && $systemIsWorking->status == 1) {
             $this->system = $systemIsWorking;
         }
     }
@@ -92,7 +92,7 @@ class MakeAçaiPersonalized extends ModalComponent
 {
     $system = System::find(1);
 
-    if ($this->closed == true || $system->status == 1) {
+    if ($this->closed == true || $system && $system->status == 1) {
         if ($this->closed == true) {
             $this->errorMessage = 'Atendemos de Terça-feira à Domingo das 15:00 às 21:00';
         }
@@ -152,7 +152,7 @@ class MakeAçaiPersonalized extends ModalComponent
         $this->closeModal();
     }
 }
-    
+
 
     public $totalPrice = 0;
     public $sizePrice;
@@ -167,9 +167,9 @@ class MakeAçaiPersonalized extends ModalComponent
         if ($firstAcai) {
             $this->sizePrice = $firstAcai->price;
             $this->size = $firstAcai->name;
-    
+
             $this->quantity = 1;
-    
+
             $this->totalQtdSize = $firstAcai->price * $this->quantity;
         } else {
             $this->sizePrice = null;
@@ -178,19 +178,19 @@ class MakeAçaiPersonalized extends ModalComponent
             $this->totalQtdSize = null;
         }
     }
-    
+
 
     private function updateTotalPrice()
     {
         $totalPrice = 0;
-    
+
         if($this->fruits) {
             // Calcular o preço das frutas selecionadas
             foreach ($this->fruits as $fruit) {
                 $totalPrice += ($this->quantities[$fruit->id] * $fruit->price) * $this->quantity;
             }
         }
-    
+
         if($this->aditionals) {
             // Calcular o preço dos adicionais selecionados
             foreach ($this->aditionals as $additional) {
@@ -204,11 +204,11 @@ class MakeAçaiPersonalized extends ModalComponent
         } elseif ($this->sizePrice) {
             $totalPrice += $this->sizePrice;
         }
-    
+
         // Atualizar o preço total
         $this->totalPrice = $totalPrice;
     }
-    
+
 
     public function updateSizePrice()
     {
