@@ -8,7 +8,7 @@ use LivewireUI\Modal\ModalComponent;
 use Illuminate\Http\Request;
 use Livewire\Attributes\On;
 use Illuminate\Support\Carbon;
-use Livewire\Attributes\Validate; 
+use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Notification;
 use NotificationChannels\Telegram\TelegramChannel;
@@ -43,9 +43,7 @@ class Invoice extends ModalComponent
             'precoTotal' => $this->totalPrice,
             'itens' => $this->carrinho,
         ]);
-        
-        Notification::route('telegram', Config::get('services.telegram_id'))
-        ->notify(new TelegramNotification($order['name']));
+
         $request->session()->forget('carrinho');
         $this->dispatch('ordered');
         $this->successMessage = 'Pedido realizado com sucesso! Aguarde a mensagem no whatsapp para confirmação';
@@ -71,7 +69,7 @@ class Invoice extends ModalComponent
         $this->totalPrice = 0; // Reinicializa o preço total
         // Verifica se o carrinho está definido e se contém a chave 'acaiPersonalizado'
         if (isset($this->carrinho['acaiPersonalizado'])) {
-    
+
             foreach ($this->carrinho['acaiPersonalizado'] as $index => $item) {
                 if ($item['tamanho'] != '') {
                     $product = Product::where('name', $item['tamanho'])->first();
@@ -82,7 +80,7 @@ class Invoice extends ModalComponent
                 }
             }
         }
-    
+
         // Verifica se o carrinho está definido
         if (isset($this->carrinho)) {
             foreach ($this->carrinho as $item) {
@@ -98,16 +96,16 @@ class Invoice extends ModalComponent
     {
         // Se a opção for "delivery", o valor da entrega é 1, caso contrário é 0
         $this->valorEntrega = ($this->delivery === 'delivery') ? 1 : 0;
-    
+
         // Atualiza o preço total com base no valor da entrega, considerando a diferença entre o valor atual e o valor anterior da entrega
         $this->totalPrice += ($this->valorEntrega - $this->valorAnteriorEntrega);
-    
+
         // Atualiza o valor anterior da entrega para ser usado na próxima chamada da função
         $this->valorAnteriorEntrega = $this->valorEntrega;
     }
-    
-    
-    
+
+
+
 
     public function render()
     {
