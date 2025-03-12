@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('address');
             $table->enum('status', ['d', 'i', 'n'])->default('n'); //d - delivered, i- in proccess, n - not delivered
             $table->double('precoTotal');
-            $table->json('itens')->nullable();
+            $table->text('itens')->nullable();
             $table->timestamps();
         });
     }
