@@ -1,56 +1,72 @@
-# Açaiteria
+# WebApp Açaiteria  
 
-![GitHub repo size](https://img.shields.io/github/repo-size/bielViccari/Rubiacai-oficial)
-![GitHub language count](https://img.shields.io/github/languages/count/bielViccari/Rubiacai-oficial)
-![GitHub forks](https://img.shields.io/github/forks/bielViccari/Rubiacai-oficial)
+![GitHub repo size](https://img.shields.io/github/repo-size/bielViccari/rubiacai-oficial)
+![GitHub language count](https://img.shields.io/github/languages/count/bielViccari/rubiacai-oficial)
+![GitHub forks](https://img.shields.io/github/forks/bielViccari/rubiacai-oficial)
 
-> Aplicação criada pensando em solucionar o dificil controle do negócio, tendo que fazer pedidos via whatsapp, demorando na resposta e na entrega da mercadoria.
+Página Inicial do projeto 🚀
+<img src="initialPage.png" alt="Exemplo imagem">
+
+Painel do Administrador do site 🚀
+<img src="dashboard.png" alt="Exemplo imagem">
+
+Página inicial - mostrando produtos 🚀
+<img src="products.png" alt="Exemplo imagem">
+
+
+> WepApp criado para as açaiterias que não possuem um sistema para gerenciar e fazer a venda de seus produtos, nesta aplicação, o comércio tem a opção de vender os produtos através da pagina inicial onde ele pode divulgar tudo oque comercializa, e através do painel de controle tem acesso a todos os pedidos e informações de entrega, e também gráficos para ver as vendas diárias, semanais e mensais.
 
 ### funcionalidades
 
-O projeto se encontra concluido, porem com necessidades de refatoração:
+O projeto conta com essas funcionalidades, e com necessidades de refatoração:
 
-- [x] CRUD de administrador
 - [x] CRUD de produtos
-- [x] CRUD de comentários
 - [x] CRUD de categorias
-- [x] Ativação e desativação do sistema 
-- [x] Relacionamento de tabelas - produtos to categorias
+- [x] CRUD de acai personalizado
+- [x] Middlewares de admin, e usuário
+- [x] Relacionamento de tabelas
+- [x] upload de imagens
 - [x] Autenticação e autorização com Laravel Breeze
-
+- [x] frontend com tailwind
+- [x] paginação
+- [x] busca por nome
+- [x] filtro de produtos por categoria
+- [x] gráfico utilizando chart.js para mostrar a escala de produtos vendidos
+- [x] Ativação e desativação dos pedidos, em caso de manutenção ou folga do comércio 
 
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 - PHP instalando >= 8.
-- Composer instalado na máquina
-- Node.js instalado na máquina para utilizar o npm.
+- Composer instalado na máquina.
+- node instalado na máquina.
 
-## 🚀 Instalando a aplicação
+## 🚀 Instalando o Sistema Açaiteria  
 
-Para instalar o sistema de açaiteria, siga estas etapas:
+Para instalar o Sistema Açaiteria, siga estas etapas:
 
 clone o projeto na sua máquina
 ```
-git clone https://github.com/bielViccari/Rubiacai-oficial.git
+git clone https://github.com/bielViccari/rubiacai.git
 ```
 
 vá até a pasta clonada
 ```
-cd Rubiacai-oficial
+cd rubiacai
 ```
 
 execute o composer install
 ```
 composer install
 ```
-execute o npm install
+
+execute o npm install para instalar as dependencias do vite
 ```
 npm install
 ```
 
-crie o arquivo .env para as variáveis do projeto
+gere o arquivo .env para as variáveis do projeto
 ```
 copy .env.example .env
 ```
@@ -65,9 +81,9 @@ faça o link da storage na pasta public
 php artisan storage:link
 ```
 
-## ☕ Usando o sistema de Açaiteria
+## ☕ Usando o Sistema Açaiteria 
 
-Para usar o sistema, siga estas etapas:
+Para usar o Sistema Açaiteria, siga estas etapas:
 
 configure seu arquivo .env
 ```
@@ -88,6 +104,11 @@ php artisan migrate
 rode a aplicação com o comando
 ```
 php artisan serve
+```
+
+rode os estilos da aplicação com 
+```
+npm run dev
 ```
 
 ## 🤝 Colaboradores
